@@ -19,3 +19,7 @@ ENV['RAILS_ENV'] = 'test'
 
 require_relative '../spec/dummy/config/environment'
 ENV['RAILS_ROOT'] ||= "#{File.dirname(__FILE__)}../../../spec/dummy"
+
+RSpec.configure do |config|
+  config.include FileManager
+end
