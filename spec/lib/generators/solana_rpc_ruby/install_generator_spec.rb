@@ -1,5 +1,6 @@
 require 'generators/solana_rpc_ruby/install_generator'
 require 'pry'
+
 describe SolanaRpcRuby::Generators::InstallGenerator do
   before :all do
     remove_config
@@ -7,6 +8,7 @@ describe SolanaRpcRuby::Generators::InstallGenerator do
 
   after :all do
     remove_config
+    add_config
   end
 
   it 'installs config file properly' do
