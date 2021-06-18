@@ -1,3 +1,5 @@
+require 'fileutils'
+
 module FileManager
   def config_file
     "#{Rails.root}/config/solana_rpc_ruby.rb"
@@ -7,11 +9,11 @@ module FileManager
     data = <<~DATA
       require 'solana_rpc_ruby'
       SolanaRpcRuby.config do |c|
-        c.account_pubkey = ENV['ACCOUNT_PUBKEY']
-        c.identity = ENV['IDENTITY']
+        c.json_rpc_version = '2.0'
+        c.cluster = 'https://api.testnet.solana.com'
+        c.encoding = 'base58'
       end
     DATA
-    
     File.open(config_file, 'w+:UTF-8') do |f|
       f.write data
     end
