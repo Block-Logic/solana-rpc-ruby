@@ -1,17 +1,19 @@
 require_relative 'lib/solana_rpc_ruby'
 require 'pry'
 
-binding.pry
+account_pubkey = '71bhKKL89U3dNHzuZVZ7KarqV6XtHEgjXjvJTsguD11B'
 
 SolanaRpcRuby.config do |c|
   c.json_rpc_version = '2.0'
-  c.json_rpc_url = 'http://127.0.0.1:8899'
-  c.identity = 'CdMQRaNh7yopTZVAzb7a4cLYDTcWHpZn3anaKu2t7HiZ'
+  c.cluster = 'https://api.testnet.solana.com'
+  c.encoding = 'base58'
 end
 
-puts SolanaRpcRuby.opts
 puts SolanaRpcRuby.json_rpc_version
-puts SolanaRpcRuby.json_rpc_url
-puts SolanaRpcRuby.identity 
+puts SolanaRpcRuby.cluster
+puts SolanaRpcRuby.encoding
 
+method_wrapper = SolanaRpcRuby::MethodsWrapper.new(cluster: SolanaRpcRuby.cluster)
+response = method_wrapper.get_account_info(account_pubkey)
+puts response.result
 puts '=' * 10
