@@ -23,6 +23,3 @@ end
 RSpec.configure do |config|
   config.include FileManager
 end
-
-include FileManager
-add_config
