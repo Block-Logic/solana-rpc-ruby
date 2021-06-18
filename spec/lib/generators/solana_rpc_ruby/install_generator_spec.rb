@@ -8,7 +8,6 @@ describe SolanaRpcRuby::Generators::InstallGenerator do
 
   after :all do
     remove_config
-    add_config
   end
 
   it 'installs config file properly' do
