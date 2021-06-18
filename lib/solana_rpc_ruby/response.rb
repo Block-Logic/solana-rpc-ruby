@@ -28,7 +28,6 @@ module SolanaRpcRuby
       @id ||= parsed_response['id']
     end
 
-    private
     def parsed_response
       @parsed_response ||= JSON.parse(@response[:response].body)
     end
