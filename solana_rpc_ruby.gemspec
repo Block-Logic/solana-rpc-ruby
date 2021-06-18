@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require File.expand_path('lib/solana_rpc_ruby/version', __dir__)
+require_relative 'lib/solana_rpc_ruby/version'
 
 Gem::Specification.new do |spec|
   spec.name                  = 'solana_rpc_ruby'
@@ -22,6 +22,8 @@ Gem::Specification.new do |spec|
     'Gemfile',
     'Rakefile'
   ]
+  spec.extra_rdoc_files = ['README.md']
+  
   spec.add_development_dependency 'rubocop', '~> 1.15'
   spec.add_development_dependency 'rubocop-performance', '~> 1.11'
   spec.add_development_dependency 'rubocop-rspec', '~> 2.3'
@@ -35,4 +37,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec-rails', '~> 4.0'
   spec.add_development_dependency 'simplecov', '~> 0.21'
   spec.add_development_dependency 'vcr', '~> 6.0'
+  spec.add_development_dependency 'webmock', '~> 3.13'
 end
