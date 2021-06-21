@@ -15,11 +15,10 @@ module SolanaRpcRuby
     end
 
     # https://docs.solana.com/developing/clients/jsonrpc-api#getaccountinfo
-    def get_account_info(account_pubkey)
+    def get_account_info(account_pubkey, encoding: 'base58')
       http_method = :post
-
-      method = 'getAccountInfo'
-      params = [account_pubkey, {'encoding': 'base58'}]
+      method =  create_method_name(__method__)
+      params = [account_pubkey, {'encoding': encoding}]
 
       body = create_json_body(method, method_params: params)
 
@@ -40,6 +39,12 @@ module SolanaRpcRuby
 
         return response
       end
+    end
+
+    def create_method_name(method)
+      return '' unless method
+
+      __method__.to_s.camelize(:lower)
     end
   end
 end
