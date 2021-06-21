@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.testnet.solana.com/
     body:
       encoding: UTF-8
-      string: '{"jsonrpc":"2.0","id":1,"method":"getEpochInfo","params":null}'
+      string: '{"jsonrpc":"2.0","id":1,"method":"getEpochInfo","params":[]}'
     headers:
       Content-Type:
       - application/json
@@ -25,15 +25,15 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 21 Jun 2021 14:11:42 GMT
+      - Mon, 21 Jun 2021 15:20:20 GMT
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
     body:
       encoding: ASCII-8BIT
-      string: '{"jsonrpc":"2.0","result":{"absoluteSlot":81852457,"blockHeight":67730579,"epoch":202,"slotIndex":112201,"slotsInEpoch":432000,"transactionCount":25644806326},"id":1}
+      string: '{"jsonrpc":"2.0","result":{"absoluteSlot":81858689,"blockHeight":67735186,"epoch":202,"slotIndex":118433,"slotsInEpoch":432000,"transactionCount":25649833512},"id":1}
 
         '
-  recorded_at: Mon, 21 Jun 2021 14:11:42 GMT
+  recorded_at: Mon, 21 Jun 2021 15:20:21 GMT
 recorded_with: VCR 6.0.0

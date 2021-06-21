@@ -26,10 +26,11 @@ module SolanaRpcRuby
     end
 
     # https://docs.solana.com/developing/clients/jsonrpc-api#getepochinfo
-    def get_epoch_info(commitment: 'finalized')
+    def get_epoch_info(commitment: nil)
       http_method = :post
       method =  create_method_name(__method__)
-      params = nil
+      params = []
+      params << commitment if commitment
 
       body = create_json_body(method, method_params: params)
 
