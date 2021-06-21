@@ -25,6 +25,45 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getepochinfo
+    def get_epoch_info(commitment: 'finalized')
+      http_method = :post
+      method =  create_method_name(__method__)
+      params = nil
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getepochinfo
+    # DEPRECATED: Please use getBlocks instead This method is expected to be removed in solana-core v1.8
+    # Returns a list of confirmed blocks between two slots
+    def get_confirmed_blocks(start_slot:, end_slot: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+      params = [start_slot]
+      params << end_slot if end_slot # optional
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getvoteaccounts
+    # Returns the account info and associated stake for all the voting accounts in the current bank.
+    def get_vote_accounts(commitment: nil, vote_pubkey: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+      params << commitment if commitment
+      params << vote_pubkey if vote_pubkey
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     private
     def send_request(body, http_method)
       api_response = api_client.call_api(
@@ -44,7 +83,7 @@ module SolanaRpcRuby
     def create_method_name(method)
       return '' unless method
 
-      __method__.to_s.camelize(:lower)
+      method.to_s.camelize(:lower)
     end
   end
 end
