@@ -3,7 +3,7 @@ describe SolanaRpcRuby::RequestBody do
 
   it 'creates correct body from params' do
     method = 'getAccountInfo'
-    params = [123]
+    params = [123, {'encoding': 'base58'}]
 
     json_body = create_json_body(method, method_params: params)
 

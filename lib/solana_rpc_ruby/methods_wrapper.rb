@@ -14,11 +14,12 @@ module SolanaRpcRuby
       @api_client = api_client.new(cluster)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getaccountinfo
     def get_account_info(account_pubkey)
       http_method = :post
 
       method = 'getAccountInfo'
-      params = [account_pubkey]
+      params = [account_pubkey, {'encoding': 'base58'}]
 
       body = create_json_body(method, method_params: params)
 

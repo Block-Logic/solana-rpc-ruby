@@ -11,7 +11,7 @@ module SolanaRpcRuby
       # 
       body = base_body
       body[:method] = method
-      body[:params] = [method_params, base_params].flatten
+      body[:params] = method_params
       body.to_json
     end
 
@@ -20,12 +20,6 @@ module SolanaRpcRuby
         "jsonrpc": "2.0",
         "id": 1
       }
-    end
-
-    def base_params
-        {
-          'encoding': 'base58'
-        }
     end
   end
 end
