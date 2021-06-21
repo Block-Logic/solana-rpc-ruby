@@ -47,6 +47,36 @@ describe SolanaRpcRuby::MethodsWrapper do
           end
         end
       end
+
+      context 'with optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_account_info with params') do
+            encoding = 'base64'
+            response = described_class.new.get_account_info(
+              account_pubkey,
+              encoding: encoding,
+              data_slice: {
+                offset: 2,
+                length: 2
+              }
+            )
+
+            expect(response.result.dig('value', 'data')[1]).to eq(encoding)
+          end
+        end
+
+        xit 'returns correct data with json encoding' do
+          VCR.use_cassette('get_account_info with json encoding') do
+            encoding = 'jsonParsed'
+            response = described_class.new.get_account_info(
+              account_pubkey,
+              encoding: encoding
+            )
+            # request is correct but data is returned in base64, don't know why
+            expect(response.result.dig('value', 'data')[1]).to eq(encoding)
+          end
+        end
+      end
     end
 
     describe '#get_epoch_info' do

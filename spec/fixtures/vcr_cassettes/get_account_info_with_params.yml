@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.testnet.solana.com/
+    body:
+      encoding: UTF-8
+      string: '{"jsonrpc":"2.0","id":1,"method":"getAccountInfo","params":["71bhKKL89U3dNHzuZVZ7KarqV6XtHEgjXjvJTsguD11B",{"encoding":"base64","dataSlice":{"offset":2,"length":2}}]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.testnet.solana.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 21 Jun 2021 15:44:59 GMT
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: '{"jsonrpc":"2.0","result":{"context":{"slot":81860918},"value":{"data":["","base64"],"executable":false,"lamports":21949231980027627,"owner":"11111111111111111111111111111111","rentEpoch":201}},"id":1}
+
+        '
+  recorded_at: Mon, 21 Jun 2021 15:45:00 GMT
+recorded_with: VCR 6.0.0

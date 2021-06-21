@@ -15,10 +15,15 @@ module SolanaRpcRuby
     end
 
     # https://docs.solana.com/developing/clients/jsonrpc-api#getaccountinfo
-    def get_account_info(account_pubkey, encoding: 'base58')
+    def get_account_info(account_pubkey, encoding: 'base58', data_slice: {})
       http_method = :post
       method =  create_method_name(__method__)
-      params = [account_pubkey, {'encoding': encoding}]
+
+      params_hash = {}
+      params_hash['encoding'] = encoding if encoding.present?
+      params_hash['dataSlice'] = data_slice if data_slice.any?
+      params = [account_pubkey]
+      params << params_hash if params_hash.any?
 
       body = create_json_body(method, method_params: params)
 
