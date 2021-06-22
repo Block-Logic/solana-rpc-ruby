@@ -30,13 +30,13 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
-    # https://docs.solana.com/developing/clients/jsonrpc-api#getepochinfo
-    def get_epoch_info(commitment: nil)
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getblocks
+    # NEW: This method is only available in solana-core v1.7 or newer. Please use getConfirmedBlocks for solana-core v1.6
+    def get_blocks(start_slot:, end_slot: nil)
       http_method = :post
       method =  create_method_name(__method__)
-      params = []
-      params << commitment if commitment
-
+      params = [start_slot]
+      params << end_slot if end_slot # optional
       body = create_json_body(method, method_params: params)
 
       send_request(body, http_method)
@@ -50,6 +50,18 @@ module SolanaRpcRuby
       method =  create_method_name(__method__)
       params = [start_slot]
       params << end_slot if end_slot # optional
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getepochinfo
+    def get_epoch_info(commitment: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+      params = []
+      params << commitment if commitment
+
       body = create_json_body(method, method_params: params)
 
       send_request(body, http_method)

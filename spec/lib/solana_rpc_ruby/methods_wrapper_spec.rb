@@ -79,20 +79,14 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
-    describe '#get_epoch_info' do
+    describe '#get_blocks' do
       context 'without optional params' do
         it 'returns correct data from endpoint' do
-          VCR.use_cassette('get_epoch_info') do
-            response = described_class.new.get_epoch_info
+          VCR.use_cassette('get_blocks') do
+            response = described_class.new.get_blocks(start_slot: 5, end_slot: 100)
             expected_result = {
-              "jsonrpc"=>"2.0",
-              "result"=>
-               {"absoluteSlot"=>81858689,
-                "blockHeight"=>67735186,
-                "epoch"=>202,
-                "slotIndex"=>118433,
-                "slotsInEpoch"=>432000,
-                "transactionCount"=>25649833512},
+              "jsonrpc"=>"2.0", 
+              "result"=>[], 
               "id"=>1
             }
 
@@ -114,6 +108,33 @@ describe SolanaRpcRuby::MethodsWrapper do
             expected_result = {
               "jsonrpc"=>"2.0", 
               "result"=>[], 
+              "id"=>1
+            }
+
+            expect(response.result).to eq(
+              expected_result['result']
+            )
+            expect(response.json_rpc).to eq('2.0')
+            expect(response.id).to eq(1)
+          end
+        end
+      end
+    end
+
+    describe '#get_epoch_info' do
+      context 'without optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_epoch_info') do
+            response = described_class.new.get_epoch_info
+            expected_result = {
+              "jsonrpc"=>"2.0",
+              "result"=>
+               {"absoluteSlot"=>81858689,
+                "blockHeight"=>67735186,
+                "epoch"=>202,
+                "slotIndex"=>118433,
+                "slotsInEpoch"=>432000,
+                "transactionCount"=>25649833512},
               "id"=>1
             }
 
