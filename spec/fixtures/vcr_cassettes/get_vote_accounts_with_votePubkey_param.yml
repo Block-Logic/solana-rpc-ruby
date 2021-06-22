@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.testnet.solana.com/
+    body:
+      encoding: UTF-8
+      string: '{"jsonrpc":"2.0","id":1,"method":"getVoteAccounts","params":[{"votePubkey":"CZVUMA5W21V5VdtNV5R22FQr3MuCixcPr5j3pZYH8bdu"}]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.testnet.solana.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 22 Jun 2021 12:47:53 GMT
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: '{"jsonrpc":"2.0","result":{"current":[{"activatedStake":45239332995339,"commission":100,"epochCredits":[[198,1069234,893438],[199,1243745,1069234],[200,1419552,1243745],[201,1589170,1419552],[202,1684310,1589170]],"epochVoteAccount":true,"lastVote":81975455,"nodePubkey":"FVD3oRjHRyDsGTwisgZrZPV6vbbRvkgx8hm6ctmBG1Ne","rootSlot":81975395,"votePubkey":"CZVUMA5W21V5VdtNV5R22FQr3MuCixcPr5j3pZYH8bdu"}],"delinquent":[]},"id":1}
+
+        '
+  recorded_at: Tue, 22 Jun 2021 12:47:53 GMT
+recorded_with: VCR 6.0.0

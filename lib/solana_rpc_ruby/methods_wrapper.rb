@@ -62,8 +62,8 @@ module SolanaRpcRuby
       method =  create_method_name(__method__)
 
       params = []
+      params << { 'votePubkey': vote_pubkey } if vote_pubkey
       params << commitment if commitment
-      params << vote_pubkey if vote_pubkey
 
       body = create_json_body(method, method_params: params)
 
