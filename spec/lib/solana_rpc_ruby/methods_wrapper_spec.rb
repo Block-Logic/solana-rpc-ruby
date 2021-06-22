@@ -146,6 +146,32 @@ describe SolanaRpcRuby::MethodsWrapper do
           end
         end
       end
+
+      context 'with optional params' do
+        it 'returns correct data with commitment param' do
+          VCR.use_cassette('get_epoch_info with commitment') do
+            response = described_class.new.get_epoch_info(commitment: 'confirmed')
+            expected_result = {
+              "jsonrpc"=>"2.0", 
+              "result"=>{
+                "absoluteSlot"=>81981060, 
+                "blockHeight"=>67823574, 
+                "epoch"=>202, 
+                "slotIndex"=>240804, 
+                "slotsInEpoch"=>432000, 
+                "transactionCount"=>25746869785
+              }, 
+              "id"=>1
+            }
+
+            expect(response.result).to eq(
+              expected_result['result']
+            )
+            expect(response.json_rpc).to eq('2.0')
+            expect(response.id).to eq(1)
+          end
+        end 
+      end
     end
 
     describe '#get_vote_accounts' do

@@ -60,7 +60,7 @@ module SolanaRpcRuby
       http_method = :post
       method =  create_method_name(__method__)
       params = []
-      params << commitment if commitment
+      params << { 'commitment': commitment } if commitment
 
       body = create_json_body(method, method_params: params)
 
