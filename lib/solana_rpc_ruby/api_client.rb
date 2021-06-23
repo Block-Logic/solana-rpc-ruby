@@ -2,7 +2,7 @@ require 'net/http'
 
 module SolanaRpcRuby
   class ApiClient
-    # Determines which which cluster will be used to send requests.
+    # Determines which cluster will be used to send requests.
     attr_accessor :cluster
 
     # Default headers.
