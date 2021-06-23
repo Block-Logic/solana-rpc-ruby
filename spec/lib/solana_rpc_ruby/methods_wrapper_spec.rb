@@ -3,6 +3,7 @@ require 'vcr'
 describe SolanaRpcRuby::MethodsWrapper do
   describe 'rpc methods' do
     let(:account_pubkey) { '71bhKKL89U3dNHzuZVZ7KarqV6XtHEgjXjvJTsguD11B'}
+    let(:stake_boss_account_pubkey) { 'BossttsdneANBePn2mJhooAewt3fo4aLg7enmpgMvdoH' }
     let(:testnet_cluster) { 'https://api.testnet.solana.com' }
 
     describe '#get_account_info' do
@@ -68,6 +69,38 @@ describe SolanaRpcRuby::MethodsWrapper do
             )
             # request is correct but data is returned in base64, don't know why
             expect(response.result.dig('value', 'data')[1]).to eq(encoding)
+          end
+        end
+      end
+    end
+
+    describe '#get_balance' do
+      context 'without optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_balance') do
+            response = described_class.new.get_balance(stake_boss_account_pubkey)
+
+            expected_result = {
+              "jsonrpc"=>"2.0", 
+              "result"=>{
+                "context"=>{"slot"=>82106586}, 
+                "value"=>3999645000
+              }, 
+              "id"=>1
+            }
+
+            expect(response.result).to eq(
+              expected_result['result']
+            )
+            expect(response.value).to eq(
+              3999645000
+            )
+            expect(response.context).to eq(
+              {"slot"=>82106586}
+            )
+            expect(response.slot).to eq(82106586)
+            expect(response.json_rpc).to eq('2.0')
+            expect(response.id).to eq(1)
           end
         end
       end

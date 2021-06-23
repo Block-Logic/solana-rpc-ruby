@@ -30,6 +30,20 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getbalance
+    def get_balance(account_pubkey, commitment: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = [account_pubkey]
+      params << { 'commitment': commitment } if commitment
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
+
     # https://docs.solana.com/developing/clients/jsonrpc-api#getblocks
     # NEW: This method is only available in solana-core v1.7 or newer. Please use getConfirmedBlocks for solana-core v1.6
     def get_blocks(start_slot:, end_slot: nil)
