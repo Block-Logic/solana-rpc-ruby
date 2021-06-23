@@ -10,7 +10,9 @@ module SolanaRpcRuby
 
     def initialize(cluster = nil)
       @cluster = cluster || SolanaRpcRuby.cluster
-      raise ArgumentError unless @cluster
+
+      message = 'Cluster is missing. Please provide default cluster in config or pass it to the client directly.'
+      raise ArgumentError, message unless @cluster
     end
     
     def call_api(body:, http_method:, params: {})

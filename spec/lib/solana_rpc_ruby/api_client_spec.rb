@@ -25,8 +25,8 @@ describe SolanaRpcRuby::ApiClient do
       SolanaRpcRuby.config do |c|
         c.cluster = nil
       end
-
-      expect { described_class.new }.to raise_error(ArgumentError)
+      
+      expect { described_class.new }.to raise_error(ArgumentError, /Cluster is missing/)
 
       SolanaRpcRuby.config do |c|
         c.cluster = testnet_cluster
