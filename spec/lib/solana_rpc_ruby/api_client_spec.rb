@@ -6,14 +6,6 @@ describe SolanaRpcRuby::ApiClient do
     let(:mainnet_cluster) { 'https://api.mainnet-beta.solana.com' }
     let(:testnet_cluster) { 'https://api.testnet.solana.com' }
 
-    before :all do
-      SolanaRpcRuby.config do |c|
-        c.json_rpc_version = '2.0'
-        c.cluster = 'https://api.testnet.solana.com'
-        c.encoding = 'base58'
-      end
-    end
-
     it 'uses cluster from config' do
       api_client = described_class.new
       
@@ -25,7 +17,7 @@ describe SolanaRpcRuby::ApiClient do
       SolanaRpcRuby.config do |c|
         c.cluster = nil
       end
-      
+
       expect { described_class.new }.to raise_error(ArgumentError, /Cluster is missing/)
 
       SolanaRpcRuby.config do |c|

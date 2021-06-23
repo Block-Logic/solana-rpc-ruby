@@ -4,12 +4,6 @@ describe SolanaRpcRuby::MethodsWrapper do
   describe 'rpc methods' do
     let(:account_pubkey) { '71bhKKL89U3dNHzuZVZ7KarqV6XtHEgjXjvJTsguD11B'}
     let(:testnet_cluster) { 'https://api.testnet.solana.com' }
-    
-    before :all do 
-      SolanaRpcRuby.config do |c|
-        c.cluster = 'https://api.testnet.solana.com' 
-      end
-    end
 
     describe '#get_account_info' do
       context 'without optional params' do
