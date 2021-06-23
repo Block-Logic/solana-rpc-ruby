@@ -17,7 +17,7 @@ module SolanaRpcRuby
 
     def base_body
       {
-        "jsonrpc": "2.0",
+        "jsonrpc": SolanaRpcRuby.json_rpc_version,
         "id": 1
       }
     end
