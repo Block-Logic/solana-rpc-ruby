@@ -20,7 +20,7 @@ module SolanaRpcRuby
       method =  create_method_name(__method__)
 
       params_hash = {}
-      params_hash['encoding'] = encoding if encoding.present?
+      params_hash['encoding'] = encoding unless encoding.nil? || encoding.empty?
       params_hash['dataSlice'] = data_slice if data_slice.any?
       params = [account_pubkey]
       params << params_hash if params_hash.any?
@@ -101,7 +101,9 @@ module SolanaRpcRuby
     def create_method_name(method)
       return '' unless method
 
-      method.to_s.camelize(:lower)
+      method.to_s.split('_').map.with_index do |string, i|
+        i == 0 ? string : string.capitalize
+      end.join
     end
   end
 end
