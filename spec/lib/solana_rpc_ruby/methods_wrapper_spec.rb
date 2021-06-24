@@ -106,6 +106,53 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_block' do
+      context 'without optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_block') do
+            response = described_class.new.get_block(50000000)
+
+            expect(response.result.size).to eq(7)
+            expect(response.result['rewards'].size).to eq(441)
+            expect(response.result['transactions'].size).to eq(452)            
+            expect(response.json_rpc).to eq('2.0')
+            expect(response.id).to eq(1)
+          end
+        end
+      end
+
+      context 'with optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_block with optional params') do
+            response = described_class.new.get_block(
+              50000000,
+              encoding: 'json',
+              transaction_details: 'none',
+              rewards: false,
+            )
+
+            expected_result = {
+              "jsonrpc"=>"2.0",
+              "result"=>{
+                "blockHeight"=>nil,
+                "blockTime"=>1606682139,
+                "blockhash"=>"AwJaDBHMjwPzNwqYWuVfmVj57i8Us6qHcoM7nR64GFbX",
+                "parentSlot"=>49999999,
+                "previousBlockhash"=>"AMcQfqHFW9FFAVfYEgUJFouGDX2p1v8tyTyMMK2rtd9E"
+              },
+              "id"=>1
+            }
+
+            expect(response.result).to eq(expected_result['result'])
+            expect(response.result['rewards']).to be_nil
+            expect(response.result['transactions']).to be_nil   
+            expect(response.json_rpc).to eq('2.0')
+            expect(response.id).to eq(1)
+          end
+        end
+      end
+    end
+
     describe '#get_blocks' do
       context 'without optional params' do
         it 'returns correct data from endpoint' do

@@ -43,6 +43,25 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getblock
+    # NEW: This method is only available in solana-core v1.7 or newer. Please use getConfirmedBlock for solana-core v1.6
+    def get_block(slot, encoding: '', transaction_details: '', rewards: true, commitment: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params_hash = {}
+      params_hash['encoding'] = encoding unless encoding.nil? || encoding.empty?
+      params_hash['transactionDetails'] = transaction_details unless transaction_details.nil? || transaction_details.empty?
+      params_hash['rewards'] = rewards unless rewards.nil?
+      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+
+      params = [slot]
+      params << params_hash if params_hash.any?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
 
     # https://docs.solana.com/developing/clients/jsonrpc-api#getblocks
     # NEW: This method is only available in solana-core v1.7 or newer. Please use getConfirmedBlocks for solana-core v1.6
