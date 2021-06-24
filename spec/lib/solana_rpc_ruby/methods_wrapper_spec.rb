@@ -27,16 +27,7 @@ describe SolanaRpcRuby::MethodsWrapper do
               }
             }
 
-            expect(response.result).to eq(
-              expected_result['result']
-            )
-            expect(response.value).to eq(
-              {"data"=>["", "base58"], "executable"=>false, "lamports"=>21949231980027307, "owner"=>"11111111111111111111111111111111", "rentEpoch"=>200}
-            )
-            expect(response.context).to eq(
-              {"slot"=>81319292}
-            )
-            expect(response.slot).to eq(81319292)
+            expect(response.result).to eq(expected_result['result'])
             expect(response.json_rpc).to eq('2.0')
             expect(response.id).to eq(1)
           end
@@ -89,16 +80,7 @@ describe SolanaRpcRuby::MethodsWrapper do
               "id"=>1
             }
 
-            expect(response.result).to eq(
-              expected_result['result']
-            )
-            expect(response.value).to eq(
-              3999645000
-            )
-            expect(response.context).to eq(
-              {"slot"=>82106586}
-            )
-            expect(response.slot).to eq(82106586)
+            expect(response.result).to eq(expected_result['result'])          
             expect(response.json_rpc).to eq('2.0')
             expect(response.id).to eq(1)
           end

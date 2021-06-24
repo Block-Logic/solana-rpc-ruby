@@ -8,18 +8,6 @@ module SolanaRpcRuby
       @result ||= parsed_response['result']
     end
 
-    def context
-      @context ||= parsed_response['result']['context']
-    end
-
-    def slot
-      @slot ||= context['slot']
-    end
-
-    def value
-      @value ||= result['value']
-    end
-
     def json_rpc
       @json_rpc ||= parsed_response['jsonrpc']
     end
