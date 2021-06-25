@@ -218,6 +218,21 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getfees
+    # Returns a recent block hash from the ledger, a fee schedule that can be used to compute 
+    # the cost of submitting a transaction using it, and the last slot in which the blockhash will be valid.
+    def get_fees(commitment: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+      params << { 'commitment': commitment } if commitment
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     # https://docs.solana.com/developing/clients/jsonrpc-api#getvoteaccounts
     # Returns the account info and associated stake for all the voting accounts in the current bank.
     def get_vote_accounts(commitment: nil, vote_pubkey: nil)

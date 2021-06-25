@@ -375,9 +375,26 @@ describe SolanaRpcRuby::MethodsWrapper do
                 "feeCalculator"=>{"lamportsPerSignature"=>5000}
               }
             }
-
+            
             expect(response.result).to eq(expected_result)
           end
+        end
+      end
+    end
+
+    describe '#get_fees' do
+      it 'returns correct data from endpoint'  do
+        VCR.use_cassette('get_fees') do
+          response = described_class.new.get_fees
+
+          expected_value = {
+            "blockhash"=>"5ENJWYp5X6zrAnhBZmZhLKaoWyr2cHXAB24UMVYemBnb", 
+            "feeCalculator"=>{"lamportsPerSignature"=>5000}, 
+            "lastValidBlockHeight"=>68111306, 
+            "lastValidSlot"=>82384078
+          }
+          
+          expect(response.result['value']).to eq(expected_value)
         end
       end
     end
