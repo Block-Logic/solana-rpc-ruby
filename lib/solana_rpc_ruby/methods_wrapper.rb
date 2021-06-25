@@ -142,6 +142,20 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getblocktime
+    # Returns the estimated production time of a block.
+    def get_block_time(block:)
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+      params << block
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     # https://docs.solana.com/developing/clients/jsonrpc-api#getepochinfo
     # DEPRECATED: Please use getBlocks instead This method is expected to be removed in solana-core v1.8
     # Returns a list of confirmed blocks between two slots

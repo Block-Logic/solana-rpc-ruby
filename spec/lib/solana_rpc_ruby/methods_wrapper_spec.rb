@@ -243,6 +243,22 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_block_time' do
+      context 'with required params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_block_time with required params') do
+            response = described_class.new.get_block_time(
+              block: 50_000_000
+            )
+
+            expect(response.result).to eq(1606682139)
+            expect(response.json_rpc).to eq('2.0')
+            expect(response.id).to eq(1)
+          end
+        end
+      end
+    end
+
     describe '#get_confirmed_blocks' do
       context 'without optional params' do
         it 'returns correct data from endpoint' do
