@@ -156,6 +156,17 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getclusternodes
+    # Returns information about all the nodes participating in the cluster
+    def get_cluster_nodes
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      body = create_json_body(method)
+
+      send_request(body, http_method)
+    end
+
     # https://docs.solana.com/developing/clients/jsonrpc-api#getepochinfo
     # DEPRECATED: Please use getBlocks instead This method is expected to be removed in solana-core v1.8
     # Returns a list of confirmed blocks between two slots

@@ -259,6 +259,16 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_cluster_nodes' do
+      it 'returns correct data from endpoint' do
+        VCR.use_cassette('get_cluster_nodes') do
+          response = described_class.new.get_cluster_nodes
+
+          expect(response.result.size).to eq(1995)
+        end
+      end
+    end
+
     describe '#get_confirmed_blocks' do
       context 'without optional params' do
         it 'returns correct data from endpoint' do
