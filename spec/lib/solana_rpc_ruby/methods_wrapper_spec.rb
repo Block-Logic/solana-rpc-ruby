@@ -157,6 +157,21 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_block_commitment' do
+      context 'with required params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_block_commitment with required params') do
+            response = described_class.new.get_block_commitment(
+              block: 50000000
+            )
+
+            expect(response.result['commitment']).to be_nil
+            expect(response.result['totalStake']).to eq(79414359613836555)
+          end
+        end
+      end
+    end
+
     describe '#get_block_production' do
       context 'without optional params' do
         it 'returns correct data from endpoint' do
