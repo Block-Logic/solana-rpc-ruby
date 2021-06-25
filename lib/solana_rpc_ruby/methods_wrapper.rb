@@ -15,6 +15,7 @@ module SolanaRpcRuby
     end
 
     # https://docs.solana.com/developing/clients/jsonrpc-api#getaccountinfo
+    # Returns all information associated with the account of provided Pubkey
     def get_account_info(account_pubkey, encoding: 'base58', data_slice: {})
       http_method = :post
       method =  create_method_name(__method__)
@@ -31,6 +32,7 @@ module SolanaRpcRuby
     end
 
     # https://docs.solana.com/developing/clients/jsonrpc-api#getbalance
+    # Returns the balance of the account of provided Pubkey
     def get_balance(account_pubkey, commitment: nil)
       http_method = :post
       method =  create_method_name(__method__)
@@ -45,6 +47,7 @@ module SolanaRpcRuby
 
     # https://docs.solana.com/developing/clients/jsonrpc-api#getblock
     # NEW: This method is only available in solana-core v1.7 or newer. Please use getConfirmedBlock for solana-core v1.6
+    # Returns identity and transaction information about a confirmed block in the ledger
     def get_block(slot, encoding: '', transaction_details: '', rewards: true, commitment: nil)
       http_method = :post
       method =  create_method_name(__method__)
@@ -63,6 +66,8 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getblockheight
+    # Returns the current block height of the node
     def get_block_height(commitment: nil)
       http_method = :post
       method = create_method_name(__method__)
@@ -77,6 +82,7 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getblockproduction
     # Returns recent block production information from the current or previous epoch.
     def get_block_production(identity: nil, first_slot: nil, last_slot: nil, commitment: nil)
       http_method = :post
@@ -94,6 +100,7 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getblockcommitment
     # Returns commitment for particular block
     def get_block_commitment(block:)
       http_method = :post
@@ -109,6 +116,7 @@ module SolanaRpcRuby
 
     # https://docs.solana.com/developing/clients/jsonrpc-api#getblocks
     # NEW: This method is only available in solana-core v1.7 or newer. Please use getConfirmedBlocks for solana-core v1.6
+    # Returns a list of confirmed blocks between two slots
     def get_blocks(start_slot:, end_slot: nil)
       http_method = :post
       method =  create_method_name(__method__)
@@ -133,6 +141,7 @@ module SolanaRpcRuby
     end
 
     # https://docs.solana.com/developing/clients/jsonrpc-api#getepochinfo
+    # Returns information about the current epoch
     def get_epoch_info(commitment: nil)
       http_method = :post
       method =  create_method_name(__method__)
