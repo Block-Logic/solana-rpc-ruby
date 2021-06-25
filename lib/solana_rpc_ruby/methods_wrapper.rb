@@ -127,6 +127,21 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getblockswithlimit
+    # NEW: This method is only available in solana-core v1.7 or newer. Please use getConfirmedBlocks for solana-core v1.6
+    # Returns a list of confirmed blocks starting at the given slot
+    def get_blocks_with_limit(start_slot:, limit:, commitment: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = [start_slot, limit]
+      params << { 'commitment': commitment } if commitment
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     # https://docs.solana.com/developing/clients/jsonrpc-api#getepochinfo
     # DEPRECATED: Please use getBlocks instead This method is expected to be removed in solana-core v1.8
     # Returns a list of confirmed blocks between two slots

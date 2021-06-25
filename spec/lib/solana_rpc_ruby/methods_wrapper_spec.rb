@@ -226,6 +226,23 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_blocks_with_limit' do
+      context 'with required params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_blocks_with_limit with required params') do
+            response = described_class.new.get_blocks_with_limit(
+              start_slot: 5, 
+              limit: 100
+            )
+
+            expect(response.result.size).to eq(100)
+            expect(response.json_rpc).to eq('2.0')
+            expect(response.id).to eq(1)
+          end
+        end
+      end
+    end
+
     describe '#get_confirmed_blocks' do
       context 'without optional params' do
         it 'returns correct data from endpoint' do
