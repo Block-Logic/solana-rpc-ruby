@@ -382,6 +382,26 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_fee_rate_governor' do
+      it 'returns correct data from endpoint' do
+        VCR.use_cassette('get_fee_rate_governor') do
+          response = described_class.new.get_fee_rate_governor
+
+          expected_value = {
+            "feeRateGovernor"=>{
+              "burnPercent"=>50, 
+              "maxLamportsPerSignature"=>100000, 
+              "minLamportsPerSignature"=>5000, 
+              "targetLamportsPerSignature"=>10000, 
+              "targetSignaturesPerSlot"=>20000
+            }
+          }
+          
+          expect(response.result['value']).to eq(expected_value)
+        end
+      end
+    end
+
     describe '#get_fees' do
       it 'returns correct data from endpoint'  do
         VCR.use_cassette('get_fees') do
@@ -393,7 +413,7 @@ describe SolanaRpcRuby::MethodsWrapper do
             "lastValidBlockHeight"=>68111306, 
             "lastValidSlot"=>82384078
           }
-          
+
           expect(response.result['value']).to eq(expected_value)
         end
       end

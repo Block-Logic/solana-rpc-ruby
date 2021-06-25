@@ -218,6 +218,17 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getfeerategovernor
+    # Returns the fee rate governor information from the root bank
+    def get_fee_rate_governor
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      body = create_json_body(method)
+
+      send_request(body, http_method)
+    end
+
     # https://docs.solana.com/developing/clients/jsonrpc-api#getfees
     # Returns a recent block hash from the ledger, a fee schedule that can be used to compute 
     # the cost of submitting a transaction using it, and the last slot in which the blockhash will be valid.
