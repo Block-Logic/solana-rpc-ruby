@@ -1,6 +1,6 @@
 module SolanaRpcRuby
   module RequestBody
-    def create_json_body(method, method_params:)
+    def create_json_body(method, method_params: [])
       # To make a JSON-RPC request, send an HTTP POST request with a Content-Type: application/json header. 
       # The JSON request data should contain 4 fields:
       # 
@@ -11,7 +11,7 @@ module SolanaRpcRuby
       # 
       body = base_body
       body[:method] = method
-      body[:params] = method_params
+      body[:params] = method_params if method_params.any?
       body.to_json
     end
 
