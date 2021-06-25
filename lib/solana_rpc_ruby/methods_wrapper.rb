@@ -63,6 +63,20 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    def get_block_height(commitment: nil)
+      http_method = :post
+      method = create_method_name(__method__)
+
+      params = []
+      params_hash = {}
+      params_hash['commitment'] = commitment if commitment
+      params << params_hash if params_hash.any?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     # Returns recent block production information from the current or previous epoch.
     def get_block_production(identity: nil, first_slot: nil, last_slot: nil, commitment: nil)
       http_method = :post

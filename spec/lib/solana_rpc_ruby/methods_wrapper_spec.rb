@@ -135,6 +135,28 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_block_height' do
+      context 'without optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_block_height') do
+            response = described_class.new.get_block_height
+            expect(response.result).to eq(68104338)
+          end
+        end
+      end
+
+      context 'with optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_block_height with optional params') do
+            response = described_class.new.get_block_height(
+              commitment: 'finalized'
+            )
+            expect(response.result).to eq(68104355)
+          end
+        end
+      end
+    end
+
     describe '#get_block_production' do
       context 'without optional params' do
         it 'returns correct data from endpoint' do
