@@ -361,6 +361,27 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_fee_calculator_for_blockhash' do
+      context 'with required params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_fee_calculator_for_blockhash') do
+            response = described_class.new.get_fee_calculator_for_blockhash(
+              query_blockhash: '5ENJWYp5X6zrAnhBZmZhLKaoWyr2cHXAB24UMVYemBnb'
+            )
+
+            expected_result = {
+              "context"=>{"slot"=>82383838}, 
+              "value"=>{
+                "feeCalculator"=>{"lamportsPerSignature"=>5000}
+              }
+            }
+
+            expect(response.result).to eq(expected_result)
+          end
+        end
+      end
+    end
+
     describe '#get_vote_accounts' do
       context 'without optional params' do
         it 'returns correct data from endpoint'  do

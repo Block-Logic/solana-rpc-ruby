@@ -204,6 +204,20 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getfeecalculatorforblockhash
+    # Returns the fee calculator associated with the query blockhash, or null if the blockhash has expired
+    def get_fee_calculator_for_blockhash(query_blockhash:, commitment: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = [query_blockhash]
+      params << { 'commitment': commitment } if commitment
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     # https://docs.solana.com/developing/clients/jsonrpc-api#getvoteaccounts
     # Returns the account info and associated stake for all the voting accounts in the current bank.
     def get_vote_accounts(commitment: nil, vote_pubkey: nil)
