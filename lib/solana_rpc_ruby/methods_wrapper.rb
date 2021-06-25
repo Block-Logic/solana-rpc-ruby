@@ -193,6 +193,17 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getepochschedule
+    # Returns epoch schedule information from this cluster's genesis config
+    def get_epoch_schedule
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      body = create_json_body(method)
+
+      send_request(body, http_method)
+    end
+
     # https://docs.solana.com/developing/clients/jsonrpc-api#getvoteaccounts
     # Returns the account info and associated stake for all the voting accounts in the current bank.
     def get_vote_accounts(commitment: nil, vote_pubkey: nil)

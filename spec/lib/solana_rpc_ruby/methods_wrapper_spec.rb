@@ -269,6 +269,24 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_epoch_schedule' do
+      it 'returns correct data from endpoint' do
+        VCR.use_cassette('get_epoch_schedule') do
+          response = described_class.new.get_epoch_schedule
+
+          expected_result = {
+            "firstNormalEpoch"=>14, 
+            "firstNormalSlot"=>524256, 
+            "leaderScheduleSlotOffset"=>432000, 
+            "slotsPerEpoch"=>432000, 
+            "warmup"=>true
+          }
+        
+          expect(response.result).to eq(expected_result)
+        end
+      end
+    end
+
     describe '#get_confirmed_blocks' do
       context 'without optional params' do
         it 'returns correct data from endpoint' do
