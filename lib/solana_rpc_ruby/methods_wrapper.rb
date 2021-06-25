@@ -63,6 +63,23 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # Returns recent block production information from the current or previous epoch.
+    def get_block_production(identity: nil, first_slot: nil, last_slot: nil, commitment: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params_hash = {}
+      params_hash['identity'] = identity unless identity.nil?
+      params_hash['range'] = { 'firstSlot': first_slot, 'lastSlot': last_slot}
+
+      params = []
+      params << params_hash unless params_hash.empty?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     # https://docs.solana.com/developing/clients/jsonrpc-api#getblocks
     # NEW: This method is only available in solana-core v1.7 or newer. Please use getConfirmedBlocks for solana-core v1.6
     def get_blocks(start_slot:, end_slot: nil)
