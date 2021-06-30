@@ -317,6 +317,17 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getinflationrate
+    # Returns the specific inflation values for the current epoch
+    def get_inflation_rate
+      http_method = :post
+      method =  create_method_name(__method__)
+      
+      body = create_json_body(method)
+
+      send_request(body, http_method)
+    end
+
     private
     def send_request(body, http_method)
       api_response = api_client.call_api(
