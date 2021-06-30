@@ -348,6 +348,24 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getlargestaccounts
+    # Returns the 20 largest accounts, by lamport balance (results may be cached up to two hours)
+    def get_largest_accounts(commitment: nil, filter: '')
+      http_method = :post
+      method =  create_method_name(__method__)
+      
+      params = []
+      params_hash = {}
+
+      params_hash['commitment'] = commitment if commitment
+      params_hash['filter'] = filter unless filter.empty?
+      params << params_hash if params_hash.any?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     private
     def send_request(body, http_method)
       api_response = api_client.call_api(

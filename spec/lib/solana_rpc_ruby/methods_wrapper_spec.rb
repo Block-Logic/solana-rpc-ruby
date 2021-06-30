@@ -518,7 +518,7 @@ describe SolanaRpcRuby::MethodsWrapper do
           nil
         ]
       end
-      
+
       context 'without optional params' do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_inflation_reward') do
@@ -537,6 +537,32 @@ describe SolanaRpcRuby::MethodsWrapper do
               epoch: 203
             )
             expect(response.result).to eq(expected_result)
+          end
+        end
+      end
+    end
+
+    describe '#get_largest_accounts' do      
+      context 'without optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_largest_accounts') do
+            response = described_class.new.get_largest_accounts
+
+            expect(response.result.dig('context', 'slot')).to eq(83025916)
+            expect(response.result['value'].size).to eq(20)
+          end
+        end
+      end
+
+      context 'with optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_largest_accounts with optional params') do
+            response = described_class.new.get_largest_accounts(
+              filter: 'circulating'
+            )
+
+            expect(response.result.dig('context', 'slot')).to eq(83025918)
+            expect(response.result['value'].size).to eq(20)
           end
         end
       end
