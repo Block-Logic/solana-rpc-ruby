@@ -446,6 +446,17 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_health' do
+      it 'returns correct data from endpoint'  do
+        VCR.use_cassette('get_health') do
+          response = described_class.new.get_health
+
+          expect(response.result).to eq('ok')
+        end
+      end
+    end
+
+
     describe '#get_vote_accounts' do
       context 'without optional params' do
         it 'returns correct data from endpoint'  do
