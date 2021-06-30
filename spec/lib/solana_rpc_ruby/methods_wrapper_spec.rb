@@ -436,6 +436,16 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_genesis_hash' do
+      it 'returns correct data from endpoint'  do
+        VCR.use_cassette('get_genesis_hash') do
+          response = described_class.new.get_genesis_hash
+
+          expect(response.result).to eq('4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY')
+        end
+      end
+    end
+
     describe '#get_vote_accounts' do
       context 'without optional params' do
         it 'returns correct data from endpoint'  do

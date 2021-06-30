@@ -264,6 +264,17 @@ module SolanaRpcRuby
     def get_first_available_block
       http_method = :post
       method =  create_method_name(__method__)
+
+      body = create_json_body(method)
+
+      send_request(body, http_method)
+    end
+
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getgenesishash
+    # Returns the genesis hash
+    def get_genesis_hash
+      http_method = :post
+      method =  create_method_name(__method__)
       
       body = create_json_body(method)
 
