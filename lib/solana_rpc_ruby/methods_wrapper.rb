@@ -502,6 +502,21 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getrecentperformancesamples
+    # Returns a list of recent performance samples, in reverse slot order. 
+    # Performance samples are taken every 60 seconds and include the number of transactions and slots that occur in a given time window.
+    def get_recent_performance_samples(limit: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+      
+      params = []
+      params << limit if limit
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     private
     def send_request(body, http_method)
       api_response = api_client.call_api(

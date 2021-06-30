@@ -753,5 +753,41 @@ describe SolanaRpcRuby::MethodsWrapper do
         end
       end
     end
+
+    describe '#get_recent_performance_samples' do
+      context 'without optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_recent_performance_samples') do
+            response = described_class.new.get_recent_performance_samples
+            expected_result = {
+              "numSlots"=>93, 
+              "numTransactions"=>73456, 
+              "samplePeriodSecs"=>60, 
+              "slot"=>83055946
+            }
+
+            expect(response.result.size).to eq(720)
+            expect(response.result.first).to eq(expected_result)
+          end
+        end
+      end
+
+      context 'with optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_recent_performance_samples with optional params') do
+            response = described_class.new.get_recent_performance_samples(limit: 10)
+            expected_result = {
+              "numSlots"=>91, 
+              "numTransactions"=>67251, 
+              "samplePeriodSecs"=>60, 
+              "slot"=>83056219
+            }
+
+            expect(response.result.size).to eq(10)
+            expect(response.result.first).to eq(expected_result)
+          end
+        end
+      end
+    end
   end
 end
