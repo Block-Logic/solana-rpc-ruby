@@ -456,6 +456,15 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_identity' do
+      it 'returns correct data from endpoint'  do
+        VCR.use_cassette('get_identity') do
+          response = described_class.new.get_identity
+
+          expect(response.result).to eq('8SQEcP4FaYQySktNQeyxF3w8pvArx3oMEh7fPrzkN9pu')
+        end
+      end
+    end
 
     describe '#get_vote_accounts' do
       context 'without optional params' do
