@@ -663,5 +663,39 @@ describe SolanaRpcRuby::MethodsWrapper do
         end
       end
     end
+
+    describe '#get_multiple_accounts' do
+      let(:accounts) do
+        [
+          'CX1QZWh9rJnJ6H6XNxyjBqEPDxhA7gENWVcToHvgLqb4',
+          'ConnvAV6R69HQpSPEi82XW9SJzRDrijg9VuJHCscrMKY'
+        ]
+      end
+
+      context 'without optional params' do
+        it 'returns correct data from endpoint'  do
+          VCR.use_cassette('get_multiple_accounts') do
+            response = described_class.new.get_multiple_accounts(accounts)
+
+            expect(response.result['value'].size).to eq(2)
+          end
+        end
+      end
+
+      context 'with optional params' do
+        it 'returns correct data from endpoint'  do
+          VCR.use_cassette('get_multiple_accounts with optional params') do
+            response = described_class.new.get_multiple_accounts(
+              accounts, 
+              encoding: 'base64',
+              data_slice: { offset: 5, length: 1 } 
+            )
+
+            expect(response.result['value'].size).to eq(2)
+            expect(response.result['value'].first['data'][1]).to eq('base64')
+          end
+        end
+      end
+    end
   end
 end

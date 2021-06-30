@@ -429,6 +429,31 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getmultipleaccounts 
+    # Returns the account information for a list of Pubkeys
+    def get_multiple_accounts(
+          pubkeys,  
+          commitment: nil,
+          encoding: '',
+          data_slice: {}
+        )
+      http_method = :post
+      method =  create_method_name(__method__)
+      
+      params = []
+      params_hash = {}
+      
+      params_hash['commitment'] = commitment if commitment
+      params_hash['encoding'] = encoding unless encoding.empty?
+      params_hash['dataSlice'] = data_slice if data_slice.any?
+      
+      params << pubkeys
+      params << params_hash if params_hash.any?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
 
     private
     def send_request(body, http_method)
