@@ -460,8 +460,9 @@ describe SolanaRpcRuby::MethodsWrapper do
       it 'returns correct data from endpoint'  do
         VCR.use_cassette('get_identity') do
           response = described_class.new.get_identity
-
-          expect(response.result).to eq('8SQEcP4FaYQySktNQeyxF3w8pvArx3oMEh7fPrzkN9pu')
+          expected_result = {"identity"=>"8SQEcP4FaYQySktNQeyxF3w8pvArx3oMEh7fPrzkN9pu"}
+          
+          expect(response.result).to eq(expected_result)
         end
       end
     end
