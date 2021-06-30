@@ -568,6 +568,31 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_leader_schedule' do      
+      context 'without optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_leader_schedule') do
+            response = described_class.new.get_leader_schedule
+
+            expect(response.result.keys.size).to eq(1905)
+          end
+        end
+      end
+
+      context 'with optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_leader_schedule with optional params') do
+            response = described_class.new.get_leader_schedule(
+              epoch: 203,
+              identity: '123vij84ecQEKUvQ7gYMKxKwKF6PbYSzCzzURYA4xULY'
+            )
+
+            expect(response.result.keys.size).to eq(1)
+          end
+        end
+      end
+    end
+
     describe '#get_vote_accounts' do
       context 'without optional params' do
         it 'returns correct data from endpoint'  do
