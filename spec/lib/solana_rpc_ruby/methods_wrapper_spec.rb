@@ -622,5 +622,15 @@ describe SolanaRpcRuby::MethodsWrapper do
         end
       end
     end
+
+    describe '#get_max_retransmit_slot' do
+      it 'returns correct data from endpoint'  do
+        VCR.use_cassette('get_max_retransmit_slot') do
+          response = described_class.new.get_max_retransmit_slot
+
+          expect(response.result).to eq(83030418)
+        end
+      end
+    end
   end
 end

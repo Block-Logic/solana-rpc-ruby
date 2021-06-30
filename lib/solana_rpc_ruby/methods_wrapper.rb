@@ -385,6 +385,17 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getmaxretransmitslot
+    # Get the max slot seen from retransmit stage.
+    def get_max_retransmit_slot
+      http_method = :post
+      method =  create_method_name(__method__)
+      
+      body = create_json_body(method)
+
+      send_request(body, http_method)
+    end
+
     private
     def send_request(body, http_method)
       api_response = api_client.call_api(
