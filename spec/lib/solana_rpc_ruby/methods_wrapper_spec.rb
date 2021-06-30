@@ -419,6 +419,23 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_first_available_block' do
+      it 'returns correct data from endpoint'  do
+        VCR.use_cassette('get_first_available_block') do
+          response = described_class.new.get_first_available_block
+
+          expected_value = {
+            "blockhash"=>"5ENJWYp5X6zrAnhBZmZhLKaoWyr2cHXAB24UMVYemBnb", 
+            "feeCalculator"=>{"lamportsPerSignature"=>5000}, 
+            "lastValidBlockHeight"=>68111306, 
+            "lastValidSlot"=>82384078
+          }
+
+          expect(response.result).to eq(39368303)
+        end
+      end
+    end
+
     describe '#get_vote_accounts' do
       context 'without optional params' do
         it 'returns correct data from endpoint'  do

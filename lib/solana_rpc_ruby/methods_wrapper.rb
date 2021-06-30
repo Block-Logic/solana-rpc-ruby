@@ -259,6 +259,17 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getfirstavailableblock
+    # Returns the slot of the lowest confirmed block that has not been purged from the ledger
+    def get_first_available_block
+      http_method = :post
+      method =  create_method_name(__method__)
+      
+      body = create_json_body(method)
+
+      send_request(body, http_method)
+    end
+
     private
     def send_request(body, http_method)
       api_response = api_client.call_api(
