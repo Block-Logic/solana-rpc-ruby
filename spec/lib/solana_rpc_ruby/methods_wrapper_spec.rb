@@ -737,5 +737,21 @@ describe SolanaRpcRuby::MethodsWrapper do
         end
       end
     end
+
+    describe '#get_recent_blockhash' do
+      it 'returns correct data from endpoint' do
+        VCR.use_cassette('get_recent_blockhash') do
+          response = described_class.new.get_recent_blockhash
+          expected_results = {
+            "blockhash"=>"6M1AMekz95Y3c5UjHq9GkEs6YX1BEJrB4vxcoHjjMJuF", 
+            "feeCalculator"=>{
+              "lamportsPerSignature"=>5000
+            }
+          }
+
+          expect(response.result['value']).to eq(expected_results)
+        end
+      end
+    end
   end
 end

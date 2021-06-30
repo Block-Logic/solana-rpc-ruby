@@ -485,6 +485,23 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getrecentblockhash
+    # Returns a recent block hash from the ledger, and a fee schedule 
+    # that can be used to compute the cost of submitting a transaction using it.
+    def get_recent_blockhash(commitment: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+      
+      params = []
+      params_hash = {}
+      params_hash['commitment'] = commitment if commitment
+      params << params_hash if params_hash.any?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     private
     def send_request(body, http_method)
       api_response = api_client.call_api(
