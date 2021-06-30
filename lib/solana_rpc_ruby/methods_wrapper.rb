@@ -328,6 +328,26 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getinflationreward
+    # Returns the inflation reward for a list of addresses for an epoch
+    def get_inflation_reward(addresses, commitment: nil, epoch: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+      
+      params = []
+      params_hash = {}
+
+      params << addresses
+
+      params_hash['commitment'] = commitment if commitment
+      params_hash['epoch'] = epoch if epoch
+      params << params_hash if params_hash.any?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     private
     def send_request(body, http_method)
       api_response = api_client.call_api(

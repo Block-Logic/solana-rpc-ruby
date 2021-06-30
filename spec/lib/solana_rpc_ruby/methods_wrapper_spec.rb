@@ -499,6 +499,49 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_inflation_reward' do
+      let(:addresses) do
+        [
+          'CX1QZWh9rJnJ6H6XNxyjBqEPDxhA7gENWVcToHvgLqb4', 
+          '79psA5PwDrjeHgZgiBBAqwuG5NsNWsHQapigxFPpsgEZ'
+        ]
+      end
+
+      let(:expected_result) do
+        [
+          {
+            "amount"=>58625515732, 
+            "effectiveSlot"=>82604257, 
+            "epoch"=>203,
+            "postBalance"=>3521208340839
+          },
+          nil
+        ]
+      end
+      
+      context 'without optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_inflation_reward') do
+            response = described_class.new.get_inflation_reward(addresses)
+
+            expect(response.result).to eq(expected_result)
+          end
+        end
+      end
+
+      context 'with optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_inflation_reward with optional params') do
+            response = described_class.new.get_inflation_reward(
+              addresses,
+              epoch: 203
+            )
+            expect(response.result).to eq(expected_result)
+          end
+        end
+      end
+    end
+
     describe '#get_vote_accounts' do
       context 'without optional params' do
         it 'returns correct data from endpoint'  do
