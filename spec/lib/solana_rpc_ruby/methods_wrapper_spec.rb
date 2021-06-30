@@ -633,5 +633,15 @@ describe SolanaRpcRuby::MethodsWrapper do
         end
       end
     end
+
+    describe '#get_max_shred_insert_slot' do
+      it 'returns correct data from endpoint'  do
+        VCR.use_cassette('get_max_shred_insert_slot') do
+          response = described_class.new.get_max_shred_insert_slot
+
+          expect(response.result).to eq(83031296)
+        end
+      end
+    end
   end
 end
