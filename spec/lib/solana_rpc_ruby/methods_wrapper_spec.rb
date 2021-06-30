@@ -466,6 +466,23 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_inflation_governor' do
+      it 'returns correct data from endpoint'  do
+        VCR.use_cassette('get_inflation_governor') do
+          response = described_class.new.get_inflation_governor
+          expected_result = {
+            "foundation"=>0.0, 
+            "foundationTerm"=>0.0, 
+            "initial"=>0.15, 
+            "taper"=>0.15, 
+            "terminal"=>0.015
+          }
+          
+          expect(response.result).to eq(expected_result)
+        end
+      end
+    end
+
     describe '#get_vote_accounts' do
       context 'without optional params' do
         it 'returns correct data from endpoint'  do

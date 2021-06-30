@@ -303,6 +303,20 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getinflationgovernor
+    # Returns the current inflation governor
+    def get_inflation_governor(commitment: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+      params << { 'commitment': commitment } if commitment
+      
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     private
     def send_request(body, http_method)
       api_response = api_client.call_api(
