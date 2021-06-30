@@ -697,5 +697,45 @@ describe SolanaRpcRuby::MethodsWrapper do
         end
       end
     end
+
+    describe '#get_program_accounts' do
+      let(:pubkey) { '9uV8rBceE4L5MPaZjHtgM1j3vgeasYvbpjHc1k44zai1' }
+
+      context 'without optional params' do
+        it 'returns correct data from endpoint'  do
+          VCR.use_cassette('get_program_accounts') do
+            response = described_class.new.get_program_accounts(pubkey)
+
+            expect(response.result).to eq([])
+          end
+        end
+      end
+
+      context 'with optional params' do
+        let(:filters) { [{ 'dataSize': 2 }, {'memcmp': { 'offset': 4 } }] }
+
+        it 'returns correct data from endpoint'  do
+          VCR.use_cassette('get_program_accounts with optional params') do
+            response = described_class.new.get_program_accounts(
+              pubkey,
+              encoding: 'base64',
+              data_slice: { offset: 1, length: 1 },
+              filters: [
+                { 'dataSize': 2 }, 
+                {
+                  'memcmp': { 
+                    'offset': 4,
+                    'bytes': '3Mc6vR'
+                  } 
+                }
+              ],
+              with_context: true
+            )
+
+            expect(response.result['value']).to eq([])
+          end
+        end
+      end
+    end
   end
 end

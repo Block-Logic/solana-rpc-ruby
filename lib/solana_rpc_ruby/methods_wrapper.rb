@@ -455,6 +455,36 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getprogramaccounts
+    # Returns all accounts owned by the provided program Pubkey
+    def get_program_accounts(
+          pubkey,  
+          commitment: nil,
+          encoding: '',
+          data_slice: {},
+          filters: [],
+          with_context: nil
+        )
+      http_method = :post
+      method =  create_method_name(__method__)
+      
+      params = []
+      params_hash = {}
+      
+      params_hash['commitment'] = commitment if commitment
+      params_hash['encoding'] = encoding unless encoding.empty?
+      params_hash['dataSlice'] = data_slice if data_slice.any?
+      params_hash['filters'] = filters if filters.any?
+      params_hash['withContext'] = with_context
+
+      params << pubkey
+      params << params_hash if params_hash.any?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     private
     def send_request(body, http_method)
       api_response = api_client.call_api(
