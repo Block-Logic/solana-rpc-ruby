@@ -799,5 +799,46 @@ describe SolanaRpcRuby::MethodsWrapper do
         end
       end
     end
+
+    describe '#get_signatures_for_address' do
+      let(:account_address) { '8oz37poDhVBdUPcHDVFc7ChoS7yA1E1hMFp5tgaB1m7N' }
+      let(:expected_result) do
+        {
+          "blockTime"=>1624651458,
+          "confirmationStatus"=>"finalized",
+          "err"=>nil,
+          "memo"=>nil,
+          "signature"=>"aLoUEJQHE3JBocPVEdKZ1JUKW89FpRutf9qsTwAAkGPfuVkFL9HfSvhRuYD31Ui1U5C5vgqmuddn2pvByo5g8E8",
+          "slot"=>83027168
+        }
+      end
+      
+      context 'without optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_signatures_for_address') do
+            response = described_class.new.get_signatures_for_address(account_address)
+
+            expect(response.result.size).to eq(3)
+            expect(response.result.first).to eq(expected_result)
+          end
+        end
+      end
+
+      context 'with optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_signatures_for_address with optional params') do
+            response = described_class.new.get_signatures_for_address(
+              account_address,
+              limit: 1
+              # before: 
+              # until_:
+            )
+
+            expect(response.result.size).to eq(1)
+            expect(response.result.first).to eq(expected_result)
+          end
+        end
+      end
+    end
   end
 end

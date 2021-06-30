@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.testnet.solana.com/
+    body:
+      encoding: UTF-8
+      string: '{"jsonrpc":"2.0","id":1,"method":"getSignaturesForAddress","params":["8oz37poDhVBdUPcHDVFc7ChoS7yA1E1hMFp5tgaB1m7N"]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.testnet.solana.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 30 Jun 2021 15:21:13 GMT
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: '{"jsonrpc":"2.0","result":[{"blockTime":1624651458,"confirmationStatus":"finalized","err":null,"memo":null,"signature":"aLoUEJQHE3JBocPVEdKZ1JUKW89FpRutf9qsTwAAkGPfuVkFL9HfSvhRuYD31Ui1U5C5vgqmuddn2pvByo5g8E8","slot":83027168},{"blockTime":1624651326,"confirmationStatus":"finalized","err":null,"memo":null,"signature":"5hxW7AwmeEW9iq1TGBDfB8CmRfTrzHoNd7TakWrDnZzUbKtdG3GXqvYpftvw4jGcH1vsUVe3b5kyjgmJHxhDAsTm","slot":83026947},{"blockTime":1624651290,"confirmationStatus":"finalized","err":null,"memo":null,"signature":"4QuudmcDagkDiufVDzXr1QBkUGF83vSsi68C2V3a3oP9oEa5TdUrxN6GwiVH5WX5e5sWE9BQMSJmxNiXTBzpdRcB","slot":83026888}],"id":1}
+
+        '
+  recorded_at: Wed, 30 Jun 2021 15:21:22 GMT
+recorded_with: VCR 6.0.0

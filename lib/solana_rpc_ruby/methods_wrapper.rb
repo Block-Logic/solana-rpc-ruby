@@ -528,6 +528,37 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getsignaturesforaddress
+    # NEW: This method is only available in solana-core v1.7 or newer. 
+    # Please use getConfirmedSignaturesForAddress2 for solana-core v1.6
+    # 
+    # Returns confirmed signatures for transactions involving an address backwards 
+    # in time from the provided signature or most recent confirmed block
+    def get_signatures_for_address(
+          account_address,
+          limit: nil,
+          before: '',
+          until_: '',
+          commitment: nil
+        )
+      http_method = :post
+      method = create_method_name(__method__)
+      
+      params = []
+      params_hash = {}
+      params_hash['limit'] = limit if limit
+      params_hash['before'] = before unless before.empty?
+      params_hash['until'] = until_ unless until_.empty?
+      params_hash['commitment'] = commitment if commitment
+
+      params << account_address
+      params << params_hash if params_hash.any?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     private
     def send_request(body, http_method)
       api_response = api_client.call_api(
