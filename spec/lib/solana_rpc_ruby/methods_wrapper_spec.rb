@@ -918,5 +918,19 @@ describe SolanaRpcRuby::MethodsWrapper do
         end
       end
     end
+
+    describe '#get_stake_activation' do
+      let(:stake_account_pubkey) { 'BbeCzMU39ceqSgQoNs9c1j2zes7kNcygew8MEjEBvzuY' }
+      context 'without optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_stake_activation') do
+            response = described_class.new.get_stake_activation(stake_account_pubkey)
+            expected_result = {"active"=>79529161339, "inactive"=>0, "state"=>"active"}
+
+            expect(response.result).to eq(expected_result)
+          end
+        end
+      end
+    end
   end
 end
