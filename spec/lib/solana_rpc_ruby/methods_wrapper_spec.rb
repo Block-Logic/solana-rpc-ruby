@@ -5,6 +5,12 @@ describe SolanaRpcRuby::MethodsWrapper do
     let(:account_pubkey) { '71bhKKL89U3dNHzuZVZ7KarqV6XtHEgjXjvJTsguD11B'}
     let(:stake_boss_account_pubkey) { 'BossttsdneANBePn2mJhooAewt3fo4aLg7enmpgMvdoH' }
     let(:testnet_cluster) { 'https://api.testnet.solana.com' }
+    let(:signatures) do 
+      [
+        '36TLd62HWMovqgJSZzgq8XUBF2j7kS7nXpRqRpYS6EmN7rD5axGR4D5vnz21YE5Bk3ZACYVgZYRGxAafJo3VjcxM',
+        '3XLkMhuv6SszY4x5Bn91hgWHQdhNVDXAxG6pxqcCCtex6NfhGn9DB5ZxXyBVzVy2mBkh2d5c7NZZzQ9jdGhRrVrH'
+      ] 
+    end
 
     describe '#get_account_info' do
       context 'without optional params' do
@@ -841,14 +847,7 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
-    describe '#get_signature_statuses' do
-      let(:signatures) do 
-        [
-          '36TLd62HWMovqgJSZzgq8XUBF2j7kS7nXpRqRpYS6EmN7rD5axGR4D5vnz21YE5Bk3ZACYVgZYRGxAafJo3VjcxM',
-          '3XLkMhuv6SszY4x5Bn91hgWHQdhNVDXAxG6pxqcCCtex6NfhGn9DB5ZxXyBVzVy2mBkh2d5c7NZZzQ9jdGhRrVrH'
-        ] 
-      end
-      
+    describe '#get_signature_statuses' do      
       context 'without optional params' do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_signature_statuses') do
@@ -954,6 +953,35 @@ describe SolanaRpcRuby::MethodsWrapper do
             response = described_class.new.get_token_account_balance(
               account_pubkey
             )
+          end
+        end
+      end
+    end
+
+    describe '#get_transaction' do
+      context 'without optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_transaction') do
+            response = described_class.new.get_transaction(
+              signatures.first
+            )
+
+            expect(response.result.keys).to eq(["blockTime", "meta", "slot", "transaction"])
+            expect(response.result.dig('meta', 'fee')).to eq(5000)
+          end
+        end
+      end
+
+      context 'with optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_transaction with optional params') do
+            response = described_class.new.get_transaction(
+              signatures.first,
+              encoding: 'base58'
+            )
+
+            expect(response.result.keys).to eq(["blockTime", "meta", "slot", "transaction"])
+            expect(response.result.dig('meta', 'fee')).to eq(5000)
           end
         end
       end

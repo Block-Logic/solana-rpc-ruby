@@ -1,0 +1,41 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.testnet.solana.com/
+    body:
+      encoding: UTF-8
+      string: '{"jsonrpc":"2.0","id":1,"method":"getTransaction","params":["36TLd62HWMovqgJSZzgq8XUBF2j7kS7nXpRqRpYS6EmN7rD5axGR4D5vnz21YE5Bk3ZACYVgZYRGxAafJo3VjcxM"]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.testnet.solana.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 01 Jul 2021 12:11:09 GMT
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: '{"jsonrpc":"2.0","result":{"blockTime":1624339578,"meta":{"err":null,"fee":5000,"innerInstructions":[],"logMessages":["Program
+        Vote111111111111111111111111111111111111111 invoke [1]","Program Vote111111111111111111111111111111111111111
+        success"],"postBalances":[486970147752,1600460010105,1,1,1],"postTokenBalances":[],"preBalances":[486970152752,1600460010105,1,1,1],"preTokenBalances":[],"rewards":[],"status":{"Ok":null}},"slot":82507366,"transaction":{"message":{"accountKeys":["FPncJ2ASP4cVPcmHxibgpqaxMuwjaw3qNQiZvVdoefDg","66T8QgJA6v4fhKqhAJeEMqBN3vu1EeNwER5ZbmvY19jK","SysvarS1otHashes111111111111111111111111111","SysvarC1ock11111111111111111111111111111111","Vote111111111111111111111111111111111111111"],"header":{"numReadonlySignedAccounts":0,"numReadonlyUnsignedAccounts":3,"numRequiredSignatures":1},"instructions":[{"accounts":[1,2,3,0],"data":"rTDbDtm67JPw9Wo4sw6Bfu9hJZX9eZRBqdy4DKhcZS9qnpsKckwikenCScNfis641PhU4QjquAHp74TpZc3a1G5HZ2PfEXiP47w8kMKu","programIdIndex":4}],"recentBlockhash":"9sULfGrgLMh4LL4xEk3DK5jqH4A9qq1iDRKU1LtHz9AN"},"signatures":["36TLd62HWMovqgJSZzgq8XUBF2j7kS7nXpRqRpYS6EmN7rD5axGR4D5vnz21YE5Bk3ZACYVgZYRGxAafJo3VjcxM"]}},"id":1}
+
+        '
+  recorded_at: Thu, 01 Jul 2021 12:11:16 GMT
+recorded_with: VCR 6.0.0

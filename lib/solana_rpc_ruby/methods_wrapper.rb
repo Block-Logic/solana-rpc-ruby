@@ -683,6 +683,26 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#gettransaction  
+    # 
+    # Returns transaction details for a confirmed transaction
+    def get_transaction(transaction_signature, encoding: nil, commitment: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+      
+      params = []
+      params_hash = {}
+      params_hash['commitment'] = commitment if commitment
+      params_hash['encoding'] = encoding if encoding
+
+      params << transaction_signature
+      params << params_hash if params_hash.any?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     private
     def send_request(body, http_method)
       api_response = api_client.call_api(
