@@ -244,21 +244,6 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
-    # https://docs.solana.com/developing/clients/jsonrpc-api#getvoteaccounts
-    # Returns the account info and associated stake for all the voting accounts in the current bank.
-    def get_vote_accounts(commitment: nil, vote_pubkey: nil)
-      http_method = :post
-      method =  create_method_name(__method__)
-
-      params = []
-      params << { 'votePubkey': vote_pubkey } if vote_pubkey
-      params << commitment if commitment
-
-      body = create_json_body(method, method_params: params)
-
-      send_request(body, http_method)
-    end
-
     # https://docs.solana.com/developing/clients/jsonrpc-api#getfirstavailableblock
     # Returns the slot of the lowest confirmed block that has not been purged from the ledger
     def get_first_available_block
@@ -729,6 +714,21 @@ module SolanaRpcRuby
       method =  create_method_name(__method__)
 
       body = create_json_body(method)
+
+      send_request(body, http_method)
+    end
+
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getvoteaccounts
+    # Returns the account info and associated stake for all the voting accounts in the current bank.
+    def get_vote_accounts(commitment: nil, vote_pubkey: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+      params << { 'votePubkey': vote_pubkey } if vote_pubkey
+      params << commitment if commitment
+
+      body = create_json_body(method, method_params: params)
 
       send_request(body, http_method)
     end

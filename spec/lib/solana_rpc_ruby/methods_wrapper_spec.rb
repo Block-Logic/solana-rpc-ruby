@@ -600,36 +600,6 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
-    describe '#get_vote_accounts' do
-      context 'without optional params' do
-        it 'returns correct data from endpoint'  do
-          VCR.use_cassette('get_vote_accounts') do
-            response = described_class.new.get_vote_accounts
-
-            expect(response.result['current'].size).to eq(1914)
-            expect(response.result['delinquent'].size).to eq(205)
-            expect(response.json_rpc).to eq('2.0')
-            expect(response.id).to eq(1)
-          end
-        end
-      end
-
-      context 'with optional params' do
-        it 'returns correct data from endpoint'  do
-          VCR.use_cassette('get_vote_accounts with votePubkey param') do
-          vote_pubkey = 'CZVUMA5W21V5VdtNV5R22FQr3MuCixcPr5j3pZYH8bdu'
-            response = described_class.new.get_vote_accounts(
-              vote_pubkey: vote_pubkey
-            )
-
-            expect(response.result['current'].size).to eq(1)
-            expect(response.result['delinquent']).to eq([])
-            expect(response.id).to eq(1)
-          end
-        end
-      end
-    end
-
     describe '#get_max_retransmit_slot' do
       it 'returns correct data from endpoint'  do
         VCR.use_cassette('get_max_retransmit_slot') do
@@ -1005,8 +975,38 @@ describe SolanaRpcRuby::MethodsWrapper do
           VCR.use_cassette('get_version') do
             response = described_class.new.get_version
             expected_result = {"feature-set"=>743297851, "solana-core"=>"1.7.3"}
-            
+
             expect(response.result).to eq(expected_result)
+          end
+        end
+      end
+    end
+
+    describe '#get_vote_accounts' do
+      context 'without optional params' do
+        it 'returns correct data from endpoint'  do
+          VCR.use_cassette('get_vote_accounts') do
+            response = described_class.new.get_vote_accounts
+
+            expect(response.result['current'].size).to eq(1914)
+            expect(response.result['delinquent'].size).to eq(205)
+            expect(response.json_rpc).to eq('2.0')
+            expect(response.id).to eq(1)
+          end
+        end
+      end
+
+      context 'with optional params' do
+        it 'returns correct data from endpoint'  do
+          VCR.use_cassette('get_vote_accounts with votePubkey param') do
+          vote_pubkey = 'CZVUMA5W21V5VdtNV5R22FQr3MuCixcPr5j3pZYH8bdu'
+            response = described_class.new.get_vote_accounts(
+              vote_pubkey: vote_pubkey
+            )
+
+            expect(response.result['current'].size).to eq(1)
+            expect(response.result['delinquent']).to eq([])
+            expect(response.id).to eq(1)
           end
         end
       end
