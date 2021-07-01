@@ -840,5 +840,51 @@ describe SolanaRpcRuby::MethodsWrapper do
         end
       end
     end
+
+    describe '#get_signature_statuses' do
+      let(:signatures) do 
+        [
+          '36TLd62HWMovqgJSZzgq8XUBF2j7kS7nXpRqRpYS6EmN7rD5axGR4D5vnz21YE5Bk3ZACYVgZYRGxAafJo3VjcxM',
+          '3XLkMhuv6SszY4x5Bn91hgWHQdhNVDXAxG6pxqcCCtex6NfhGn9DB5ZxXyBVzVy2mBkh2d5c7NZZzQ9jdGhRrVrH'
+        ] 
+      end
+      
+      context 'without optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_signature_statuses') do
+            response = described_class.new.get_signature_statuses(signatures)
+
+            expected_result = {
+              "context"=>{"slot"=>83160615}, 
+              "value"=>[nil, nil]
+            }
+            expect(response.result).to eq(expected_result)
+          end
+        end
+      end
+
+      context 'with optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_signature_statuses with optional params') do
+            response = described_class.new.get_signature_statuses(
+              signatures,
+              search_transaction_history: true
+            )
+
+            expected_result = {
+              "confirmationStatus"=>"finalized", 
+              "confirmations"=>nil, 
+              "err"=>nil, 
+              "slot"=>82507366, 
+              "status"=>{"Ok"=>nil}
+            }
+
+            expect(response.result['value'].size).to eq(2)
+            expect(response.result['value'].first).to eq(expected_result)
+
+          end
+        end
+      end
+    end
   end
 end

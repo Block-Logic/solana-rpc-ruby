@@ -559,6 +559,31 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getsignaturestatuses    # NEW: This method is only available in solana-core v1.7 or newer. 
+    # 
+    # Returns the statuses of a list of signatures. 
+    # Unless the searchTransactionHistory configuration parameter is included, 
+    # this method only searches the recent status cache of signatures, 
+    # which retains statuses for all active slots plus MAX_RECENT_BLOCKHASHES rooted slots.
+    def get_signature_statuses(
+          transaction_signatures,
+          search_transaction_history: false
+        )
+      http_method = :post
+      method = create_method_name(__method__)
+      
+      params = []
+      params_hash = {}
+      params_hash['searchTransactionHistory'] = search_transaction_history if search_transaction_history
+
+      params << transaction_signatures
+      params << params_hash if params_hash.any?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     private
     def send_request(body, http_method)
       api_response = api_client.call_api(
