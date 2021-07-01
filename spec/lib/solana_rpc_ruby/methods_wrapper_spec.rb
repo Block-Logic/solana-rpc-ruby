@@ -1057,7 +1057,7 @@ describe SolanaRpcRuby::MethodsWrapper do
     end
 
     describe '#send_transaction' do
-      context 'with required params' do
+      context 'with required param' do
         xit 'returns correct data from endpoint' do
           VCR.use_cassette('send_transaction') do
             transaction_signature = '5fNbYET4VJyEYzuD73AFXVpsxEugqdEVFLiQwEEfiq2Ew9yU44UyDkwYWcLHk4YWWTig4RymrTsKudeCmKq9QTpY'
@@ -1065,6 +1065,34 @@ describe SolanaRpcRuby::MethodsWrapper do
             response = described_class.new.send_transaction(
               transaction_signature
             )
+
+            expect(response.result).to eq(expected_result)
+          end
+        end
+      end
+    end
+
+    describe '#simulate_transaction' do
+      let(:transaction_signature) do
+        '4hXTCkRzt9WyecNzV1XPgCDfGAZzQKNxLXgynz5QDuWWPSAZBZSHptvWRL3BjCvzUXRdKvHL2b7yGrRQcWyaqsaBCncVG7BFggS8w9snUts67BSh3EqKpXLUm5UMHfD7ZBe9GhARjbNQMLJ1QD3Spr6oMTBU6EhdB4RD8CP2xUxr2u3d6fos36PD98XS6oX8TQjLpsMwncs5DAMiD4nNnR8NBfyghGCWvCVifVwvA8B8TJxE1aiyiv2L429BCWfyzAme5sZW8rDb14NeCQHhZbtNqfXhcp2tAnaAT'
+      end
+      context 'with required param' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('simulate_transaction') do
+
+            response = described_class.new.simulate_transaction(
+              transaction_signature,
+              []
+            )
+
+            expected_result = {
+              "context"=>{"slot"=>83294564}, 
+              "value"=>{
+              "accounts"=>[], 
+              "err"=>"BlockhashNotFound", 
+              "logs"=>[]
+              }
+            }
 
             expect(response.result).to eq(expected_result)
           end
