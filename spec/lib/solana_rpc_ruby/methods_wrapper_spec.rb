@@ -932,5 +932,19 @@ describe SolanaRpcRuby::MethodsWrapper do
         end
       end
     end
+
+    describe '#get_supply' do
+      context 'without optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_supply') do
+            response = described_class.new.get_supply
+            
+            expect(response.result.dig('value', 'circulating')).to eq(1368798056604264695)
+            expect(response.result.dig('value', 'nonCirculating')).to eq(154690270000000)
+            expect(response.result.dig('value', 'total')).to eq(1368952746874264695)
+          end
+        end
+      end
+    end
   end
 end
