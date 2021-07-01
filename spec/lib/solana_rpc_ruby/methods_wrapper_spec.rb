@@ -906,5 +906,17 @@ describe SolanaRpcRuby::MethodsWrapper do
         end
       end
     end
+
+    describe '#get_slot_leaders' do
+      context 'with required params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_slot_leaders') do
+            response = described_class.new.get_slot_leaders(82507366, 10)
+
+            expect(response.result.size).to eq(10)
+          end
+        end
+      end
+    end
   end
 end

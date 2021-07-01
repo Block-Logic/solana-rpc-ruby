@@ -616,6 +616,19 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#getslotleaders
+    # Returns the slot leaders for a given slot range
+    def get_slot_leaders(start_slot, limit)
+      http_method = :post
+      method =  create_method_name(__method__)
+      
+      params = [start_slot, limit]
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     private
     def send_request(body, http_method)
       api_response = api_client.call_api(
