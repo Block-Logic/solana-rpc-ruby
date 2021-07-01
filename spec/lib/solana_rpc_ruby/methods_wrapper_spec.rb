@@ -886,5 +886,15 @@ describe SolanaRpcRuby::MethodsWrapper do
         end
       end
     end
+
+    describe '#get_slot' do
+      it 'returns correct data from endpoint' do
+        VCR.use_cassette('get_slot') do
+          response = described_class.new.get_slot
+
+          expect(response.result).to eq(83164411)
+        end
+      end
+    end
   end
 end
