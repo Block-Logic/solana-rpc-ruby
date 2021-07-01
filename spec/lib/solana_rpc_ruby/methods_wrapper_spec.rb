@@ -1011,5 +1011,17 @@ describe SolanaRpcRuby::MethodsWrapper do
         end
       end
     end
+
+    describe '#minimum_ledger_slot' do
+      context 'without optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('minimum_ledger_slot') do
+            response = described_class.new.minimum_ledger_slot
+
+            expect(response.result).to eq(82859462)
+          end
+        end
+      end
+    end
   end
 end

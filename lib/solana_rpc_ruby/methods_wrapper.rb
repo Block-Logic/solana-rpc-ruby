@@ -733,6 +733,31 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # https://docs.solana.com/developing/clients/jsonrpc-api#minimumledgerslot
+    # 
+    # Returns the current solana versions running on the nodeer
+    def get_version
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      body = create_json_body(method)
+
+      send_request(body, http_method)
+    end
+
+    # https://docs.solana.com/developing/clients/jsonrpc-api#minimumledgerslot
+    # 
+    # Returns the lowest slot that the node has information about in its ledger. 
+    # This value may increase over time if the node is configured to purge older ledger data
+    def minimum_ledger_slot
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      body = create_json_body(method)
+
+      send_request(body, http_method)
+    end
+
     private
     def send_request(body, http_method)
       api_response = api_client.call_api(
