@@ -1023,5 +1023,21 @@ describe SolanaRpcRuby::MethodsWrapper do
         end
       end
     end
+
+    describe '#request_airdrop' do
+      context 'with required params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('request_airdrop') do
+            response = described_class.new.request_airdrop(
+              stake_boss_account_pubkey,
+              10
+            )
+            expected_result = '5fNbYET4VJyEYzuD73AFXVpsxEugqdEVFLiQwEEfiq2Ew9yU44UyDkwYWcLHk4YWWTig4RymrTsKudeCmKq9QTpY'
+            
+            expect(response.result).to eq(expected_result)
+          end
+        end
+      end
+    end
   end
 end
