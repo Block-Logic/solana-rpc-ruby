@@ -986,5 +986,17 @@ describe SolanaRpcRuby::MethodsWrapper do
         end
       end
     end
+
+    describe '#get_transaction_count' do
+      context 'without optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_transaction_count') do
+            response = described_class.new.get_transaction_count
+
+            expect(response.result).to eq(26634129803)
+          end
+        end
+      end
+    end
   end
 end
