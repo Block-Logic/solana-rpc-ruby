@@ -1033,7 +1033,39 @@ describe SolanaRpcRuby::MethodsWrapper do
               10
             )
             expected_result = '5fNbYET4VJyEYzuD73AFXVpsxEugqdEVFLiQwEEfiq2Ew9yU44UyDkwYWcLHk4YWWTig4RymrTsKudeCmKq9QTpY'
+
+            expect(response.result).to eq(expected_result)
+          end
+        end
+      end
+    end
+
+    describe '#request_airdrop' do
+      context 'with required params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('request_airdrop') do
+            response = described_class.new.request_airdrop(
+              stake_boss_account_pubkey,
+              10
+            )
+            expected_result = '5fNbYET4VJyEYzuD73AFXVpsxEugqdEVFLiQwEEfiq2Ew9yU44UyDkwYWcLHk4YWWTig4RymrTsKudeCmKq9QTpY'
             
+            expect(response.result).to eq(expected_result)
+          end
+        end
+      end
+    end
+
+    describe '#send_transaction' do
+      context 'with required params' do
+        xit 'returns correct data from endpoint' do
+          VCR.use_cassette('send_transaction') do
+            transaction_signature = '5fNbYET4VJyEYzuD73AFXVpsxEugqdEVFLiQwEEfiq2Ew9yU44UyDkwYWcLHk4YWWTig4RymrTsKudeCmKq9QTpY'
+
+            response = described_class.new.send_transaction(
+              transaction_signature
+            )
+
             expect(response.result).to eq(expected_result)
           end
         end
