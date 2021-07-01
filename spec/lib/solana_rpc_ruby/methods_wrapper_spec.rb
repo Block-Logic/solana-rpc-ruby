@@ -998,5 +998,18 @@ describe SolanaRpcRuby::MethodsWrapper do
         end
       end
     end
+
+    describe '#get_version' do
+      context 'without optional params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_version') do
+            response = described_class.new.get_version
+            expected_result = {"feature-set"=>743297851, "solana-core"=>"1.7.3"}
+            
+            expect(response.result).to eq(expected_result)
+          end
+        end
+      end
+    end
   end
 end
