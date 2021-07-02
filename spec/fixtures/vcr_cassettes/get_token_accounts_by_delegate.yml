@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.testnet.solana.com/
     body:
       encoding: UTF-8
-      string: '{"jsonrpc":"2.0","id":1,"method":"getTokenAccountBalance","params":["7fUAJdStEuGbc3sM84cKRL6yYaaSstyLSU4ve5oovLS7"]}'
+      string: '{"jsonrpc":"2.0","id":1,"method":"getTokenAccountsByDelegate","params":["7fUAJdStEuGbc3sM84cKRL6yYaaSstyLSU4ve5oovLS7",{"mint":"mint"},{"commitment":"finalized","encoding":"jsonParsed","dataSlice":{"offset":10,"length":3}}]}'
     headers:
       Content-Type:
       - application/json
@@ -25,16 +25,15 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 02 Jul 2021 14:24:27 GMT
+      - Fri, 02 Jul 2021 14:09:40 GMT
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
     body:
       encoding: ASCII-8BIT
-      string: '{"jsonrpc":"2.0","error":{"code":-32602,"message":"Invalid param: could
-        not find account"},"id":1}
+      string: '{"jsonrpc":"2.0","error":{"code":-32602,"message":"Invalid param: WrongSize"},"id":1}
 
         '
-  recorded_at: Fri, 02 Jul 2021 14:24:27 GMT
+  recorded_at: Fri, 02 Jul 2021 14:09:40 GMT
 recorded_with: VCR 6.0.0

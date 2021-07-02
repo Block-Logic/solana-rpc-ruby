@@ -651,6 +651,7 @@ module SolanaRpcRuby
     end
 
     # https://docs.solana.com/developing/clients/jsonrpc-api#gettokenaccountbalance
+    # 
     # Returns the token balance of an SPL Token account.
     def get_token_account_balance(token_account_pubkey, commitment: nil)
       http_method = :post
@@ -671,6 +672,8 @@ module SolanaRpcRuby
     # https://docs.solana.com/developing/clients/jsonrpc-api#gettokenaccountsbydelegate    # Returns the token balance of an SPL Token account.
     # 
     # Returns all SPL Token accounts by approved Delegate.
+    # 
+    # IMPORTANT: According to docs there should be mint or program_id passed in, not both.
     def get_token_accounts_by_delegate(
           token_account_pubkey,
           mint: '',
@@ -681,7 +684,7 @@ module SolanaRpcRuby
           length: nil
         )
 
-      raise WrongParameters 'You should pass mint or program_id, not both.' if mint && program_id
+      raise ArgumentError, 'You should pass mint or program_id, not both.' if !mint.empty? && !program_id.empty?
 
       http_method = :post
       method =  create_method_name(__method__)
@@ -689,20 +692,23 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
       params_hash_2 = {}
-      params_hash_2['dataSlice'] = {}
+      param_data_slice = {}
 
-      params_hash['mint'] = mint if mint
-      params_hash['programId'] = program_id if program_id
+      params_hash['mint'] = mint unless mint.empty?
+      params_hash['programId'] = program_id unless program_id.empty?
 
       params_hash_2['commitment'] = commitment if commitment
-      params_hash_2['encoding'] = commitment if commitment
-      params_hash_2['dataSlice']['offset'] = offset if offset
-      params_hash_2['dataSlice']['length'] = length if length
+      params_hash_2['encoding'] = encoding unless encoding.empty?
+
+      param_data_slice['offset'] = offset if offset
+      param_data_slice['length'] = length if length
+
+      params_hash_2['dataSlice'] = param_data_slice if param_data_slice.any?
 
       params << token_account_pubkey
       params << params_hash if params_hash.any?
       params << params_hash_2 if params_hash_2.any?
-      
+
       body = create_json_body(method, method_params: params)
 
       send_request(body, http_method)
@@ -711,6 +717,8 @@ module SolanaRpcRuby
     # https://docs.solana.com/developing/clients/jsonrpc-api#gettokenaccountsbyowner    # 
     # 
     # Returns all SPL Token accounts by token owner.
+    # 
+    # IMPORTANT: According to docs there should be mint or program_id passed in, not both.
     def get_token_accounts_by_owner(
           token_account_pubkey,
           mint: '',
@@ -721,29 +729,32 @@ module SolanaRpcRuby
           length: nil
         )
 
-      raise WrongParameters 'You should pass mint or program_id, not both.' if mint && program_id
+        raise ArgumentError, 'You should pass mint or program_id, not both.' if !mint.empty? && !program_id.empty?
 
-      http_method = :post
-      method =  create_method_name(__method__)
-      
-      params = []
-      params_hash = {}
-      params_hash_2 = {}
-      params_hash_2['dataSlice'] = {}
-
-      params_hash['mint'] = mint if mint
-      params_hash['programId'] = program_id if program_id
-
-      params_hash_2['commitment'] = commitment if commitment
-      params_hash_2['encoding'] = commitment if commitment
-      params_hash_2['dataSlice']['offset'] = offset if offset
-      params_hash_2['dataSlice']['length'] = length if length
-
-      params << token_account_pubkey
-      params << params_hash if params_hash.any?
-      params << params_hash_2 if params_hash_2.any?
-      
-      body = create_json_body(method, method_params: params)
+        http_method = :post
+        method =  create_method_name(__method__)
+        
+        params = []
+        params_hash = {}
+        params_hash_2 = {}
+        param_data_slice = {}
+  
+        params_hash['mint'] = mint unless mint.empty?
+        params_hash['programId'] = program_id unless program_id.empty?
+  
+        params_hash_2['commitment'] = commitment if commitment
+        params_hash_2['encoding'] = encoding unless encoding.empty?
+  
+        param_data_slice['offset'] = offset if offset
+        param_data_slice['length'] = length if length
+  
+        params_hash_2['dataSlice'] = param_data_slice if param_data_slice.any?
+  
+        params << token_account_pubkey
+        params << params_hash if params_hash.any?
+        params << params_hash_2 if params_hash_2.any?
+  
+        body = create_json_body(method, method_params: params)
 
       send_request(body, http_method)
     end
@@ -751,7 +762,7 @@ module SolanaRpcRuby
     # https://docs.solana.com/developing/clients/jsonrpc-api#gettokenlargestaccounts    # 
     # 
     # Returns the 20 largest accounts of a particular SPL Token type.
-    def get_token_largest_account(
+    def get_token_largest_accounts(
           token_mint_pubkey,
           commitment: nil
         )
