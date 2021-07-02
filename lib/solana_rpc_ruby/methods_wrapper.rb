@@ -789,9 +789,9 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['skipPreFlight'] = skip_transaction if skip_transaction
-      params_hash['preflightCommitment'] = skip_transaction if skip_transaction
-      params_hash['commitment'] = skip_transaction if skip_transaction
+      params_hash['skipPreFlight'] = skip_pre_flight if skip_pre_flight
+      params_hash['preflightCommitment'] = pre_flight_commitment if pre_flight_commitment
+      params_hash['commitment'] = commitment if commitment
 
       params << transaction_signature
       params << params_hash if params_hash.any?
