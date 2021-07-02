@@ -917,12 +917,57 @@ describe SolanaRpcRuby::MethodsWrapper do
     end
 
     describe '#get_token_account_balance' do
+      let(:token_account_pubkey) { '7fUAJdStEuGbc3sM84cKRL6yYaaSstyLSU4ve5oovLS7' }
       context 'without optional params' do
         xit 'returns correct data from endpoint' do
           VCR.use_cassette('get_token_account_balance') do
             response = described_class.new.get_token_account_balance(
-              account_pubkey
+              token_account_pubkey
             )
+            binding.pry
+          end
+        end
+      end
+    end
+
+    describe '#get_token_accounts_by_delegate' do
+      let(:token_account_pubkey) { '7fUAJdStEuGbc3sM84cKRL6yYaaSstyLSU4ve5oovLS7' }
+      context 'without optional params' do
+        xit 'returns correct data from endpoint' do
+          VCR.use_cassette('get_token_accounts_by_delegate') do
+            response = described_class.new.get_token_accounts_by_delegate(
+              token_account_pubkey
+            )
+            binding.pry
+          end
+        end
+      end
+    end
+
+    describe '#get_token_accounts_by_owner' do
+      let(:token_account_pubkey) { '7fUAJdStEuGbc3sM84cKRL6yYaaSstyLSU4ve5oovLS7' }
+      context 'without optional params' do
+        xit 'returns correct data from endpoint' do
+          VCR.use_cassette('get_token_accounts_by_owner') do
+            response = described_class.new.get_token_accounts_by_owner(
+              token_account_pubkey
+            )
+            binding.pry
+          end
+        end
+      end
+    end
+
+
+    describe '#get_token_largest_account' do
+      let(:token_account_pubkey) { '7fUAJdStEuGbc3sM84cKRL6yYaaSstyLSU4ve5oovLS7' }
+      context 'without optional params' do
+        xit 'returns correct data from endpoint' do
+          VCR.use_cassette('get_token_largest_account') do
+            response = described_class.new.get_token_largest_account(
+              token_account_pubkey
+            )
+            binding.pry
           end
         end
       end

@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.testnet.solana.com/
     body:
       encoding: UTF-8
-      string: '{"jsonrpc":"2.0","id":1,"method":"getTokenAccountBalance","params":["71bhKKL89U3dNHzuZVZ7KarqV6XtHEgjXjvJTsguD11B"]}'
+      string: '{"jsonrpc":"2.0","id":1,"method":"getTokenAccountBalance","params":["7fUAJdStEuGbc3sM84cKRL6yYaaSstyLSU4ve5oovLS7"]}'
     headers:
       Content-Type:
       - application/json
@@ -25,16 +25,16 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Thu, 01 Jul 2021 11:47:42 GMT
+      - Fri, 02 Jul 2021 09:41:15 GMT
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
     body:
       encoding: ASCII-8BIT
-      string: '{"jsonrpc":"2.0","error":{"code":-32602,"message":"Invalid param: not
-        a v2.0 Token account"},"id":1}
+      string: '{"jsonrpc":"2.0","error":{"code":-32602,"message":"Invalid param: could
+        not find account"},"id":1}
 
         '
-  recorded_at: Thu, 01 Jul 2021 11:47:43 GMT
+  recorded_at: Fri, 02 Jul 2021 09:41:15 GMT
 recorded_with: VCR 6.0.0
