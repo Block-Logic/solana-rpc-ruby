@@ -20,10 +20,13 @@ module SolanaRpcRuby
       http_method = :post
       method =  create_method_name(__method__)
 
+      params = []
       params_hash = {}
+
       params_hash['encoding'] = encoding unless encoding.nil? || encoding.empty?
       params_hash['dataSlice'] = data_slice if data_slice.any?
-      params = [account_pubkey]
+
+      params << account_pubkey
       params << params_hash if params_hash.any?
 
       body = create_json_body(method, method_params: params)
@@ -37,7 +40,9 @@ module SolanaRpcRuby
       http_method = :post
       method =  create_method_name(__method__)
 
-      params = [account_pubkey]
+      params = []
+
+      params << account_pubkey
       params << { 'commitment': commitment } if commitment
 
       body = create_json_body(method, method_params: params)
@@ -52,13 +57,15 @@ module SolanaRpcRuby
       http_method = :post
       method =  create_method_name(__method__)
 
+      params = []
+
       params_hash = {}
       params_hash['encoding'] = encoding unless encoding.nil? || encoding.empty?
       params_hash['transactionDetails'] = transaction_details unless transaction_details.nil? || transaction_details.empty?
       params_hash['rewards'] = rewards unless rewards.nil?
       params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
 
-      params = [slot]
+      params << slot
       params << params_hash if params_hash.any?
 
       body = create_json_body(method, method_params: params)
@@ -74,6 +81,7 @@ module SolanaRpcRuby
 
       params = []
       params_hash = {}
+
       params_hash['commitment'] = commitment if commitment
       params << params_hash if params_hash.any?
 
@@ -88,11 +96,12 @@ module SolanaRpcRuby
       http_method = :post
       method =  create_method_name(__method__)
 
+      params = []
       params_hash = {}
+
       params_hash['identity'] = identity unless identity.nil?
       params_hash['range'] = { 'firstSlot': first_slot, 'lastSlot': last_slot}
 
-      params = []
       params << params_hash unless params_hash.empty?
 
       body = create_json_body(method, method_params: params)
@@ -107,6 +116,7 @@ module SolanaRpcRuby
       method =  create_method_name(__method__)
 
       params = []
+
       params << block
 
       body = create_json_body(method, method_params: params)
@@ -120,8 +130,12 @@ module SolanaRpcRuby
     def get_blocks(start_slot:, end_slot: nil)
       http_method = :post
       method =  create_method_name(__method__)
-      params = [start_slot]
+
+      params = []
+
+      params << start_slot
       params << end_slot if end_slot # optional
+
       body = create_json_body(method, method_params: params)
 
       send_request(body, http_method)
@@ -134,8 +148,14 @@ module SolanaRpcRuby
       http_method = :post
       method =  create_method_name(__method__)
 
-      params = [start_slot, limit]
-      params << { 'commitment': commitment } if commitment
+      params = []
+      params_hash = {}
+
+      params_hash['commitment'] = commitment if commitment
+
+      params << start_slot
+      params << limit
+      params << params_hash if params_hash.any?
 
       body = create_json_body(method, method_params: params)
 
@@ -149,6 +169,7 @@ module SolanaRpcRuby
       method =  create_method_name(__method__)
 
       params = []
+
       params << block
 
       body = create_json_body(method, method_params: params)
@@ -173,8 +194,12 @@ module SolanaRpcRuby
     def get_confirmed_blocks(start_slot:, end_slot: nil)
       http_method = :post
       method =  create_method_name(__method__)
-      params = [start_slot]
+
+      params = []
+
+      params << start_slot
       params << end_slot if end_slot # optional
+
       body = create_json_body(method, method_params: params)
 
       send_request(body, http_method)
@@ -185,8 +210,13 @@ module SolanaRpcRuby
     def get_epoch_info(commitment: nil)
       http_method = :post
       method =  create_method_name(__method__)
+
       params = []
-      params << { 'commitment': commitment } if commitment
+      params_hash = {}
+
+      params_hash['commitment'] = commitment if commitment
+      
+      params << params_hash if params_hash.any?
 
       body = create_json_body(method, method_params: params)
 
@@ -210,8 +240,13 @@ module SolanaRpcRuby
       http_method = :post
       method =  create_method_name(__method__)
 
-      params = [query_blockhash]
-      params << { 'commitment': commitment } if commitment
+      params = []
+      params_hash = {}
+
+      params_hash['commitment'] = commitment if commitment
+
+      params << query_blockhash
+      params << params_hash if params_hash.any?
 
       body = create_json_body(method, method_params: params)
 
@@ -237,7 +272,10 @@ module SolanaRpcRuby
       method =  create_method_name(__method__)
 
       params = []
-      params << { 'commitment': commitment } if commitment
+      params_hash = {}
+
+      params_hash['commitment'] = commitment if commitment
+      params << params_hash if params_hash.any?
 
       body = create_json_body(method, method_params: params)
 
@@ -295,7 +333,11 @@ module SolanaRpcRuby
       method =  create_method_name(__method__)
 
       params = []
-      params << { 'commitment': commitment } if commitment
+      params_hash = {}
+
+      params_hash['commitment'] = commitment if commitment
+
+      params << params_hash if params_hash.any?
       
       body = create_json_body(method, method_params: params)
 
@@ -326,6 +368,7 @@ module SolanaRpcRuby
 
       params_hash['commitment'] = commitment if commitment
       params_hash['epoch'] = epoch if epoch
+
       params << params_hash if params_hash.any?
 
       body = create_json_body(method, method_params: params)
@@ -344,6 +387,7 @@ module SolanaRpcRuby
 
       params_hash['commitment'] = commitment if commitment
       params_hash['filter'] = filter unless filter.empty?
+
       params << params_hash if params_hash.any?
 
       body = create_json_body(method, method_params: params)
@@ -363,6 +407,7 @@ module SolanaRpcRuby
       params_hash['epoch'] = epoch if epoch
       params_hash['identity'] = identity unless identity.empty?
       params_hash['commitment'] = commitment if commitment
+
       params << params_hash if params_hash.any?
 
       body = create_json_body(method, method_params: params)
@@ -479,7 +524,9 @@ module SolanaRpcRuby
       
       params = []
       params_hash = {}
+      
       params_hash['commitment'] = commitment if commitment
+
       params << params_hash if params_hash.any?
 
       body = create_json_body(method, method_params: params)
@@ -495,6 +542,7 @@ module SolanaRpcRuby
       method =  create_method_name(__method__)
       
       params = []
+
       params << limit if limit
 
       body = create_json_body(method, method_params: params)
@@ -531,6 +579,7 @@ module SolanaRpcRuby
       
       params = []
       params_hash = {}
+
       params_hash['limit'] = limit if limit
       params_hash['before'] = before unless before.empty?
       params_hash['until'] = until_ unless until_.empty?
@@ -559,6 +608,7 @@ module SolanaRpcRuby
       
       params = []
       params_hash = {}
+
       params_hash['searchTransactionHistory'] = search_transaction_history if search_transaction_history
 
       params << transaction_signatures
@@ -577,7 +627,9 @@ module SolanaRpcRuby
       
       params = []
       params_hash = {}
+      
       params_hash['commitment'] = commitment if commitment
+
       params << params_hash if params_hash.any?
 
       body = create_json_body(method, method_params: params)
@@ -593,7 +645,9 @@ module SolanaRpcRuby
       
       params = []
       params_hash = {}
+
       params_hash['commitment'] = commitment if commitment
+      
       params << params_hash if params_hash.any?
 
       body = create_json_body(method, method_params: params)
@@ -622,6 +676,7 @@ module SolanaRpcRuby
       
       params = []
       params_hash = {}
+
       params_hash['commitment'] = commitment if commitment
       params_hash['epoch'] = epoch if epoch
 
@@ -641,6 +696,7 @@ module SolanaRpcRuby
       
       params = []
       params_hash = {}
+
       params_hash['commitment'] = commitment if commitment
 
       params << params_hash if params_hash.any?
@@ -659,6 +715,7 @@ module SolanaRpcRuby
       
       params = []
       params_hash = {}
+
       params_hash['commitment'] = commitment if commitment
 
       params << token_account_pubkey
@@ -729,32 +786,32 @@ module SolanaRpcRuby
           length: nil
         )
 
-        raise ArgumentError, 'You should pass mint or program_id, not both.' if !mint.empty? && !program_id.empty?
+      raise ArgumentError, 'You should pass mint or program_id, not both.' if !mint.empty? && !program_id.empty?
 
-        http_method = :post
-        method =  create_method_name(__method__)
-        
-        params = []
-        params_hash = {}
-        params_hash_2 = {}
-        param_data_slice = {}
-  
-        params_hash['mint'] = mint unless mint.empty?
-        params_hash['programId'] = program_id unless program_id.empty?
-  
-        params_hash_2['commitment'] = commitment if commitment
-        params_hash_2['encoding'] = encoding unless encoding.empty?
-  
-        param_data_slice['offset'] = offset if offset
-        param_data_slice['length'] = length if length
-  
-        params_hash_2['dataSlice'] = param_data_slice if param_data_slice.any?
-  
-        params << token_account_pubkey
-        params << params_hash if params_hash.any?
-        params << params_hash_2 if params_hash_2.any?
-  
-        body = create_json_body(method, method_params: params)
+      http_method = :post
+      method =  create_method_name(__method__)
+      
+      params = []
+      params_hash = {}
+      params_hash_2 = {}
+      param_data_slice = {}
+
+      params_hash['mint'] = mint unless mint.empty?
+      params_hash['programId'] = program_id unless program_id.empty?
+
+      params_hash_2['commitment'] = commitment if commitment
+      params_hash_2['encoding'] = encoding unless encoding.empty?
+
+      param_data_slice['offset'] = offset if offset
+      param_data_slice['length'] = length if length
+
+      params_hash_2['dataSlice'] = param_data_slice if param_data_slice.any?
+
+      params << token_account_pubkey
+      params << params_hash if params_hash.any?
+      params << params_hash_2 if params_hash_2.any?
+
+      body = create_json_body(method, method_params: params)
 
       send_request(body, http_method)
     end
@@ -792,6 +849,7 @@ module SolanaRpcRuby
       
       params = []
       params_hash = {}
+
       params_hash['commitment'] = commitment if commitment
       params_hash['encoding'] = encoding if encoding
 
@@ -812,6 +870,7 @@ module SolanaRpcRuby
       
       params = []
       params_hash = {}
+
       params_hash['commitment'] = commitment if commitment
 
       params << params_hash if params_hash.any?
@@ -840,7 +899,11 @@ module SolanaRpcRuby
       method =  create_method_name(__method__)
 
       params = []
-      params << { 'votePubkey': vote_pubkey } if vote_pubkey
+      params_hash = {}
+
+      params_hash['votePubkey'] = vote_pubkey if vote_pubkey
+
+      params << params_hash if params_hash.any?
       params << commitment if commitment
 
       body = create_json_body(method, method_params: params)
@@ -881,6 +944,7 @@ module SolanaRpcRuby
       method =  create_method_name(__method__)
 
       params = []
+
       params << pubkey
       params << lamports
 
