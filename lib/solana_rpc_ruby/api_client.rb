@@ -1,13 +1,21 @@
 require 'net/http'
 
 module SolanaRpcRuby
+  ##
+  # ApiClient class serves as a client for solana JSON RPC API.
+  # @see https://docs.solana.com/developing/clients/jsonrpc-api
   class ApiClient
     # Determines which cluster will be used to send requests.
+    # @return [String]
     attr_accessor :cluster
 
     # Default headers.
+    # @return [Hash]
     attr_accessor :default_headers
 
+    # Initialize object with cluster address where requests will be sent.
+    # 
+    # @param cluster [String] 
     def initialize(cluster = nil)
       @cluster = cluster || SolanaRpcRuby.cluster
 
@@ -15,6 +23,13 @@ module SolanaRpcRuby
       raise ArgumentError, message unless @cluster
     end
     
+    # Sends request to the api.
+    #
+    # @param body [Hash] 
+    # @param http_method [Symbol]
+    # @param params [Hash]
+    # 
+    # @return [Object] Net::HTTPOK
     def call_api(body:, http_method:, params: {})
       uri = URI(@cluster)
 
