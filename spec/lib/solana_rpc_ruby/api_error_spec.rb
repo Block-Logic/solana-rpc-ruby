@@ -4,7 +4,13 @@ describe SolanaRpcRuby::ApiError do
   end
 
   it 'returns correctly formatted error' do
-    error = described_class.new(response)
+    code = response['error']['code']
+    message = response['error']['message']
+
+    error = described_class.new(
+      code: code,
+      message: message
+    )
 
     expect(error.class).to eq(SolanaRpcRuby::ApiError)
     expect(error.message).to eq("Invalid params: invalid type: map, expected a string.")

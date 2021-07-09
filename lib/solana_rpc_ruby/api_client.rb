@@ -32,14 +32,13 @@ module SolanaRpcRuby
     # @return [Object] Net::HTTPOK
     def call_api(body:, http_method:, params: {})
       uri = URI(@cluster)
-
+      
       rpc_response = Net::HTTP.public_send(
         http_method, 
         uri, 
         body, 
         default_headers, 
       )
-
       rpc_response
     end
 
