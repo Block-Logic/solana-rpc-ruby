@@ -135,20 +135,25 @@ module SolanaRpcRuby
     # Returns recent block production information from the current or previous epoch.
     # 
     # @param identity [String]
-    # @param first_slot [Integer]
-    # @param last_slot [Integer]
+    # @param range [Hash]
+    # @option range [Integer] first_slot (required for range)
+    # @option range [Integer] last_slot (optional for range)
     # @param commitment [String]
     # 
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_block_production(identity: nil, first_slot: nil, last_slot: nil, commitment: nil)
+    def get_block_production(identity: nil, range: {}, commitment: nil)
       http_method = :post
       method =  create_method_name(__method__)
 
       params = []
       params_hash = {}
+      range_hash = {}
 
+      range_hash['firstSlot'] = range[:first_slot] unless !range.key?(:first_slot)
+      range_hash['lastSlot'] = range[:last_slot] unless !range.key?(:last_slot)
+      
       params_hash['identity'] = identity unless identity.nil?
-      params_hash['range'] = { 'firstSlot': first_slot, 'lastSlot': last_slot}
+      params_hash['range'] = range_hash unless range_hash.empty?
 
       params << params_hash unless params_hash.empty?
 

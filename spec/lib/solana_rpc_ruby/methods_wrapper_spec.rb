@@ -192,17 +192,18 @@ describe SolanaRpcRuby::MethodsWrapper do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_block_production with optional params') do
             identity = '123vij84ecQEKUvQ7gYMKxKwKF6PbYSzCzzURYA4xULY'
-            first_slot = 82300907
-            last_slot = 82360969
+            range = { 
+              first_slot: 82300907,
+              last_slot: 82360969
+            }
 
             response = described_class.new.get_block_production(
               identity: identity,
-              first_slot: first_slot,
-              last_slot: last_slot
+              range: range
             )
-
+            
             expect(response.result.keys).to eq(["context", "value"])
-            expect(response.result.dig('value', 'range')).to eq({"firstSlot"=>first_slot, "lastSlot"=>last_slot})
+            expect(response.result.dig('value', 'range')).to eq({"firstSlot"=>range[:first_slot], "lastSlot"=>range[:last_slot]})
             expect(response.result.dig('value', 'byIdentity')).to eq({"#{identity}"=>[28, 18]})
           end
         end
