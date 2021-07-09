@@ -32,14 +32,26 @@ module SolanaRpcRuby
     # @return [Object] Net::HTTPOK
     def call_api(body:, http_method:, params: {})
       uri = URI(@cluster)
-      
       rpc_response = Net::HTTP.public_send(
         http_method, 
         uri, 
         body, 
         default_headers, 
       )
+
       rpc_response
+
+    rescue Timeout::Error,
+           Net::HTTPError,
+           Net::HTTPNotFound,
+           Net::HTTPServerException,
+           Net::HTTPFatalError,
+           Net::ReadTimeout => e
+
+      fail ApiError.new(message: e.message)
+    rescue StandardError => e
+      message = "#{e.class} #{e.message}\n Backtrace: \n #{e.backtrace}"
+      fail ApiError.new(message: message)
     end
 
     private
