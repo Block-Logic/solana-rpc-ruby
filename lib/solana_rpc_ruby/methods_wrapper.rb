@@ -36,7 +36,7 @@ module SolanaRpcRuby
     # @option data_slice [Integer] :length
     # 
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_account_info(account_pubkey, encoding: 'base58', data_slice: {})
+    def get_account_info(account_pubkey, encoding: '', data_slice: {})
       http_method = :post
       method =  create_method_name(__method__)
 
@@ -617,7 +617,7 @@ module SolanaRpcRuby
       params_hash = {}
       
       params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
-      params_hash['encoding'] = encoding unless encoding.empty?
+      params_hash['encoding'] = encoding unless encoding.nil? || encoding.empty?
       params_hash['dataSlice'] = data_slice unless data_slice.empty?
       
       params << pubkeys
@@ -656,7 +656,7 @@ module SolanaRpcRuby
       params_hash = {}
       
       params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
-      params_hash['encoding'] = encoding unless encoding.empty?
+      params_hash['encoding'] = encoding unless encoding.nil? || encoding.empty?
       params_hash['dataSlice'] = data_slice unless data_slice.empty?
       params_hash['filters'] = filters unless filters.empty?
       params_hash['withContext'] = with_context
@@ -969,7 +969,7 @@ module SolanaRpcRuby
       params_hash['programId'] = program_id unless program_id.empty?
 
       params_hash_2['commitment'] = commitment unless commitment.nil? || commitment.empty?
-      params_hash_2['encoding'] = encoding unless encoding.empty?
+      params_hash_2['encoding'] = encoding unless encoding.nil? || encoding.empty?
       params_hash_2['dataSlice'] = data_slice unless data_slice.empty?
 
       params << token_account_pubkey
@@ -1020,7 +1020,7 @@ module SolanaRpcRuby
       params_hash['programId'] = program_id unless program_id.empty?
 
       params_hash_2['commitment'] = commitment unless commitment.nil? || commitment.empty?
-      params_hash_2['encoding'] = encoding unless encoding.empty?
+      params_hash_2['encoding'] = encoding unless encoding.nil? || encoding.empty?
       params_hash_2['dataSlice'] = data_slice unless data_slice.empty?
 
       params << token_account_pubkey
@@ -1070,7 +1070,7 @@ module SolanaRpcRuby
     # @param commitment [String]
     # 
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_transaction(transaction_signature, encoding: nil, commitment: nil)
+    def get_transaction(transaction_signature, encoding: '', commitment: nil)
       http_method = :post
       method =  create_method_name(__method__)
       
@@ -1217,7 +1217,7 @@ module SolanaRpcRuby
           transaction_signature, 
           skip_pre_flight: nil,
           pre_flight_commitment: nil,
-          encoding: nil
+          encoding: ''
         )
       http_method = :post
       method =  create_method_name(__method__)
@@ -1227,7 +1227,7 @@ module SolanaRpcRuby
 
       params_hash['skipPreFlight'] = skip_pre_flight unless skip_pre_flight.nil?
       params_hash['preflightCommitment'] = pre_flight_commitment unless pre_flight_commitment.nil?
-      params_hash['encoding'] = encoding unless encoding.nil?
+      params_hash['encoding'] = encoding unless encoding.nil? || encoding.empty?
 
       params << transaction_signature
       params << params_hash unless params_hash.empty?
@@ -1257,9 +1257,9 @@ module SolanaRpcRuby
           accounts_addresses,
           sig_verify: false,
           commitment: nil,
-          encoding: nil,
+          encoding: '',
           replace_recent_blockhash: false,
-          accounts_encoding: nil
+          accounts_encoding: ''
         )
 
       raise ArgumentError, 'Params sig_verify and replace_recent_blockhash cannot both be set to true.' \
@@ -1273,10 +1273,10 @@ module SolanaRpcRuby
       params_hash['accounts'] = {}
 
       params_hash['accounts']['addresses'] = accounts_addresses
-      params_hash['accounts']['encoding'] = accounts_encoding unless accounts_encoding.nil?
+      params_hash['accounts']['encoding'] = accounts_encoding unless accounts_encoding.nil? || accounts_encoding.empty?
       params_hash['sigVerify'] = sig_verify unless sig_verify.nil?
       params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
-      params_hash['encoding'] = encoding unless encoding.nil?
+      params_hash['encoding'] = encoding unless encoding.nil? || encoding.empty?
       params_hash['replaceRecentBlockhash'] = replace_recent_blockhash unless replace_recent_blockhash.nil?
 
       params << transaction_signature
