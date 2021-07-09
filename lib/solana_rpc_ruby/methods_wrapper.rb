@@ -159,7 +159,7 @@ module SolanaRpcRuby
     # @param block [Integer]
     # 
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_block_commitment(block:)
+    def get_block_commitment(block)
       http_method = :post
       method =  create_method_name(__method__)
 
@@ -180,7 +180,7 @@ module SolanaRpcRuby
     # @param end_slot [Integer]
     # 
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_blocks(start_slot:, end_slot: nil)
+    def get_blocks(start_slot, end_slot: nil)
       http_method = :post
       method =  create_method_name(__method__)
 
@@ -203,7 +203,7 @@ module SolanaRpcRuby
     # @param commitment [String]
     # 
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_blocks_with_limit(start_slot:, limit:, commitment: nil)
+    def get_blocks_with_limit(start_slot, limit, commitment: nil)
       http_method = :post
       method =  create_method_name(__method__)
 
@@ -227,7 +227,7 @@ module SolanaRpcRuby
     # @param block [Integer]
     # 
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_block_time(block:)
+    def get_block_time(block)
       http_method = :post
       method =  create_method_name(__method__)
 
@@ -261,7 +261,7 @@ module SolanaRpcRuby
     # @param end_slot [Integer]
     # 
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_confirmed_blocks(start_slot:, end_slot: nil)
+    def get_confirmed_blocks(start_slot, end_slot: nil)
       http_method = :post
       method =  create_method_name(__method__)
 
@@ -317,7 +317,7 @@ module SolanaRpcRuby
     # @param commitment [String]
     # 
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_fee_calculator_for_blockhash(query_blockhash:, commitment: nil)
+    def get_fee_calculator_for_blockhash(query_blockhash, commitment: nil)
       http_method = :post
       method =  create_method_name(__method__)
 

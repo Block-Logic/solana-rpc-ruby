@@ -167,9 +167,7 @@ describe SolanaRpcRuby::MethodsWrapper do
       context 'with required params' do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_block_commitment with required params') do
-            response = described_class.new.get_block_commitment(
-              block: 50000000
-            )
+            response = described_class.new.get_block_commitment(50000000)
 
             expect(response.result['commitment']).to be_nil
             expect(response.result['totalStake']).to eq(79414359613836555)
@@ -215,7 +213,7 @@ describe SolanaRpcRuby::MethodsWrapper do
       context 'without optional params' do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_blocks') do
-            response = described_class.new.get_blocks(start_slot: 5, end_slot: 100)
+            response = described_class.new.get_blocks(5, end_slot: 100)
             expected_result = {
               "jsonrpc"=>"2.0", 
               "result"=>[], 
@@ -236,10 +234,7 @@ describe SolanaRpcRuby::MethodsWrapper do
       context 'with required params' do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_blocks_with_limit with required params') do
-            response = described_class.new.get_blocks_with_limit(
-              start_slot: 5, 
-              limit: 100
-            )
+            response = described_class.new.get_blocks_with_limit(5, 100)
 
             expect(response.result.size).to eq(100)
             expect(response.json_rpc).to eq('2.0')
@@ -253,9 +248,7 @@ describe SolanaRpcRuby::MethodsWrapper do
       context 'with required params' do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_block_time with required params') do
-            response = described_class.new.get_block_time(
-              block: 50_000_000
-            )
+            response = described_class.new.get_block_time(50_000_000)
 
             expect(response.result).to eq(1606682139)
             expect(response.json_rpc).to eq('2.0')
@@ -297,7 +290,7 @@ describe SolanaRpcRuby::MethodsWrapper do
       context 'without optional params' do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_confirmed_blocks') do
-            response = described_class.new.get_confirmed_blocks(start_slot: 5, end_slot: 100)
+            response = described_class.new.get_confirmed_blocks(5, end_slot: 100)
             expected_result = {
               "jsonrpc"=>"2.0", 
               "result"=>[], 
@@ -372,7 +365,7 @@ describe SolanaRpcRuby::MethodsWrapper do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_fee_calculator_for_blockhash') do
             response = described_class.new.get_fee_calculator_for_blockhash(
-              query_blockhash: '5ENJWYp5X6zrAnhBZmZhLKaoWyr2cHXAB24UMVYemBnb'
+              '5ENJWYp5X6zrAnhBZmZhLKaoWyr2cHXAB24UMVYemBnb'
             )
 
             expected_result = {
