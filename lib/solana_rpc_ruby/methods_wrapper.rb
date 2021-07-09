@@ -1255,12 +1255,16 @@ module SolanaRpcRuby
     def simulate_transaction(
           transaction_signature,
           accounts_addresses,
-          sig_verify: nil,
+          sig_verify: false,
           commitment: nil,
           encoding: nil,
-          replace_recent_blockhash: nil,
+          replace_recent_blockhash: false,
           accounts_encoding: nil
         )
+
+      raise ArgumentError, 'Params sig_verify and replace_recent_blockhash cannot both be set to true.' \
+        if sig_verify && replace_recent_blockhash
+
       http_method = :post
       method =  create_method_name(__method__)
 

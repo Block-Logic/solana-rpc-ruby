@@ -1175,6 +1175,7 @@ describe SolanaRpcRuby::MethodsWrapper do
       let(:transaction_signature) do
         '4hXTCkRzt9WyecNzV1XPgCDfGAZzQKNxLXgynz5QDuWWPSAZBZSHptvWRL3BjCvzUXRdKvHL2b7yGrRQcWyaqsaBCncVG7BFggS8w9snUts67BSh3EqKpXLUm5UMHfD7ZBe9GhARjbNQMLJ1QD3Spr6oMTBU6EhdB4RD8CP2xUxr2u3d6fos36PD98XS6oX8TQjLpsMwncs5DAMiD4nNnR8NBfyghGCWvCVifVwvA8B8TJxE1aiyiv2L429BCWfyzAme5sZW8rDb14NeCQHhZbtNqfXhcp2tAnaAT'
       end
+
       context 'with required param' do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('simulate_transaction') do
@@ -1194,6 +1195,21 @@ describe SolanaRpcRuby::MethodsWrapper do
             }
 
             expect(response.result).to eq(expected_result)
+          end
+        end
+      end
+
+      context 'with conflicted params set to true' do
+        it 'returns API error' do
+          VCR.use_cassette('simulate_transaction with conflicted params set to true') do
+            expect do  
+              described_class.new.simulate_transaction(
+                transaction_signature,
+                [],
+                sig_verify: true,
+                replace_recent_blockhash: true
+              )
+            end.to raise_error(ArgumentError, /sig_verify and replace_recent_blockhash cannot both be set to true/)
           end
         end
       end
