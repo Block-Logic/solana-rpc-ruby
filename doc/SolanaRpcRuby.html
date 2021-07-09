@@ -79,7 +79,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/solana_rpc_ruby.rb<span class="defines">,<br />
-  lib/solana_rpc_ruby/version.rb,<br /> lib/solana_rpc_ruby/response.rb,<br /> lib/solana_rpc_ruby/api_error.rb,<br /> lib/solana_rpc_ruby/api_client.rb,<br /> lib/solana_rpc_ruby/request_body.rb,<br /> lib/solana_rpc_ruby/methods_wrapper.rb,<br /> lib/generators/solana_rpc_ruby/install_generator.rb</span>
+  lib/solana_rpc_ruby/version.rb,<br /> lib/solana_rpc_ruby/response.rb,<br /> lib/solana_rpc_ruby/api_error.rb,<br /> lib/solana_rpc_ruby/api_client.rb,<br /> lib/solana_rpc_ruby/request_body.rb,<br /> lib/solana_rpc_ruby/helper_methods.rb,<br /> lib/solana_rpc_ruby/methods_wrapper.rb,<br /> lib/generators/solana_rpc_ruby/install_generator.rb</span>
 </dd>
   </dl>
   
@@ -100,7 +100,7 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="SolanaRpcRuby/Generators.html" title="SolanaRpcRuby::Generators (module)">Generators</a></span>, <span class='object_link'><a href="SolanaRpcRuby/RequestBody.html" title="SolanaRpcRuby::RequestBody (module)">RequestBody</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="SolanaRpcRuby/Generators.html" title="SolanaRpcRuby::Generators (module)">Generators</a></span>, <span class='object_link'><a href="SolanaRpcRuby/HelperMethods.html" title="SolanaRpcRuby::HelperMethods (module)">HelperMethods</a></span>, <span class='object_link'><a href="SolanaRpcRuby/RequestBody.html" title="SolanaRpcRuby::RequestBody (module)">RequestBody</a></span>
     
   
     
@@ -244,30 +244,6 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Config set from initializer.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#opts-class_method" title="opts (class method)">.<strong>opts</strong>  &#x21d2; Array </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Default opts.</p>
 </div></span>
   
 </li>
@@ -562,75 +538,12 @@
 </table>
 </div>
     
-      <div class="method_details ">
-  <h3 class="signature " id="opts-class_method">
-  
-    .<strong>opts</strong>  &#x21d2; <tt>Array</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Default opts.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Array</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>opts.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-29
-30
-31
-32
-33</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby.rb', line 29</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_opts'>opts</span>
-  <span class='ivar'>@opts</span> <span class='op'>||</span> <span class='lbracket'>[</span>
-    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Content-Type: application/json</span><span class='tstring_end'>&#39;</span></span>
-  <span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Thu Jul  8 18:13:08 2021 by
+  Generated on Fri Jul  9 16:27:01 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.6.5).
 </div>
