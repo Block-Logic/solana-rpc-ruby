@@ -23,13 +23,5 @@ module SolanaRpcRuby
     def config
       yield self
     end
-
-    # Default opts.
-    # @return [Array] opts.
-    def opts
-      @opts || [
-        'Content-Type: application/json'
-      ]
-    end
   end
 end
