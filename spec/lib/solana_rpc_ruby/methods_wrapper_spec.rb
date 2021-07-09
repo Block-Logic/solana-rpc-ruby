@@ -951,8 +951,10 @@ describe SolanaRpcRuby::MethodsWrapper do
               mint: 'mint',
               commitment: 'finalized',
               encoding: 'jsonParsed',
-              offset: 10,
-              length: 3
+              data_slice: { 
+                offset: 10,
+                length: 3
+              }
             )
           end
         end
@@ -992,8 +994,10 @@ describe SolanaRpcRuby::MethodsWrapper do
               mint: 'mint',
               commitment: 'finalized',
               encoding: 'jsonParsed',
-              offset: 10,
-              length: 3
+              data_slice: {
+                offset: 10,
+                length: 3
+              }
             )
           end
         end

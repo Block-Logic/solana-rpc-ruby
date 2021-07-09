@@ -5,7 +5,7 @@ require_relative 'request_body'
 module SolanaRpcRuby
   ##
   # MethodsWrapper class serves as a wrapper for solana JSON RPC API methods.
-  # All information about params:
+  # All informations about params:
   # @see https://docs.solana.com/developing/clients/jsonrpc-api#json-rpc-api-reference
   class MethodsWrapper
     include RequestBody
@@ -933,8 +933,9 @@ module SolanaRpcRuby
     # @param program_id [String]
     # @param commitment [String]
     # @param encoding [String]
-    # @param offset [Integer]
-    # @param length [Integer]
+    # @param data_slice [Hash]
+    # @option data_slice [Integer] :offset
+    # @option data_slice [Integer] :length
     # 
     # @return [Response, ApiError] Response when success, ApiError on failure.
     def get_token_accounts_by_delegate(
@@ -943,10 +944,9 @@ module SolanaRpcRuby
           program_id: '',
           commitment: nil,
           encoding: '',
-          offset: nil,
-          length: nil
+          data_slice: {}
         )
-
+        
       raise ArgumentError, 'You should pass mint or program_id, not both.' if !mint.empty? && !program_id.empty?
 
       http_method = :post
@@ -955,18 +955,13 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
       params_hash_2 = {}
-      param_data_slice = {}
 
       params_hash['mint'] = mint unless mint.empty?
       params_hash['programId'] = program_id unless program_id.empty?
 
       params_hash_2['commitment'] = commitment if commitment
       params_hash_2['encoding'] = encoding unless encoding.empty?
-
-      param_data_slice['offset'] = offset if offset
-      param_data_slice['length'] = length if length
-
-      params_hash_2['dataSlice'] = param_data_slice if param_data_slice.any?
+      params_hash_2['dataSlice'] = data_slice if data_slice.any?
 
       params << token_account_pubkey
       params << params_hash if params_hash.any?
@@ -988,8 +983,9 @@ module SolanaRpcRuby
     # @param program_id [String]
     # @param commitment [String]
     # @param encoding [String]
-    # @param offset [Integer]
-    # @param length [Integer]
+    # @param data_slice [Hash]
+    # @option data_slice [Integer] :offset
+    # @option data_slice [Integer] :length
     # 
     # @return [Response, ApiError] Response when success, ApiError on failure.
     def get_token_accounts_by_owner(
@@ -998,8 +994,7 @@ module SolanaRpcRuby
           program_id: '',
           commitment: nil,
           encoding: '',
-          offset: nil,
-          length: nil
+          data_slice: {}
         )
 
       raise ArgumentError, 'You should pass mint or program_id, not both.' if !mint.empty? && !program_id.empty?
@@ -1017,11 +1012,7 @@ module SolanaRpcRuby
 
       params_hash_2['commitment'] = commitment if commitment
       params_hash_2['encoding'] = encoding unless encoding.empty?
-
-      param_data_slice['offset'] = offset if offset
-      param_data_slice['length'] = length if length
-
-      params_hash_2['dataSlice'] = param_data_slice if param_data_slice.any?
+      params_hash_2['dataSlice'] = data_slice if data_slice.any?
 
       params << token_account_pubkey
       params << params_hash if params_hash.any?
