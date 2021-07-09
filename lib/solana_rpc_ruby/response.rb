@@ -27,7 +27,7 @@ module SolanaRpcRuby
 
     # @return [Hash] parsed response body.
     def parsed_response
-      @parsed_response ||= JSON.parse(@response[:response].body)
+      @parsed_response ||= JSON.parse(@response.body)
     end
   end
 end

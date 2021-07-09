@@ -1291,7 +1291,7 @@ module SolanaRpcRuby
       )
 
       if api_response.body
-        response = Response.new(response: api_response)
+        response = Response.new(api_response)
 
         fail ApiError.new(response.parsed_response) if response.parsed_response.key?('error')
 
