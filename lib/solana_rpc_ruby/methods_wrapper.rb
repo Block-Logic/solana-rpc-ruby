@@ -1,6 +1,7 @@
 require 'json'
 require 'pry'
 require_relative 'request_body'
+require_relative 'helper_methods'
 
 module SolanaRpcRuby
   ##
@@ -9,6 +10,7 @@ module SolanaRpcRuby
   # @see https://docs.solana.com/developing/clients/jsonrpc-api#json-rpc-api-reference
   class MethodsWrapper
     include RequestBody
+    include HelperMethods
 
     # Determines which cluster will be used to send requests.
     # @return [SolanaRpcRuby::ApiClient]
@@ -43,7 +45,7 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['encoding'] = encoding unless encoding.nil? || encoding.empty?
+      params_hash['encoding'] = encoding unless blank?(encoding)
       params_hash['dataSlice'] = data_slice unless data_slice.empty?
 
       params << account_pubkey
@@ -69,7 +71,7 @@ module SolanaRpcRuby
 
       params_hash = {}
 
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << account_pubkey
       params << params_hash unless params_hash.empty?
@@ -97,10 +99,10 @@ module SolanaRpcRuby
       params = []
 
       params_hash = {}
-      params_hash['encoding'] = encoding unless encoding.nil? || encoding.empty?
-      params_hash['transactionDetails'] = transaction_details unless transaction_details.nil? || transaction_details.empty?
+      params_hash['encoding'] = encoding unless blank?(encoding)
+      params_hash['transactionDetails'] = transaction_details unless blank?(transaction_details)
       params_hash['rewards'] = rewards unless rewards.nil?
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << slot
       params << params_hash unless params_hash.empty?
@@ -123,7 +125,7 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
       params << params_hash unless params_hash.empty?
 
       body = create_json_body(method, method_params: params)
@@ -152,7 +154,7 @@ module SolanaRpcRuby
       range_hash['firstSlot'] = range[:first_slot] unless !range.key?(:first_slot)
       range_hash['lastSlot'] = range[:last_slot] unless !range.key?(:last_slot)
       
-      params_hash['identity'] = identity unless identity.nil?
+      params_hash['identity'] = identity unless blank?(identity)
       params_hash['range'] = range_hash unless range_hash.empty?
 
       params << params_hash unless params_hash.empty?
@@ -219,7 +221,7 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << start_slot
       params << limit
@@ -297,7 +299,7 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
       
       params << params_hash unless params_hash.empty?
 
@@ -333,7 +335,7 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << query_blockhash
       params << params_hash unless params_hash.empty?
@@ -370,7 +372,7 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
       params << params_hash unless params_hash.empty?
 
       body = create_json_body(method, method_params: params)
@@ -443,7 +445,7 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << params_hash unless params_hash.empty?
       
@@ -482,7 +484,7 @@ module SolanaRpcRuby
 
       params << addresses
 
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
       params_hash['epoch'] = epoch unless epoch.nil?
 
       params << params_hash unless params_hash.empty?
@@ -506,7 +508,7 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
       params_hash['filter'] = filter unless filter.empty?
 
       params << params_hash unless params_hash.empty?
@@ -533,7 +535,7 @@ module SolanaRpcRuby
 
       params_hash['epoch'] = epoch unless epoch.nil?
       params_hash['identity'] = identity unless identity.empty?
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << params_hash unless params_hash.empty?
 
@@ -585,7 +587,7 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
       
       params << account_data_length
       params << params_hash unless params_hash.empty?
@@ -616,8 +618,8 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
       
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
-      params_hash['encoding'] = encoding unless encoding.nil? || encoding.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
+      params_hash['encoding'] = encoding unless blank?(encoding)
       params_hash['dataSlice'] = data_slice unless data_slice.empty?
       
       params << pubkeys
@@ -655,8 +657,8 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
       
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
-      params_hash['encoding'] = encoding unless encoding.nil? || encoding.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
+      params_hash['encoding'] = encoding unless blank?(encoding)
       params_hash['dataSlice'] = data_slice unless data_slice.empty?
       params_hash['filters'] = filters unless filters.empty?
       params_hash['withContext'] = with_context
@@ -683,7 +685,7 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
       
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << params_hash unless params_hash.empty?
 
@@ -755,7 +757,7 @@ module SolanaRpcRuby
       params_hash['limit'] = limit unless limit.nil?
       params_hash['before'] = before unless before.empty?
       params_hash['until'] = until_ unless until_.empty?
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << account_address
       params << params_hash unless params_hash.empty?
@@ -809,7 +811,7 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
       
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << params_hash unless params_hash.empty?
 
@@ -831,7 +833,7 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
       
       params << params_hash unless params_hash.empty?
 
@@ -873,7 +875,7 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
       params_hash['epoch'] = epoch unless epoch.nil?
 
       params << pubkey
@@ -897,7 +899,7 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << params_hash unless params_hash.empty?
 
@@ -921,7 +923,7 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << token_account_pubkey
       params << params_hash unless params_hash.empty?
@@ -968,8 +970,8 @@ module SolanaRpcRuby
       params_hash['mint'] = mint unless mint.empty?
       params_hash['programId'] = program_id unless program_id.empty?
 
-      params_hash_2['commitment'] = commitment unless commitment.nil? || commitment.empty?
-      params_hash_2['encoding'] = encoding unless encoding.nil? || encoding.empty?
+      params_hash_2['commitment'] = commitment unless blank?(commitment)
+      params_hash_2['encoding'] = encoding unless blank?(encoding)
       params_hash_2['dataSlice'] = data_slice unless data_slice.empty?
 
       params << token_account_pubkey
@@ -1019,8 +1021,8 @@ module SolanaRpcRuby
       params_hash['mint'] = mint unless mint.empty?
       params_hash['programId'] = program_id unless program_id.empty?
 
-      params_hash_2['commitment'] = commitment unless commitment.nil? || commitment.empty?
-      params_hash_2['encoding'] = encoding unless encoding.nil? || encoding.empty?
+      params_hash_2['commitment'] = commitment unless blank?(commitment)
+      params_hash_2['encoding'] = encoding unless blank?(encoding)
       params_hash_2['dataSlice'] = data_slice unless data_slice.empty?
 
       params << token_account_pubkey
@@ -1051,7 +1053,7 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << token_mint_pubkey
       params << params_hash unless params_hash.empty?
@@ -1077,8 +1079,8 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
-      params_hash['encoding'] = encoding unless encoding.nil? || encoding.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
+      params_hash['encoding'] = encoding unless blank?(encoding)
 
       params << transaction_signature
       params << params_hash unless params_hash.empty?
@@ -1102,7 +1104,7 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << params_hash unless params_hash.empty?
 
@@ -1139,8 +1141,8 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['votePubkey'] = vote_pubkey unless vote_pubkey.nil?
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
+      params_hash['votePubkey'] = vote_pubkey unless blank?(vote_pubkey)
+      params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << params_hash unless params_hash.empty?
 
@@ -1208,14 +1210,14 @@ module SolanaRpcRuby
     # Submits a signed transaction to the cluster for processing.
     # 
     # @param transaction_signature [String]
-    # @param skip_pre_flight [Integer]
+    # @param skip_pre_flight [Boolean]
     # @param pre_flight_commitment [String]
     # @param encoding [String]
     # 
     # @return [Response, ApiError] Response when success, ApiError on failure.
     def send_transaction(
           transaction_signature, 
-          skip_pre_flight: nil,
+          skip_pre_flight: false,
           pre_flight_commitment: nil,
           encoding: ''
         )
@@ -1226,8 +1228,8 @@ module SolanaRpcRuby
       params_hash = {}
 
       params_hash['skipPreFlight'] = skip_pre_flight unless skip_pre_flight.nil?
-      params_hash['preflightCommitment'] = pre_flight_commitment unless pre_flight_commitment.nil?
-      params_hash['encoding'] = encoding unless encoding.nil? || encoding.empty?
+      params_hash['preflightCommitment'] = pre_flight_commitment unless blank?(pre_flight_commitment)
+      params_hash['encoding'] = encoding unless blank?(encoding)
 
       params << transaction_signature
       params << params_hash unless params_hash.empty?
@@ -1273,10 +1275,10 @@ module SolanaRpcRuby
       params_hash['accounts'] = {}
 
       params_hash['accounts']['addresses'] = accounts_addresses
-      params_hash['accounts']['encoding'] = accounts_encoding unless accounts_encoding.nil? || accounts_encoding.empty?
+      params_hash['accounts']['encoding'] = accounts_encoding unless blank?(accounts_encoding)
       params_hash['sigVerify'] = sig_verify unless sig_verify.nil?
-      params_hash['commitment'] = commitment unless commitment.nil? || commitment.empty?
-      params_hash['encoding'] = encoding unless encoding.nil? || encoding.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
+      params_hash['encoding'] = encoding unless blank?(encoding)
       params_hash['replaceRecentBlockhash'] = replace_recent_blockhash unless replace_recent_blockhash.nil?
 
       params << transaction_signature
