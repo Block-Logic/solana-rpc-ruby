@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email                 = ['email@example.com']
   spec.summary               = 'Ruby wrapper for solana JSON RPC API.'
   spec.description           = 'This gem allows to use JSON RPC API from solana.'
-  spec.homepage              = 'https://github.com/Block-Logic/solana_rpc_ruby'
+  spec.homepage              = 'https://github.com/Block-Logic/solana-rpc-ruby'
   spec.license               = 'MIT'
   spec.platform              = Gem::Platform::RUBY
   spec.required_ruby_version = '>= 2.6.5'
