@@ -18,10 +18,5 @@ describe SolanaRpcRuby do
       expect(fake_class).to receive(:json_rpc_version=).with('2.0')
       fake_class.json_rpc_version = '2.0'
     end
-
-    it 'is possible to set encoding' do
-      expect(fake_class).to receive(:encoding=).with('base58')
-      fake_class.encoding = 'base58'
-    end
   end
 end

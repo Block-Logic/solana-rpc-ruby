@@ -14,10 +14,6 @@ module SolanaRpcRuby
     # @return [String] json rpc version.
     attr_accessor :json_rpc_version
 
-    # Default encoding that will be used.
-    # @return [String] encoding.
-    attr_accessor :encoding
-
     # Config set from initializer.
     # @return [String] encoding.
     def config

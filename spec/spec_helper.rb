@@ -27,5 +27,4 @@ end
 SolanaRpcRuby.config do |c|
   c.json_rpc_version = '2.0'
   c.cluster = 'https://api.testnet.solana.com'
-  c.encoding = 'base58'
 end
