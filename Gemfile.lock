@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    solana_rpc_ruby (1.0.0)
+    solana_rpc_ruby (1.0.0.pre)
 
 GEM
   remote: http://rubygems.org/
