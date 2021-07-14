@@ -1,4 +1,3 @@
-require 'pry'
 require 'vcr'
 
 describe SolanaRpcRuby::ApiClient do 

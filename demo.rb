@@ -1,5 +1,4 @@
 require_relative 'lib/solana_rpc_ruby'
-require 'pry'
 
 account_pubkey = '71bhKKL89U3dNHzuZVZ7KarqV6XtHEgjXjvJTsguD11B'
 

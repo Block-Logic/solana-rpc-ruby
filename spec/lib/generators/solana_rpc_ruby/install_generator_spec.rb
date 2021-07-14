@@ -1,5 +1,4 @@
 require 'generators/solana_rpc_ruby/install_generator'
-require 'pry'
 
 describe SolanaRpcRuby::Generators::InstallGenerator do
   before :all do
