@@ -6,7 +6,7 @@ module SolanaRpcRuby
 
       desc 'Creates a SolanaRpcRuby config file.'
       def copy_config
-        template 'solana_rpc_ruby_config.rb', "#{Rails.root}/config/solana_rpc_ruby.rb"
+        template 'solana_rpc_ruby_config.rb', "#{Rails.root}/config/initializers/solana_rpc_ruby.rb"
       end
     end
   end
