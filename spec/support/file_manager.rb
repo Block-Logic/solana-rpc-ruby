@@ -2,7 +2,7 @@ require 'fileutils'
 
 module FileManager
   def config_file
-    "#{Rails.root}/config/solana_rpc_ruby.rb"
+    "#{Rails.root}/config/initializers/solana_rpc_ruby.rb"
   end
 
   def add_config
