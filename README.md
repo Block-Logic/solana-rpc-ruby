@@ -21,7 +21,7 @@ Next, you need to run the generator:
 rails g solana_rpc_ruby:install
 ```
 
-The latter command will generate a new config file `config/solana_rpc_ruby_config.rb` looking like this:
+The latter command will generate a new config file `config/initializers/solana_rpc_ruby_config.rb` looking like this:
 
 ```ruby
 require 'solana_rpc_ruby'
