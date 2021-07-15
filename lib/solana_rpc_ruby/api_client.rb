@@ -14,29 +14,29 @@ module SolanaRpcRuby
     attr_accessor :default_headers
 
     # Initialize object with cluster address where requests will be sent.
-    # 
-    # @param cluster [String] 
+    #
+    # @param cluster [String]
     def initialize(cluster = nil)
       @cluster = cluster || SolanaRpcRuby.cluster
 
       message = 'Cluster is missing. Please provide default cluster in config or pass it to the client directly.'
       raise ArgumentError, message unless @cluster
     end
-    
+
     # Sends request to the api.
     #
-    # @param body [Hash] 
+    # @param body [Hash]
     # @param http_method [Symbol]
     # @param params [Hash]
-    # 
+    #
     # @return [Object] Net::HTTPOK
     def call_api(body:, http_method:, params: {})
       uri = URI(@cluster)
       rpc_response = Net::HTTP.public_send(
-        http_method, 
-        uri, 
-        body, 
-        default_headers, 
+        http_method,
+        uri,
+        body,
+        default_headers,
       )
 
       rpc_response
@@ -44,7 +44,7 @@ module SolanaRpcRuby
     rescue Timeout::Error,
            Net::HTTPError,
            Net::HTTPNotFound,
-           Net::HTTPServerException,
+           Net::HTTPClientException,
            Net::HTTPFatalError,
            Net::ReadTimeout => e
 
