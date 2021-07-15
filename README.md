@@ -42,7 +42,8 @@ response = method_wrapper.get_account_info(account_pubkey)
 puts response
 ```
 
-All info about methods you can find in the docs on: FILL THE ADDRESS!!!
+All info about methods you can find in the docs on: https://www.rubydoc.info/github/Block-Logic/solana-rpc-ruby/main/SolanaRpcRuby
+
 Also, as a reference you can use docs from solana: https://docs.solana.com/developing/clients/jsonrpc-api
 ## License
 
