@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
@@ -57,18 +57,18 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'>
-<p><img src="https://github.com/Block-Logic/solana-rpc-ruby/actions/workflows/specs.yml/badge.svg?branch=177580443_create_wrapper_for_solana_rpc"></p>
+      <div id="content"><div id='filecontents'><p><img src="https://github.com/Block-Logic/solana-rpc-ruby/actions/workflows/specs.yml/badge.svg?branch=177580443_create_wrapper_for_solana_rpc" alt="specs"></p>
 
-<h1 id="label-solana_rpc_ruby">solana_rpc_ruby</h1>
+<h1 id="solana_rpc_ruby">solana_rpc_ruby</h1>
 
-<p>A Solana RPC Client for Ruby. This gem provides a wrapper methods for Solana RPC JSON API <a href="https://docs.solana.com/developing/clients/jsonrpc-api">docs.solana.com/developing/clients/jsonrpc-api</a>.</p>
+<p>A Solana RPC Client for Ruby. This gem provides a wrapper methods for Solana RPC JSON API <a href="https://docs.solana.com/developing/clients/jsonrpc-api">https://docs.solana.com/developing/clients/jsonrpc-api</a>.</p>
 
-<h2 id="label-Getting+started">Getting started</h2>
+<h2 id="getting-started">Getting started</h2>
 
-<h3 id="label-Requirements">Requirements</h3>
+<h3 id="requirements">Requirements</h3>
 
-<p>This gem requires Ruby 2.6+ and h Rails 6.0+. It MIGHT work with lower versions, but was not tested againt them. Add the following line to your Gemfile:</p>
+<p>This gem requires Ruby 2.6+ and h Rails 6.0+. It MIGHT work with lower versions, but was not tested againt them.
+Add the following line to your Gemfile:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>solana_rpc_ruby</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
@@ -77,10 +77,10 @@
 
 <p>Next, you need to run the generator:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_rails'>rails</span> <span class='id identifier rubyid_g'>g</span> <span class='label'>solana_rpc_ruby:</span><span class='id identifier rubyid_install'>install</span>
+<pre class="code console"><code class="console">rails g solana_rpc_ruby:install
 </code></pre>
 
-<p>The latter command will generate a new config file <code>config/solana_rpc_ruby_config.rb</code> looking like this:</p>
+<p>The latter command will generate a new config file <code>config/initializers/solana_rpc_ruby_config.rb</code> looking like this:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>solana_rpc_ruby</span><span class='tstring_end'>&#39;</span></span>
 
@@ -93,7 +93,7 @@
 
 <p>You can customize it to your needs.</p>
 
-<h3 id="label-Usage+examples">Usage examples</h3>
+<h3 id="usage-examples">Usage examples</h3>
 
 <pre class="code ruby"><code class="ruby"><span class='comment'># If you set default cluster you don&#39;t need to pass it every time.
 </span><span class='id identifier rubyid_method_wrapper'>method_wrapper</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="SolanaRpcRuby.html" title="SolanaRpcRuby (module)">SolanaRpcRuby</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="SolanaRpcRuby/MethodsWrapper.html" title="SolanaRpcRuby::MethodsWrapper (class)">MethodsWrapper</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="SolanaRpcRuby/MethodsWrapper.html#initialize-instance_method" title="SolanaRpcRuby::MethodsWrapper#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>cluster:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>https://api.testnet.solana.com</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -101,17 +101,18 @@
 <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_response'>response</span>
 </code></pre>
 
-<p>All info about methods you can find in the docs on: FILL THE ADDRESS!!! Also, as a reference you can use docs from solana: <a href="https://docs.solana.com/developing/clients/jsonrpc-api">docs.solana.com/developing/clients/jsonrpc-api</a></p>
+<p>All info about methods you can find in the docs on: FILL THE ADDRESS!!!
+Also, as a reference you can use docs from solana: <a href="https://docs.solana.com/developing/clients/jsonrpc-api">https://docs.solana.com/developing/clients/jsonrpc-api</a></p>
 
-<h2 id="label-License">License</h2>
+<h2 id="license">License</h2>
 
-<p>Copyright © [Block Logic Team]. License type is <a href="https://github.com/Block-Logic/solana-rpc-ruby/blob/main/LICENSE">MIT</a>.</p>
+<p>Copyright (c) [Block Logic Team]. License type is <a href="https://github.com/Block-Logic/solana-rpc-ruby/blob/main/LICENSE">MIT</a>.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Tue Jul 13 17:27:30 2021 by
+  Generated on Thu Jul 15 18:30:11 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.6.5).
+  0.9.25 (ruby-2.6.5).
 </div>
 
     </div>

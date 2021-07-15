@@ -6,7 +6,7 @@
 <title>
   Exception: SolanaRpcRuby::ApiError
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
@@ -289,7 +289,7 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>code:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>message:</span><span class='rparen'>)</span>
   <span class='ivar'>@code</span> <span class='op'>=</span> <span class='id identifier rubyid_code'>code</span>
-  <span class='ivar'>@message</span> <span class='op'>=</span> <span class='id identifier rubyid_message'>message</span>
+  <span class='ivar'>@message</span> <span class='op'>=</span> <span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
 
   <span class='kw'>super</span> <span class='id identifier rubyid_message'>message</span>
 <span class='kw'>end</span></pre>
@@ -421,9 +421,9 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Jul 13 17:27:30 2021 by
+  Generated on Thu Jul 15 18:30:12 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.6.5).
+  0.9.25 (ruby-2.6.5).
 </div>
 
     </div>
