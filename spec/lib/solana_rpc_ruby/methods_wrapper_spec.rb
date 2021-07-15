@@ -59,7 +59,9 @@ describe SolanaRpcRuby::MethodsWrapper do
           end
         end
 
-        xit 'returns correct data with json encoding' do
+        it 'returns correct data with base64 even though json was demanded' do
+          # From docs:
+          #  If "jsonParsed" is requested but a parser cannot be found, the field falls back to "base64" encoding.
           VCR.use_cassette('get_account_info with json encoding') do
             encoding = 'jsonParsed'
             response = described_class.new.get_account_info(
@@ -67,7 +69,7 @@ describe SolanaRpcRuby::MethodsWrapper do
               encoding: encoding
             )
             # request is correct but data is returned in base64, don't know why
-            expect(response.result.dig('value', 'data')[1]).to eq(encoding)
+            expect(response.result.dig('value', 'data')[1]).to eq('base64')
           end
         end
       end
