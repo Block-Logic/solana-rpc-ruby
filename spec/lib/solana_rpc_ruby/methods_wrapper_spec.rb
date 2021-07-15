@@ -673,14 +673,13 @@ describe SolanaRpcRuby::MethodsWrapper do
     end
 
     describe '#get_program_accounts' do
-      let(:pubkey) { '9uV8rBceE4L5MPaZjHtgM1j3vgeasYvbpjHc1k44zai1' }
+      let(:program_key) { 'Vote111111111111111111111111111111111111111' }
 
       context 'without optional params' do
         it 'returns correct data from endpoint'  do
           VCR.use_cassette('get_program_accounts') do
-            response = described_class.new.get_program_accounts(pubkey)
-
-            expect(response.result).to eq([])
+            response = described_class.new.get_program_accounts(program_key)
+            expect(response.result.size).to eq(2824)
           end
         end
       end
@@ -691,7 +690,7 @@ describe SolanaRpcRuby::MethodsWrapper do
         it 'returns correct data from endpoint'  do
           VCR.use_cassette('get_program_accounts with optional params') do
             response = described_class.new.get_program_accounts(
-              pubkey,
+              program_key,
               encoding: 'base64',
               data_slice: { offset: 1, length: 1 },
               filters: [

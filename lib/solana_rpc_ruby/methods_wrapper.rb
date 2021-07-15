@@ -639,6 +639,12 @@ module SolanaRpcRuby
     # @option data_slice [Integer] :offset
     # @option data_slice [Integer] :length
     # @param filters [Array<Hash, Hash>]
+    # @option filters [Hash<String, Integer>]
+    #   * dataSize, Integer, 1
+    # @option filters [Hash<String, Hash>]
+    #   * memcmp, Hash<String, Object>
+    #     * offset, Integer, 1
+    #     * bytes, String, '3Mc6vR'
     # @param with_context [Boolean]
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
