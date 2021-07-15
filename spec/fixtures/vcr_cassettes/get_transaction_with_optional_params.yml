@@ -1,0 +1,41 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.testnet.solana.com/
+    body:
+      encoding: UTF-8
+      string: '{"jsonrpc":"2.0","id":1,"method":"getTransaction","params":["36TLd62HWMovqgJSZzgq8XUBF2j7kS7nXpRqRpYS6EmN7rD5axGR4D5vnz21YE5Bk3ZACYVgZYRGxAafJo3VjcxM",{"encoding":"base58"}]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.testnet.solana.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 01 Jul 2021 12:16:49 GMT
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: '{"jsonrpc":"2.0","result":{"blockTime":1624339578,"meta":{"err":null,"fee":5000,"innerInstructions":[],"logMessages":["Program
+        Vote111111111111111111111111111111111111111 invoke [1]","Program Vote111111111111111111111111111111111111111
+        success"],"postBalances":[486970147752,1600460010105,1,1,1],"postTokenBalances":[],"preBalances":[486970152752,1600460010105,1,1,1],"preTokenBalances":[],"rewards":[],"status":{"Ok":null}},"slot":82507366,"transaction":["3cZS7wbtMVaSjCu5qXVdaZcHy6e43Fn2DKVbdor4kVadeCejvxAbAAuetsxBDz7f2KAsep2mCXv9kqnYYs3A1s2eydaaWXTwkokKA8Mun9xAmu7ri74whgM51BeT46D85LGVe5NmfNjybP4TTkGu1xyeDWbpiEBMdThhwiTLyg9WGS2FuSLBZHciP9KipPDtdixwRtBbrLfpCERVGb7yLubQn3tmU1SNdJH7j3AB3Tc7QLzf8P8aZkmEAcRhdK6oSfsvyhtveqzRjWjYAQvzVFmu5oXv4yXuMPVWZthrgtz8wQdkjcv3ZtHFqDSeQc3oCdZ2iBGdBkJr8SrZefzu8Yz2kZvSWZPTVn53RcbmAy5EpjjM1ANUX6GhJegtbBGYQsDRkeYewcGNXmcTHMLcty9zAUqy4VKMuMm4NSnLevhCXKnAbcKmhoomHmNGH2HPJo4cUMit2pGLm1BT2A7eZDa7","base58"]},"id":1}
+
+        '
+  recorded_at: Thu, 01 Jul 2021 12:16:51 GMT
+recorded_with: VCR 6.0.0

@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.testnet.solana.com/
+    body:
+      encoding: UTF-8
+      string: '{"jsonrpc":"2.0","id":1,"method":"getMultipleAccounts","params":[["CX1QZWh9rJnJ6H6XNxyjBqEPDxhA7gENWVcToHvgLqb4","ConnvAV6R69HQpSPEi82XW9SJzRDrijg9VuJHCscrMKY"],{"encoding":"base64","dataSlice":{"offset":5,"length":1}}]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.testnet.solana.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 30 Jun 2021 11:31:57 GMT
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: '{"jsonrpc":"2.0","result":{"context":{"slot":83035488},"value":[{"data":["Rg==","base64"],"executable":false,"lamports":3521208340839,"owner":"Vote111111111111111111111111111111111111111","rentEpoch":204},{"data":["AQ==","base64"],"executable":false,"lamports":108210555413508,"owner":"Vote111111111111111111111111111111111111111","rentEpoch":204}]},"id":1}
+
+        '
+  recorded_at: Wed, 30 Jun 2021 11:31:57 GMT
+recorded_with: VCR 6.0.0

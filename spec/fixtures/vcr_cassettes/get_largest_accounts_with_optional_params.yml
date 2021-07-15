@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.testnet.solana.com/
+    body:
+      encoding: UTF-8
+      string: '{"jsonrpc":"2.0","id":1,"method":"getLargestAccounts","params":[{"filter":"circulating"}]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.testnet.solana.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 30 Jun 2021 10:09:30 GMT
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: '{"jsonrpc":"2.0","result":{"context":{"slot":83025918},"value":[{"address":"4Rf9mGD7FeYknun5JczX5nGLTfQuS1GRjNVfkEMKE92b","lamports":398178060209179312},{"address":"KchK7WTjPzq9QL5aCwnV1dLsT8rFjruS1Zfzamxus9G","lamports":215100475608555000},{"address":"8oRw7qpj6XgLGXYCDuNoTMCqoJnDd6A8LTpNyqApSfkA","lamports":99999675536401349},{"address":"9oKrJ9iiEnCC7bewcRFbcdo4LKL2PhUEqcu8gH2eDbVM","lamports":97721651026111777},{"address":"3ANJb42D3pkVtntgT6VtW2cD3icGVyoHi2NGwtXYHQAs","lamports":91160816739573142},{"address":"K7DbiDcRngs4KY3KxSUcMFNEzXW7iQgi3zFzerXYYDZ","lamports":80000000000000000},{"address":"mvines9iiHiQTysrwkJjGf2gb9Ex9jXJX8ns3qwf2kN","lamports":53925298123552905},{"address":"71bhKKL89U3dNHzuZVZ7KarqV6XtHEgjXjvJTsguD11B","lamports":21949231980028221},{"address":"57DPUrAncC4BUY7KBqRMCQUt4eQeMaJWpmLQwsL35ojZ","lamports":18210922251235879},{"address":"hQBS6cu8RHkXcCzE6N8mQxhgrtbNy4kivoRjTMzF2cA","lamports":18191952934293021},{"address":"5vxoRv2P12q4K4cWPCJkvPjg6jYnuCYxzF3juJZJiwba","lamports":14225826282894687},{"address":"2tZoLFgcbeW8Howq8QMRnExvuwHFUeEnx9ZhHq2qX77E","lamports":10099332705143426},{"address":"5NH47Zk9NAzfbtqNpUtn8CQgNZeZE88aa2NRpfe7DyTD","lamports":10000061532295270},{"address":"4xxV5Svt3LPsDv81seuqKB4QXxwhdQiFXzbj9GNYXkEr","lamports":10000000000000000},{"address":"GoCxdowvFindZVAXP3QsKRP3rR2LZBNXWwp3FB1yZznF","lamports":9796480999955000},{"address":"7arfejY2YxX9QrmzHrhu3rG3HofjMqKtfBzQLf8s3Wop","lamports":5465067221872347},{"address":"5TkrtJfHoX85sti8xSVvfggVV9SDvhjYjiXe9PqMJVN9","lamports":5384145919048672},{"address":"123vij84ecQEKUvQ7gYMKxKwKF6PbYSzCzzURYA4xULY","lamports":4350561885820886},{"address":"7vYe2KRUL2sbqSqbCn4UCvn2taaTJWvo3HBsPjZcEogG","lamports":3983999997415000},{"address":"7aeNmoVKnbxUSZGukYz2Gyr3UazXpaxATNszKu8XMW1k","lamports":3324774979081580}]},"id":1}
+
+        '
+  recorded_at: Wed, 30 Jun 2021 10:09:31 GMT
+recorded_with: VCR 6.0.0

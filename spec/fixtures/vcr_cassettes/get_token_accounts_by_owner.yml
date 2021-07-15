@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.mainnet-beta.solana.com/
+    body:
+      encoding: UTF-8
+      string: '{"jsonrpc":"2.0","id":1,"method":"getTokenAccountsByOwner","params":["122FAHxVFQDQjzgSBSNUmLJXJxG4ooUwLdYvgf3ASs2K",{"mint":"4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R"}]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.mainnet-beta.solana.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 15 Jul 2021 11:01:59 GMT
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: '{"jsonrpc":"2.0","result":{"context":{"slot":87149255},"value":[{"account":{"data":"qpJ4yNiR5j7UVVJG46YuizxkrL7UJpsJv5R9i45pg1gLm8C1Ymf9nuJtDVgkwcB6R4javmTdC73UJGdDsRKTwDv3FMB2KejVNH2d36FgbuXxugtxQstxs3K1tLye76oudJYETtZf6Eo7GUN5q9bUUnkBWZz5FykgdXdx2Wai6k7zEqS8zLnKpEGwbeKCtunazaAWFBo4FTCjDkCJ97adZS8MzupjrcEf9","executable":false,"lamports":2039280,"owner":"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA","rentEpoch":200},"pubkey":"J3Rknuc3CjskKE4H1BUmRFtGffpsWFT1NSPevxWqLCx1"}]},"id":1}
+
+'
+  recorded_at: Thu, 15 Jul 2021 13:02:01 GMT
+recorded_with: VCR 6.0.0

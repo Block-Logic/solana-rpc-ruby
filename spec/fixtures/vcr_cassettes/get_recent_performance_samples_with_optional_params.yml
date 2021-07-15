@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.testnet.solana.com/
+    body:
+      encoding: UTF-8
+      string: '{"jsonrpc":"2.0","id":1,"method":"getRecentPerformanceSamples","params":[10]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.testnet.solana.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 30 Jun 2021 15:09:10 GMT
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: '{"jsonrpc":"2.0","result":[{"numSlots":91,"numTransactions":67251,"samplePeriodSecs":60,"slot":83056219},{"numSlots":88,"numTransactions":78180,"samplePeriodSecs":60,"slot":83056128},{"numSlots":94,"numTransactions":76902,"samplePeriodSecs":60,"slot":83056040},{"numSlots":93,"numTransactions":73456,"samplePeriodSecs":60,"slot":83055946},{"numSlots":80,"numTransactions":88389,"samplePeriodSecs":60,"slot":83055853},{"numSlots":89,"numTransactions":82156,"samplePeriodSecs":60,"slot":83055773},{"numSlots":95,"numTransactions":70631,"samplePeriodSecs":60,"slot":83055684},{"numSlots":90,"numTransactions":85765,"samplePeriodSecs":60,"slot":83055589},{"numSlots":95,"numTransactions":75604,"samplePeriodSecs":60,"slot":83055499},{"numSlots":87,"numTransactions":79404,"samplePeriodSecs":60,"slot":83055404}],"id":1}
+
+        '
+  recorded_at: Wed, 30 Jun 2021 15:09:11 GMT
+recorded_with: VCR 6.0.0

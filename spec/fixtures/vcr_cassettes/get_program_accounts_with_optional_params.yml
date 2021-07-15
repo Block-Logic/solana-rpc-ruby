@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.testnet.solana.com/
+    body:
+      encoding: UTF-8
+      string: '{"jsonrpc":"2.0","id":1,"method":"getProgramAccounts","params":["Vote111111111111111111111111111111111111111",{"encoding":"base64","dataSlice":{"offset":1,"length":1},"filters":[{"dataSize":2},{"memcmp":{"offset":4,"bytes":"3Mc6vR"}}],"withContext":true}]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.testnet.solana.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 15 Jul 2021 13:32:11 GMT
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: '{"jsonrpc":"2.0","result":{"context":{"slot":85057364},"value":[]},"id":1}
+
+'
+  recorded_at: Thu, 15 Jul 2021 15:32:12 GMT
+recorded_with: VCR 6.0.0
