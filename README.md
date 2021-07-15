@@ -1,4 +1,4 @@
-![specs](https://github.com/Block-Logic/solana-rpc-ruby/actions/workflows/specs.yml/badge.svg?branch=177580443_create_wrapper_for_solana_rpc)
+![specs](https://github.com/Block-Logic/solana-rpc-ruby/actions/workflows/specs.yml/badge.svg)
 # solana_rpc_ruby
 A Solana RPC Client for Ruby. This gem provides a wrapper methods for Solana RPC JSON API https://docs.solana.com/developing/clients/jsonrpc-api.
 
