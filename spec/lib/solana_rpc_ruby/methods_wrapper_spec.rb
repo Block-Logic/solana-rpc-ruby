@@ -675,10 +675,14 @@ describe SolanaRpcRuby::MethodsWrapper do
     describe '#get_program_accounts' do
       let(:program_key) { 'Vote111111111111111111111111111111111111111' }
 
-      context 'without optional params' do
+      context 'with optional params (without slicing data is too big)' do
         it 'returns correct data from endpoint'  do
           VCR.use_cassette('get_program_accounts') do
-            response = described_class.new.get_program_accounts(program_key)
+            response = described_class.new.get_program_accounts(
+              program_key,
+              data_slice: { offset: 1, length: 1 }
+            )
+
             expect(response.result.size).to eq(2824)
           end
         end
