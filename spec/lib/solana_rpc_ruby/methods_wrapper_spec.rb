@@ -5,11 +5,13 @@ describe SolanaRpcRuby::MethodsWrapper do
     let(:account_pubkey) { '71bhKKL89U3dNHzuZVZ7KarqV6XtHEgjXjvJTsguD11B'}
     let(:stake_boss_account_pubkey) { 'BossttsdneANBePn2mJhooAewt3fo4aLg7enmpgMvdoH' }
     let(:testnet_cluster) { 'https://api.testnet.solana.com' }
-    let(:signatures) do 
+    let(:mainnet_cluster) { 'https://api.mainnet-beta.solana.com' }
+
+    let(:signatures) do
       [
         '36TLd62HWMovqgJSZzgq8XUBF2j7kS7nXpRqRpYS6EmN7rD5axGR4D5vnz21YE5Bk3ZACYVgZYRGxAafJo3VjcxM',
         '3XLkMhuv6SszY4x5Bn91hgWHQdhNVDXAxG6pxqcCCtex6NfhGn9DB5ZxXyBVzVy2mBkh2d5c7NZZzQ9jdGhRrVrH'
-      ] 
+      ]
     end
 
     describe '#get_account_info' do
@@ -22,12 +24,12 @@ describe SolanaRpcRuby::MethodsWrapper do
               "id"=>1,
               "jsonrpc"=>"2.0",
               "result"=>{
-                "context"=>{"slot"=>81319292}, 
+                "context"=>{"slot"=>81319292},
                 "value"=>{
-                  "data"=>["", "base58"], 
-                  "executable"=>false, 
-                  "lamports"=>21949231980027307, 
-                  "owner"=>"11111111111111111111111111111111", 
+                  "data"=>["", "base58"],
+                  "executable"=>false,
+                  "lamports"=>21949231980027307,
+                  "owner"=>"11111111111111111111111111111111",
                   "rentEpoch"=>200
                 }
               }
@@ -78,15 +80,15 @@ describe SolanaRpcRuby::MethodsWrapper do
             response = described_class.new.get_balance(stake_boss_account_pubkey)
 
             expected_result = {
-              "jsonrpc"=>"2.0", 
+              "jsonrpc"=>"2.0",
               "result"=>{
-                "context"=>{"slot"=>82106586}, 
+                "context"=>{"slot"=>82106586},
                 "value"=>3999645000
-              }, 
+              },
               "id"=>1
             }
 
-            expect(response.result).to eq(expected_result['result'])          
+            expect(response.result).to eq(expected_result['result'])
             expect(response.json_rpc).to eq('2.0')
             expect(response.id).to eq(1)
           end
@@ -102,7 +104,7 @@ describe SolanaRpcRuby::MethodsWrapper do
 
             expect(response.result.size).to eq(7)
             expect(response.result['rewards'].size).to eq(441)
-            expect(response.result['transactions'].size).to eq(452)            
+            expect(response.result['transactions'].size).to eq(452)
             expect(response.json_rpc).to eq('2.0')
             expect(response.id).to eq(1)
           end
@@ -133,7 +135,7 @@ describe SolanaRpcRuby::MethodsWrapper do
 
             expect(response.result).to eq(expected_result['result'])
             expect(response.result['rewards']).to be_nil
-            expect(response.result['transactions']).to be_nil   
+            expect(response.result['transactions']).to be_nil
             expect(response.json_rpc).to eq('2.0')
             expect(response.id).to eq(1)
           end
@@ -192,7 +194,7 @@ describe SolanaRpcRuby::MethodsWrapper do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_block_production with optional params') do
             identity = '123vij84ecQEKUvQ7gYMKxKwKF6PbYSzCzzURYA4xULY'
-            range = { 
+            range = {
               first_slot: 82300907,
               last_slot: 82360969
             }
@@ -201,7 +203,7 @@ describe SolanaRpcRuby::MethodsWrapper do
               identity: identity,
               range: range
             )
-            
+
             expect(response.result.keys).to eq(["context", "value"])
             expect(response.result.dig('value', 'range')).to eq({"firstSlot"=>range[:first_slot], "lastSlot"=>range[:last_slot]})
             expect(response.result.dig('value', 'byIdentity')).to eq({"#{identity}"=>[28, 18]})
@@ -216,8 +218,8 @@ describe SolanaRpcRuby::MethodsWrapper do
           VCR.use_cassette('get_blocks') do
             response = described_class.new.get_blocks(5, end_slot: 100)
             expected_result = {
-              "jsonrpc"=>"2.0", 
-              "result"=>[], 
+              "jsonrpc"=>"2.0",
+              "result"=>[],
               "id"=>1
             }
 
@@ -275,13 +277,13 @@ describe SolanaRpcRuby::MethodsWrapper do
           response = described_class.new.get_epoch_schedule
 
           expected_result = {
-            "firstNormalEpoch"=>14, 
-            "firstNormalSlot"=>524256, 
-            "leaderScheduleSlotOffset"=>432000, 
-            "slotsPerEpoch"=>432000, 
+            "firstNormalEpoch"=>14,
+            "firstNormalSlot"=>524256,
+            "leaderScheduleSlotOffset"=>432000,
+            "slotsPerEpoch"=>432000,
             "warmup"=>true
           }
-        
+
           expect(response.result).to eq(expected_result)
         end
       end
@@ -293,8 +295,8 @@ describe SolanaRpcRuby::MethodsWrapper do
           VCR.use_cassette('get_confirmed_blocks') do
             response = described_class.new.get_confirmed_blocks(5, end_slot: 100)
             expected_result = {
-              "jsonrpc"=>"2.0", 
-              "result"=>[], 
+              "jsonrpc"=>"2.0",
+              "result"=>[],
               "id"=>1
             }
 
@@ -339,15 +341,15 @@ describe SolanaRpcRuby::MethodsWrapper do
           VCR.use_cassette('get_epoch_info with commitment') do
             response = described_class.new.get_epoch_info(commitment: 'confirmed')
             expected_result = {
-              "jsonrpc"=>"2.0", 
+              "jsonrpc"=>"2.0",
               "result"=>{
-                "absoluteSlot"=>81981060, 
-                "blockHeight"=>67823574, 
-                "epoch"=>202, 
-                "slotIndex"=>240804, 
-                "slotsInEpoch"=>432000, 
+                "absoluteSlot"=>81981060,
+                "blockHeight"=>67823574,
+                "epoch"=>202,
+                "slotIndex"=>240804,
+                "slotsInEpoch"=>432000,
                 "transactionCount"=>25746869785
-              }, 
+              },
               "id"=>1
             }
 
@@ -357,7 +359,7 @@ describe SolanaRpcRuby::MethodsWrapper do
             expect(response.json_rpc).to eq('2.0')
             expect(response.id).to eq(1)
           end
-        end 
+        end
       end
     end
 
@@ -370,12 +372,12 @@ describe SolanaRpcRuby::MethodsWrapper do
             )
 
             expected_result = {
-              "context"=>{"slot"=>82383838}, 
+              "context"=>{"slot"=>82383838},
               "value"=>{
                 "feeCalculator"=>{"lamportsPerSignature"=>5000}
               }
             }
-            
+
             expect(response.result).to eq(expected_result)
           end
         end
@@ -389,14 +391,14 @@ describe SolanaRpcRuby::MethodsWrapper do
 
           expected_value = {
             "feeRateGovernor"=>{
-              "burnPercent"=>50, 
-              "maxLamportsPerSignature"=>100000, 
-              "minLamportsPerSignature"=>5000, 
-              "targetLamportsPerSignature"=>10000, 
+              "burnPercent"=>50,
+              "maxLamportsPerSignature"=>100000,
+              "minLamportsPerSignature"=>5000,
+              "targetLamportsPerSignature"=>10000,
               "targetSignaturesPerSlot"=>20000
             }
           }
-          
+
           expect(response.result['value']).to eq(expected_value)
         end
       end
@@ -408,9 +410,9 @@ describe SolanaRpcRuby::MethodsWrapper do
           response = described_class.new.get_fees
 
           expected_value = {
-            "blockhash"=>"5ENJWYp5X6zrAnhBZmZhLKaoWyr2cHXAB24UMVYemBnb", 
-            "feeCalculator"=>{"lamportsPerSignature"=>5000}, 
-            "lastValidBlockHeight"=>68111306, 
+            "blockhash"=>"5ENJWYp5X6zrAnhBZmZhLKaoWyr2cHXAB24UMVYemBnb",
+            "feeCalculator"=>{"lamportsPerSignature"=>5000},
+            "lastValidBlockHeight"=>68111306,
             "lastValidSlot"=>82384078
           }
 
@@ -425,9 +427,9 @@ describe SolanaRpcRuby::MethodsWrapper do
           response = described_class.new.get_first_available_block
 
           expected_value = {
-            "blockhash"=>"5ENJWYp5X6zrAnhBZmZhLKaoWyr2cHXAB24UMVYemBnb", 
-            "feeCalculator"=>{"lamportsPerSignature"=>5000}, 
-            "lastValidBlockHeight"=>68111306, 
+            "blockhash"=>"5ENJWYp5X6zrAnhBZmZhLKaoWyr2cHXAB24UMVYemBnb",
+            "feeCalculator"=>{"lamportsPerSignature"=>5000},
+            "lastValidBlockHeight"=>68111306,
             "lastValidSlot"=>82384078
           }
 
@@ -461,7 +463,7 @@ describe SolanaRpcRuby::MethodsWrapper do
         VCR.use_cassette('get_identity') do
           response = described_class.new.get_identity
           expected_result = {"identity"=>"8SQEcP4FaYQySktNQeyxF3w8pvArx3oMEh7fPrzkN9pu"}
-          
+
           expect(response.result).to eq(expected_result)
         end
       end
@@ -472,10 +474,10 @@ describe SolanaRpcRuby::MethodsWrapper do
         VCR.use_cassette('get_inflation_governor') do
           response = described_class.new.get_inflation_governor
           expected_result = {
-            "foundation"=>0.0, 
-            "foundationTerm"=>0.0, 
-            "initial"=>0.15, 
-            "taper"=>0.15, 
+            "foundation"=>0.0,
+            "foundationTerm"=>0.0,
+            "initial"=>0.15,
+            "taper"=>0.15,
             "terminal"=>0.015
           }
 
@@ -489,9 +491,9 @@ describe SolanaRpcRuby::MethodsWrapper do
         VCR.use_cassette('get_inflation_rate') do
           response = described_class.new.get_inflation_rate
           expected_result = {
-            "epoch"=>204, 
-            "foundation"=>0.0, 
-            "total"=>0.1406902625026958, 
+            "epoch"=>204,
+            "foundation"=>0.0,
+            "total"=>0.1406902625026958,
             "validator"=>0.1406902625026958
           }
 
@@ -503,7 +505,7 @@ describe SolanaRpcRuby::MethodsWrapper do
     describe '#get_inflation_reward' do
       let(:addresses) do
         [
-          'CX1QZWh9rJnJ6H6XNxyjBqEPDxhA7gENWVcToHvgLqb4', 
+          'CX1QZWh9rJnJ6H6XNxyjBqEPDxhA7gENWVcToHvgLqb4',
           '79psA5PwDrjeHgZgiBBAqwuG5NsNWsHQapigxFPpsgEZ'
         ]
       end
@@ -511,8 +513,8 @@ describe SolanaRpcRuby::MethodsWrapper do
       let(:expected_result) do
         [
           {
-            "amount"=>58625515732, 
-            "effectiveSlot"=>82604257, 
+            "amount"=>58625515732,
+            "effectiveSlot"=>82604257,
             "epoch"=>203,
             "postBalance"=>3521208340839
           },
@@ -543,7 +545,7 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
-    describe '#get_largest_accounts' do      
+    describe '#get_largest_accounts' do
       context 'without optional params' do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_largest_accounts') do
@@ -569,7 +571,7 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
-    describe '#get_leader_schedule' do      
+    describe '#get_leader_schedule' do
       context 'without optional params' do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_leader_schedule') do
@@ -656,9 +658,9 @@ describe SolanaRpcRuby::MethodsWrapper do
         it 'returns correct data from endpoint'  do
           VCR.use_cassette('get_multiple_accounts with optional params') do
             response = described_class.new.get_multiple_accounts(
-              accounts, 
+              accounts,
               encoding: 'base64',
-              data_slice: { offset: 5, length: 1 } 
+              data_slice: { offset: 5, length: 1 }
             )
 
             expect(response.result['value'].size).to eq(2)
@@ -691,12 +693,12 @@ describe SolanaRpcRuby::MethodsWrapper do
               encoding: 'base64',
               data_slice: { offset: 1, length: 1 },
               filters: [
-                { 'dataSize': 2 }, 
+                { 'dataSize': 2 },
                 {
-                  'memcmp': { 
+                  'memcmp': {
                     'offset': 4,
                     'bytes': '3Mc6vR'
-                  } 
+                  }
                 }
               ],
               with_context: true
@@ -713,7 +715,7 @@ describe SolanaRpcRuby::MethodsWrapper do
         VCR.use_cassette('get_recent_blockhash') do
           response = described_class.new.get_recent_blockhash
           expected_results = {
-            "blockhash"=>"6M1AMekz95Y3c5UjHq9GkEs6YX1BEJrB4vxcoHjjMJuF", 
+            "blockhash"=>"6M1AMekz95Y3c5UjHq9GkEs6YX1BEJrB4vxcoHjjMJuF",
             "feeCalculator"=>{
               "lamportsPerSignature"=>5000
             }
@@ -730,9 +732,9 @@ describe SolanaRpcRuby::MethodsWrapper do
           VCR.use_cassette('get_recent_performance_samples') do
             response = described_class.new.get_recent_performance_samples
             expected_result = {
-              "numSlots"=>93, 
-              "numTransactions"=>73456, 
-              "samplePeriodSecs"=>60, 
+              "numSlots"=>93,
+              "numTransactions"=>73456,
+              "samplePeriodSecs"=>60,
               "slot"=>83055946
             }
 
@@ -747,9 +749,9 @@ describe SolanaRpcRuby::MethodsWrapper do
           VCR.use_cassette('get_recent_performance_samples with optional params') do
             response = described_class.new.get_recent_performance_samples(limit: 10)
             expected_result = {
-              "numSlots"=>91, 
-              "numTransactions"=>67251, 
-              "samplePeriodSecs"=>60, 
+              "numSlots"=>91,
+              "numTransactions"=>67251,
+              "samplePeriodSecs"=>60,
               "slot"=>83056219
             }
 
@@ -782,7 +784,7 @@ describe SolanaRpcRuby::MethodsWrapper do
           "slot"=>83027168
         }
       end
-      
+
       context 'without optional params' do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_signatures_for_address') do
@@ -800,7 +802,7 @@ describe SolanaRpcRuby::MethodsWrapper do
             response = described_class.new.get_signatures_for_address(
               account_address,
               limit: 1
-              # before: 
+              # before:
               # until_:
             )
 
@@ -811,14 +813,14 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
-    describe '#get_signature_statuses' do      
+    describe '#get_signature_statuses' do
       context 'without optional params' do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_signature_statuses') do
             response = described_class.new.get_signature_statuses(signatures)
 
             expected_result = {
-              "context"=>{"slot"=>83160615}, 
+              "context"=>{"slot"=>83160615},
               "value"=>[nil, nil]
             }
             expect(response.result).to eq(expected_result)
@@ -835,10 +837,10 @@ describe SolanaRpcRuby::MethodsWrapper do
             )
 
             expected_result = {
-              "confirmationStatus"=>"finalized", 
-              "confirmations"=>nil, 
-              "err"=>nil, 
-              "slot"=>82507366, 
+              "confirmationStatus"=>"finalized",
+              "confirmations"=>nil,
+              "err"=>nil,
+              "slot"=>82507366,
               "status"=>{"Ok"=>nil}
             }
 
@@ -911,115 +913,172 @@ describe SolanaRpcRuby::MethodsWrapper do
     end
 
     describe '#get_token_account_balance' do
-      let(:token_account_pubkey) { '7fUAJdStEuGbc3sM84cKRL6yYaaSstyLSU4ve5oovLS7' }
-      context 'without optional params' do
-        xit 'returns correct data from endpoint' do
+      let(:token_account_pubkey) { '7zio4a4zAQz5cBS2Ah4WsHVCexQ2bt76ByiEjL3h8m1p' }
+
+      context 'with required params' do
+        it 'returns correct data from endpoint' do
           VCR.use_cassette('get_token_account_balance') do
-            response = described_class.new.get_token_account_balance(
+            response = described_class.new(cluster: mainnet_cluster).get_token_account_balance(
               token_account_pubkey
             )
+
+            expected_result = {
+              "context"=>{"slot"=>87139018},
+              "value"=>{"amount"=>"0", "decimals"=>9, "uiAmount"=>0.0, "uiAmountString"=>"0"}
+            }
+
+            expect(response.result).to eq(expected_result)
           end
         end
       end
     end
 
-    describe '#get_token_accounts_by_delegate' do
-      # This needs to be changed.
-      let(:token_account_pubkey) { '7fUAJdStEuGbc3sM84cKRL6yYaaSstyLSU4ve5oovLS7' }
-      
-      context 'without optional params' do
-        xit 'returns correct data from endpoint' do
-          VCR.use_cassette('get_token_accounts_by_delegate') do
-            response = described_class.new.get_token_accounts_by_delegate(
-              token_account_pubkey
-            )
+    describe 'token accounts' do
+      # Token accounts are in the mainnet.
+      let(:mainnet_client) { described_class.new(cluster: mainnet_cluster) }
+      let(:token_account_pubkey) { '7zio4a4zAQz5cBS2Ah4WsHVCexQ2bt76ByiEjL3h8m1p' }
+      let(:mint) { '4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R' }
+
+      describe '#get_token_accounts_by_delegate' do
+        context 'with required params' do
+          it 'returns correct data from endpoint' do
+            VCR.use_cassette('get_token_accounts_by_delegate') do
+              response = mainnet_client.get_token_accounts_by_delegate(
+                token_account_pubkey,
+                mint: mint
+              )
+
+              expected_result = {"context"=>{"slot"=>87148116}, "value"=>[]}
+
+              expect(response.result).to eq(expected_result)
+            end
+          end
+        end
+
+        context 'with optional params' do
+          it 'returns correct data from endpoint' do
+            VCR.use_cassette('get_token_accounts_by_delegate with optional params') do
+              response = mainnet_client.get_token_accounts_by_delegate(
+                token_account_pubkey,
+                mint: mint
+              )
+
+              expected_result = {"context"=>{"slot"=>87149118}, "value"=>[]}
+
+              expect(response.result).to eq(expected_result)
+            end
+          end
+        end
+
+        context 'with mint and program_id params passed in' do
+          it 'raises ArgumentError' do
+            expect do
+              response = mainnet_client.get_token_accounts_by_delegate(
+                token_account_pubkey,
+                mint: 'mint',
+                program_id: 'program_id'
+              )
+            end.to raise_error(ArgumentError, /You should pass mint or program_id/)
           end
         end
       end
 
-      context 'with optional params' do
-        xit 'returns correct data from endpoint' do
-          VCR.use_cassette('get_token_accounts_by_delegate with optional params') do
-            response = described_class.new.get_token_accounts_by_delegate(
-              token_account_pubkey,
-              mint: 'mint',
-              commitment: 'finalized',
-              encoding: 'jsonParsed',
-              data_slice: { 
-                offset: 10,
-                length: 3
+      describe '#get_token_accounts_by_owner' do
+        let(:token_account_owner_pubkey) { '122FAHxVFQDQjzgSBSNUmLJXJxG4ooUwLdYvgf3ASs2K' }
+
+        context 'with required params' do
+          it 'returns correct data from endpoint' do
+            VCR.use_cassette('get_token_accounts_by_owner') do
+              response = mainnet_client.get_token_accounts_by_owner(
+                token_account_owner_pubkey,
+                mint: mint
+              )
+
+              expected_result = {
+                "context"=>{"slot"=>87149255},
+                "value"=> [
+                  {"account"=>
+                    {"data"=>
+                      "qpJ4yNiR5j7UVVJG46YuizxkrL7UJpsJv5R9i45pg1gLm8C1Ymf9nuJtDVgkwcB6R4javmTdC73UJGdDsRKTwDv3FMB2KejVNH2d36FgbuXxugtxQstxs3K1tLye76oudJYETtZf6Eo7GUN5q9bUUnkBWZz5FykgdXdx2Wai6k7zEqS8zLnKpEGwbeKCtunazaAWFBo4FTCjDkCJ97adZS8MzupjrcEf9",
+                      "executable"=>false,
+                      "lamports"=>2039280,
+                      "owner"=>"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+                      "rentEpoch"=>200
+                    },
+                  "pubkey"=>"J3Rknuc3CjskKE4H1BUmRFtGffpsWFT1NSPevxWqLCx1"}]
               }
-            )
+
+              expect(response.result).to eq(expected_result)
+            end
           end
         end
-      end
 
-      context 'with mint and program_id params passed in' do
-        it 'raises ArgumentError' do
-          expect do
-            response = described_class.new.get_token_accounts_by_delegate(
-              token_account_pubkey,
-              mint: 'mint',
-              program_id: 'program_id'
-            )
-          end.to raise_error(ArgumentError, /You should pass mint or program_id/)
-        end
-      end
-    end
+        context 'with optional params' do
+          it 'returns correct data from endpoint' do
+            VCR.use_cassette('get_token_accounts_by_owner with optional params') do
+              response = mainnet_client.get_token_accounts_by_owner(
+                token_account_owner_pubkey,
+                mint: mint,
+                commitment: 'finalized',
+                encoding: 'base58',
+                data_slice: {
+                  offset: 10,
+                  length: 3
+                }
+              )
 
-    describe '#get_token_accounts_by_owner' do
-      let(:token_account_pubkey) { '7fUAJdStEuGbc3sM84cKRL6yYaaSstyLSU4ve5oovLS7' }
-
-      context 'without optional params' do
-        xit 'returns correct data from endpoint' do
-          VCR.use_cassette('get_token_accounts_by_owner') do
-            response = described_class.new.get_token_accounts_by_owner(
-              token_account_pubkey
-            )
-          end
-        end
-      end
-
-      context 'with optional params' do
-        xit 'returns correct data from endpoint' do
-          VCR.use_cassette('get_token_accounts_by_owner with optional params') do
-            response = described_class.new.get_token_accounts_by_owner(
-              token_account_pubkey,
-              mint: 'mint',
-              commitment: 'finalized',
-              encoding: 'jsonParsed',
-              data_slice: {
-                offset: 10,
-                length: 3
+              expected_result = {
+                "context"=>{"slot"=>87149968},
+                "value"=> [
+                  {
+                    "account"=>{
+                      "data"=>["26Qf2", "base58"],
+                      "executable"=>false,
+                      "lamports"=>2039280,
+                      "owner"=>"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+                      "rentEpoch"=>200
+                    },
+                    "pubkey"=>"J3Rknuc3CjskKE4H1BUmRFtGffpsWFT1NSPevxWqLCx1"
+                  }
+                ]
               }
-            )
+
+              expect(response.result).to eq(expected_result)
+            end
+          end
+        end
+
+        context 'with mint and program_id params passed in' do
+          it 'raises ArgumentError' do
+            expect do
+              response = mainnet_client.get_token_accounts_by_owner(
+                token_account_owner_pubkey,
+                mint: 'mint',
+                program_id: 'program_id'
+              )
+            end.to raise_error(ArgumentError, /You should pass mint or program_id/)
           end
         end
       end
 
-      context 'with mint and program_id params passed in' do
-        it 'raises ArgumentError' do
-          expect do
-            response = described_class.new.get_token_accounts_by_owner(
-              token_account_pubkey,
-              mint: 'mint',
-              program_id: 'program_id'
-            )
-          end.to raise_error(ArgumentError, /You should pass mint or program_id/)
-        end
-      end
-    end
 
+      describe '#get_token_largest_accounts' do
+        context 'with required params' do
+          it 'returns correct data from endpoint' do
+            VCR.use_cassette('get_token_largest_accounts') do
+              response = mainnet_client.get_token_largest_accounts(mint)
 
-    describe '#get_token_largest_accounts' do
-      let(:token_mint_pubkey) { '7fUAJdStEuGbc3sM84cKRL6yYaaSstyLSU4ve5oovLS7' }
+              expected_account = {
+                "address"=>"fArUAncZwVbMimiWv5cPUfFsapdLd8QMXZE4VXqFagR",
+                "amount"=>"176769990000046",
+                "decimals"=>6,
+                "uiAmount"=>176769990.000046,
+                "uiAmountString"=>"176769990.000046"
+              }
 
-      context 'without optional params' do
-        xit 'returns correct data from endpoint' do
-          VCR.use_cassette('get_token_largest_accounts') do
-            response = described_class.new.get_token_largest_accounts(
-              token_mint_pubkey
-            )
+              expect(response.result['value'].size).to eq(20)
+              expect(response.result['value'].first).to eq(expected_account)
+            end
           end
         end
       end
@@ -1146,7 +1205,7 @@ describe SolanaRpcRuby::MethodsWrapper do
               10
             )
             expected_result = '5fNbYET4VJyEYzuD73AFXVpsxEugqdEVFLiQwEEfiq2Ew9yU44UyDkwYWcLHk4YWWTig4RymrTsKudeCmKq9QTpY'
-            
+
             expect(response.result).to eq(expected_result)
           end
         end
@@ -1154,7 +1213,7 @@ describe SolanaRpcRuby::MethodsWrapper do
     end
 
     describe '#send_transaction' do
-      let(:transaction_signature) do 
+      let(:transaction_signature) do
         '4hXTCkRzt9WyecNzV1XPgCDfGAZzQKNxLXgynz5QDuWWPSAZBZSHptvWRL3BjCvzUXRdKvHL2b7yGrRQcWyaqsaBCncVG7BFggS8w9snUts67BSh3EqKpXLUm5UMHfD7ZBe9GhARjbNQMLJ1QD3Spr6oMTBU6EhdB4RD8CP2xUxr2u3d6fos36PD98XS6oX8TQjLpsMwncs5DAMiD4nNnR8NBfyghGCWvCVifVwvA8B8TJxE1aiyiv2L429BCWfyzAme5sZW8rDb14NeCQHhZbtNqfXhcp2tAnaAT'
       end
 
@@ -1186,10 +1245,10 @@ describe SolanaRpcRuby::MethodsWrapper do
             )
 
             expected_result = {
-              "context"=>{"slot"=>83294564}, 
+              "context"=>{"slot"=>83294564},
               "value"=>{
-              "accounts"=>[], 
-              "err"=>"BlockhashNotFound", 
+              "accounts"=>[],
+              "err"=>"BlockhashNotFound",
               "logs"=>[]
               }
             }
@@ -1202,7 +1261,7 @@ describe SolanaRpcRuby::MethodsWrapper do
       context 'with conflicted params set to true' do
         it 'returns API error' do
           VCR.use_cassette('simulate_transaction with conflicted params set to true') do
-            expect do  
+            expect do
               described_class.new.simulate_transaction(
                 transaction_signature,
                 [],

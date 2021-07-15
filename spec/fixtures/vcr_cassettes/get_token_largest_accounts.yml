@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.testnet.solana.com/
+    uri: https://api.mainnet-beta.solana.com/
     body:
       encoding: UTF-8
-      string: '{"jsonrpc":"2.0","id":1,"method":"getTokenLargestAccounts","params":["7fUAJdStEuGbc3sM84cKRL6yYaaSstyLSU4ve5oovLS7"]}'
+      string: '{"jsonrpc":"2.0","id":1,"method":"getTokenLargestAccounts","params":["4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R"]}'
     headers:
       Content-Type:
       - application/json
@@ -16,7 +16,7 @@ http_interactions:
       User-Agent:
       - Ruby
       Host:
-      - api.testnet.solana.com
+      - api.mainnet-beta.solana.com
   response:
     status:
       code: 200
@@ -25,16 +25,15 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 02 Jul 2021 14:22:03 GMT
+      - Thu, 15 Jul 2021 11:14:03 GMT
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
     body:
       encoding: ASCII-8BIT
-      string: '{"jsonrpc":"2.0","error":{"code":-32602,"message":"Invalid param: could
-        not find mint"},"id":1}
+      string: '{"jsonrpc":"2.0","result":{"context":{"slot":87150405},"value":[{"address":"fArUAncZwVbMimiWv5cPUfFsapdLd8QMXZE4VXqFagR","amount":"176769990000046","decimals":6,"uiAmount":176769990.000046,"uiAmountString":"176769990.000046"},{"address":"DmKR61BQk5zJTNCK9rrt8fM8HrDH6DSdE3Rt7sXKoAKb","amount":"166500000000000","decimals":6,"uiAmount":166500000.0,"uiAmountString":"166500000"},{"address":"HoVhs7NAzcAaavr2tc2aaTynJ6kwhdfC2B2Z7EthKpeo","amount":"111000000000000","decimals":6,"uiAmount":111000000.0,"uiAmountString":"111000000"},{"address":"HuBBhoS81jyHTKMbhz8B3iYa8HSNShnRwXRzPzmFFuFr","amount":"26957142860000","decimals":6,"uiAmount":26957142.86,"uiAmountString":"26957142.86"},{"address":"8tnpAECxAT9nHBqR1Ba494Ar5dQMPGhL31MmPJz1zZvY","amount":"12185884767584","decimals":6,"uiAmount":12185884.767584,"uiAmountString":"12185884.767584"},{"address":"5unqG9sYX995czHCtHkkJvd2EaTE58jdvmjfz1nVvo5x","amount":"11100000000000","decimals":6,"uiAmount":11100000.0,"uiAmountString":"11100000"},{"address":"57UrreUU2rPKBa8dSgRUZo4Mnt4UJ13gU2mvzGmGkvsY","amount":"6342857140000","decimals":6,"uiAmount":6342857.14,"uiAmountString":"6342857.14"},{"address":"Faszfxg7k2HWUT4CSGUn9MAVGUsPijvDQ3i2h7fi46M6","amount":"5572391478200","decimals":6,"uiAmount":5572391.4782,"uiAmountString":"5572391.4782"},{"address":"Fy6SnHwAkxoGMhUH2cLu2biqAnHmaAwFDDww9k6gq5ws","amount":"5324567480103","decimals":6,"uiAmount":5324567.480103,"uiAmountString":"5324567.480103"},{"address":"DujWhSxnwqFd3TrLfScyUhJ3FdoaHrmoiVE6kU4ETQyL","amount":"5171818836423","decimals":6,"uiAmount":5171818.836423,"uiAmountString":"5171818.836423"},{"address":"3wqhzSB9avepM9xMteiZnbJw75zmTBDVmPFLTQAGcSMN","amount":"4933874705879","decimals":6,"uiAmount":4933874.705879,"uiAmountString":"4933874.705879"},{"address":"ENjXaFNDiLTh44Gs89ZtfUH2i5MGLLkfYbSY7TmP4Du3","amount":"4383589125299","decimals":6,"uiAmount":4383589.125299,"uiAmountString":"4383589.125299"},{"address":"Eg6sR9H28cFaek5DVdgxxDcRKKbS85XvCFEzzkdmYNhq","amount":"3786923892414","decimals":6,"uiAmount":3786923.892414,"uiAmountString":"3786923.892414"},{"address":"4RRQuphvxm8upeSWmf1FAhXD9MUDihEnUUNJvbpBvJf4","amount":"2269584607735","decimals":6,"uiAmount":2269584.607735,"uiAmountString":"2269584.607735"},{"address":"6U6U59zmFWrPSzm9sLX7kVkaK78Kz7XJYkrhP1DjF3uF","amount":"1888751900000","decimals":6,"uiAmount":1888751.9,"uiAmountString":"1888751.9"},{"address":"85WdjCsxksAoCo6NNZSU4rocjUHsJwXrzpHJScg8oVNZ","amount":"1669985000000","decimals":6,"uiAmount":1669985.0,"uiAmountString":"1669985"},{"address":"5QDTh4Bpz4wruWMfayMSjUxRgDvMzvS2ifkarhYtjS1B","amount":"1297129900000","decimals":6,"uiAmount":1297129.9,"uiAmountString":"1297129.9"},{"address":"EVVtYo4AeCbmn2dYS1UnhtfjpzCXCcN26G1HmuHwMo7w","amount":"1035146900000","decimals":6,"uiAmount":1035146.9,"uiAmountString":"1035146.9"},{"address":"FVz1J9FxbhaqMpm8hwGm6aFbvciNeo2xaikYs2Qs9xJ6","amount":"500591085774","decimals":6,"uiAmount":500591.085774,"uiAmountString":"500591.085774"},{"address":"8orrvb6rHB776KbQmszcxPH44cZHdCTYC1fr2a3oHufC","amount":"481344360333","decimals":6,"uiAmount":481344.360333,"uiAmountString":"481344.360333"}]},"id":1}
 
-        '
-  recorded_at: Fri, 02 Jul 2021 14:22:03 GMT
+'
+  recorded_at: Thu, 15 Jul 2021 13:14:07 GMT
 recorded_with: VCR 6.0.0

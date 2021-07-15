@@ -1,5 +1,4 @@
 require 'net/http'
-
 module SolanaRpcRuby
   ##
   # ApiClient class serves as a client for solana JSON RPC API.
@@ -47,9 +46,9 @@ module SolanaRpcRuby
            Net::HTTPClientException,
            Net::HTTPFatalError,
            Net::ReadTimeout => e
-
       fail ApiError.new(message: e.message)
     rescue StandardError => e
+
       message = "#{e.class} #{e.message}\n Backtrace: \n #{e.backtrace}"
       fail ApiError.new(message: message)
     end

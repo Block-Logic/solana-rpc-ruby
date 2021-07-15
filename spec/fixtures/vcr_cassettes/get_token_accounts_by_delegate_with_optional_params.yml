@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.testnet.solana.com/
+    uri: https://api.mainnet-beta.solana.com/
     body:
       encoding: UTF-8
-      string: '{"jsonrpc":"2.0","id":1,"method":"getTokenAccountsByDelegate","params":["7fUAJdStEuGbc3sM84cKRL6yYaaSstyLSU4ve5oovLS7",{"mint":"mint"},{"commitment":"finalized","encoding":"jsonParsed","dataSlice":{"offset":10,"length":3}}]}'
+      string: '{"jsonrpc":"2.0","id":1,"method":"getTokenAccountsByDelegate","params":["7zio4a4zAQz5cBS2Ah4WsHVCexQ2bt76ByiEjL3h8m1p",{"mint":"4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R"}]}'
     headers:
       Content-Type:
       - application/json
@@ -16,7 +16,7 @@ http_interactions:
       User-Agent:
       - Ruby
       Host:
-      - api.testnet.solana.com
+      - api.mainnet-beta.solana.com
   response:
     status:
       code: 200
@@ -25,15 +25,15 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 02 Jul 2021 14:31:28 GMT
+      - Thu, 15 Jul 2021 11:00:20 GMT
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
     body:
       encoding: ASCII-8BIT
-      string: '{"jsonrpc":"2.0","error":{"code":-32602,"message":"Invalid param: WrongSize"},"id":1}
+      string: '{"jsonrpc":"2.0","result":{"context":{"slot":87149118},"value":[]},"id":1}
 
-        '
-  recorded_at: Fri, 02 Jul 2021 14:31:28 GMT
+'
+  recorded_at: Thu, 15 Jul 2021 13:00:22 GMT
 recorded_with: VCR 6.0.0
