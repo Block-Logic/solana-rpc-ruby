@@ -14,6 +14,36 @@ describe SolanaRpcRuby::MethodsWrapper do
       ]
     end
 
+    describe '#initialize' do
+      context 'without arguments passed in' do        
+        it 'correctly initialize class' do
+          instance = described_class.new
+          
+          expect(instance.api_client).to be_kind_of(SolanaRpcRuby::ApiClient)
+          expect(instance.cluster).to eq(SolanaRpcRuby.cluster)
+          expect(instance.id).to be
+          expect(instance.id).to be_kind_of(Integer)
+        end
+      end
+
+      context 'with id argument passed' do
+        it 'correctly sets id' do
+          id = 99
+          instance = described_class.new(id: id)
+          
+          expect(instance.id).to eq(id)
+        end
+      end
+  
+      context 'with cluster argument passed' do
+        it 'correctly sets cluster' do
+          instance = described_class.new(cluster: mainnet_cluster)
+
+          expect(instance.cluster).to eq(mainnet_cluster)
+        end
+      end
+    end
+
     describe '#get_account_info' do
       context 'without optional params' do
         it 'returns correct data from endpoint' do
@@ -70,6 +100,20 @@ describe SolanaRpcRuby::MethodsWrapper do
             )
             # request is correct but data is returned in base64, don't know why
             expect(response.result.dig('value', 'data')[1]).to eq('base64')
+          end
+        end
+      end
+
+      context 'with id passed to initializer' do
+        it 'reponse id matches id' do
+          VCR.use_cassette('get_account_info with id passed to initializer') do
+            id = 99
+            response = described_class.new(id: id).get_account_info(
+              account_pubkey
+            )
+
+            expect(response.json_rpc).to eq('2.0')
+            expect(response.id).to eq(id)
           end
         end
       end

@@ -37,9 +37,17 @@ You can customize it to your needs.
 ### Usage examples
 ```ruby
 # If you set default cluster you don't need to pass it every time.
-method_wrapper = SolanaRpcRuby::MethodsWrapper.new(cluster: 'https://api.testnet.solana.com')
+method_wrapper = SolanaRpcRuby::MethodsWrapper.new(
+  cluster: 'https://api.testnet.solana.com', # optional, if not passed, default cluster from config will be used
+  id: 123 # optional, if not passed, default random number from range 1 to 99_999 will be used
+)
+
 response = method_wrapper.get_account_info(account_pubkey)
 puts response
+
+# You can check cluster and that are used.
+method_wrapper.cluster
+method_wrapper.id
 ```
 
 All info about methods you can find in the docs on: https://www.rubydoc.info/github/Block-Logic/solana-rpc-ruby/main/SolanaRpcRuby

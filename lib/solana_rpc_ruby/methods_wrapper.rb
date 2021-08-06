@@ -19,12 +19,24 @@ module SolanaRpcRuby
     # @return [String]
     attr_accessor :cluster
 
+    # Unique client-generated identifying integer.
+    # @return [Integer]
+    attr_accessor :id
+
     # Initialize object with cluster address where requests will be sent.
     #
     # @param api_client [ApiClient]
     # @param cluster [String] cluster where requests will be sent.
-    def initialize(api_client: ApiClient, cluster: SolanaRpcRuby.cluster)
+    # @param id [Integer] unique client-generated identifying integer.
+    def initialize(
+      api_client: ApiClient, 
+      cluster: SolanaRpcRuby.cluster,
+      id: rand(1...99_999)
+    )
+
       @api_client = api_client.new(cluster)
+      @cluster = cluster
+      @id = id
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getaccountinfo
