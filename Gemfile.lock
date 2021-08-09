@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     solana_rpc_ruby (1.0.1)
+      websocket-client-simple (~> 0.3)
 
 GEM
   remote: http://rubygems.org/
@@ -80,6 +81,7 @@ GEM
     docile (1.4.0)
     dotenv (2.7.6)
     erubi (1.10.0)
+    event_emitter (0.2.6)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashdiff (1.0.1)
@@ -199,6 +201,10 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
+    websocket (1.2.9)
+    websocket-client-simple (0.3.0)
+      event_emitter
+      websocket
     websocket-driver (0.7.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
