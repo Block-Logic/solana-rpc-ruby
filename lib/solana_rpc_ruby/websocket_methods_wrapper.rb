@@ -273,13 +273,5 @@ module SolanaRpcRuby
       body = create_json_body(method, method_params: [subscription_id])
       @websocket_client.connect(body)
     end
-
-    def create_method_name(method)
-      return '' unless method
-
-      method.to_s.split('_').map.with_index do |string, i|
-        i == 0 ? string : string.capitalize
-      end.join
-    end
   end
 end
