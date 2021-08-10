@@ -16,11 +16,11 @@ puts SolanaRpcRuby.cluster
 #  Methods docs: https://docs.solana.com/developing/clients/jsonrpc-api#subscription-websocket
 
 ws_method_wrapper = SolanaRpcRuby::WebsocketsMethodsWrapper.new(cluster: SolanaRpcRuby.cluster)
-# ws_method_wrapper.account_subscribe(account_pubkey: 'provide')
-# ws_method_wrapper.logs_subscribe(filter: 'all')
-# ws_method_wrapper.program_subscribe(program_id_pubkey: 'provide')
+# ws_method_wrapper.account_subscribe('provide_account_id')
+# ws_method_wrapper.logs_subscribe('all')
+# ws_method_wrapper.program_subscribe('provide_program_id')
 ws_method_wrapper.root_subscribe
-# ws_method_wrapper.signature_subscribe(transaction_signature: 'provide')
+# ws_method_wrapper.signature_subscribe('provide_signature')
 # ws_method_wrapper.slot_subscribe
 # ws_method_wrapper.slot_updates_subscribe
 # ws_method_wrapper.vote_subscribe

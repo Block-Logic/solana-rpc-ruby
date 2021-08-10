@@ -37,7 +37,6 @@ module SolanaRpcRuby
 
       ws.on :message do |msg|
         puts msg.data
-        # ws.close if ENV['test_mode'] == 'true'
       end
       
       ws.on :open do

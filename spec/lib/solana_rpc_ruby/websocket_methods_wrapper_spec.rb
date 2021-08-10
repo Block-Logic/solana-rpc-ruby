@@ -4,21 +4,15 @@ describe SolanaRpcRuby::WebsocketsMethodsWrapper do
   xdescribe 'websocket rpc methods' do
     let(:account_pubkey) { '71bhKKL89U3dNHzuZVZ7KarqV6XtHEgjXjvJTsguD11B'}
     let(:program_id_pubkey) { '11111111111111111111111111111111'}
-    let(:testnet_cluster) { 'https://api.testnet.solana.com' }
-    let(:mainnet_cluster) { 'https://api.mainnet-beta.solana.com' }
     let(:commitment_finalized) { 'finalized' }
     let(:transaction_signature) { '36TLd62HWMovqgJSZzgq8XUBF2j7kS7nXpRqRpYS6EmN7rD5axGR4D5vnz21YE5Bk3ZACYVgZYRGxAafJo3VjcxM' }
     let(:encoding_base64) { 'base64' }
-
-    before do
-      ENV['test_mode'] = 'true'
-    end
 
     describe '#account_subscribe' do
       context 'with required params' do
         it 'returns correct data from endpoint' do
           response = described_class.new.account_subscribe(
-            account_pubkey: account_pubkey
+            account_pubkey
           )
         end
       end
@@ -26,7 +20,7 @@ describe SolanaRpcRuby::WebsocketsMethodsWrapper do
       context 'with optional params' do
         it 'returns correct data from endpoint' do
           response = described_class.new.account_subscribe(
-            account_pubkey: account_pubkey, 
+            account_pubkey, 
             commitment: commitment_finalized,
             encoding: encoding_base64
           )
@@ -52,20 +46,18 @@ describe SolanaRpcRuby::WebsocketsMethodsWrapper do
 
       context 'with required params' do
         it 'returns correct data from endpoint with string filter' do
-          filter = 'all'
-          response = described_class.new.logs_subscribe(filter: filter_string)
+          response = described_class.new.logs_subscribe(filter_string)
         end
 
         it 'returns correct data from endpoint with hash filter' do
-          filter = { 'mentions' => [account_pubkey] }
-          response = described_class.new.logs_subscribe(filter: filter_hash)
+          response = described_class.new.logs_subscribe(filter_hash)
         end
       end
 
       context 'with optional params' do
         it 'returns correct data from endpoint' do
           response = described_class.new.logs_subscribe(
-            filter: filter_string, 
+            filter_string, 
             commitment: commitment_finalized
           )
         end
@@ -90,7 +82,7 @@ describe SolanaRpcRuby::WebsocketsMethodsWrapper do
       context 'with required params' do
         it 'returns correct data from endpoint' do
           response = described_class.new.program_subscribe(
-            program_id_pubkey: program_id_pubkey
+            program_id_pubkey
           )
         end
       end
@@ -100,7 +92,7 @@ describe SolanaRpcRuby::WebsocketsMethodsWrapper do
           filter = [filter_data_size]
 
           response = described_class.new.program_subscribe(
-            program_id_pubkey: program_id_pubkey,
+            program_id_pubkey,
             commitment: commitment_finalized,
             encoding: encoding_base64,
             filters: filter
@@ -125,17 +117,15 @@ describe SolanaRpcRuby::WebsocketsMethodsWrapper do
       context 'with required params' do
         it 'returns correct data from endpoint' do
           response = described_class.new.signature_subscribe(
-            transaction_signature: transaction_signature
+            transaction_signature
           )
         end
       end
 
       context 'with optional params' do
         it 'returns correct data from endpoint' do
-          filter = [filter_data_size]
-
           response = described_class.new.signature_subscribe(
-            transaction_signature: transaction_signature,
+            transaction_signature,
             commitment: commitment_finalized
           )
         end

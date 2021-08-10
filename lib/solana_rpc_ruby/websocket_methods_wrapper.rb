@@ -77,7 +77,7 @@ module SolanaRpcRuby
     # @param commitment [String]
     #
     # @return [Integer] Subscription id (needed to unsubscribe)
-    def logs_subscribe(filter:, commitment: nil)
+    def logs_subscribe(filter, commitment: nil)
       method = create_method_name(__method__) 
 
       params = []
@@ -111,7 +111,7 @@ module SolanaRpcRuby
     # @param filters [Array]
     #
     # @return [Integer] Subscription id (needed to unsubscribe)
-    def program_subscribe(program_id_pubkey:, commitment: nil, encoding: '', filters: [])
+    def program_subscribe(program_id_pubkey, commitment: nil, encoding: '', filters: [])
       method = create_method_name(__method__) 
 
       params = []
@@ -146,7 +146,7 @@ module SolanaRpcRuby
     # @param commitment [String]
     #
     # @return [Integer] Subscription id (needed to unsubscribe)
-    def signature_subscribe(transaction_signature:, commitment: nil)
+    def signature_subscribe(transaction_signature, commitment: nil)
       method = create_method_name(__method__) 
 
       params = []
