@@ -2,8 +2,8 @@ require_relative 'lib/solana_rpc_ruby'
 require 'pry'
 
 account_pubkey = '71bhKKL89U3dNHzuZVZ7KarqV6XtHEgjXjvJTsguD11B'
-testnet_cluster = 'https://api.testnet.solana.com'
-mainnet_cluster = 'https://api.mainnet-beta.solana.com'
+testnet_cluster = 'ws://api.testnet.solana.com'
+mainnet_cluster = 'ws://api.mainnet-beta.solana.com'
 
 SolanaRpcRuby.config do |c|
   c.json_rpc_version = '2.0'
