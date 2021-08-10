@@ -35,7 +35,9 @@ end
 You can customize it to your needs.
 
 ### Usage examples
-```ruby
+
+#### JSON RPC API
+```ruby 
 # If you set default cluster you don't need to pass it every time.
 method_wrapper = SolanaRpcRuby::MethodsWrapper.new(
   cluster: 'https://api.testnet.solana.com', # optional, if not passed, default cluster from config will be used
@@ -45,10 +47,31 @@ method_wrapper = SolanaRpcRuby::MethodsWrapper.new(
 response = method_wrapper.get_account_info(account_pubkey)
 puts response
 
-# You can check cluster and that are used.
+# You can check cluster and id that are used.
 method_wrapper.cluster
 method_wrapper.id
 ```
+#### Subscription Websocket
+```ruby
+ws_method_wrapper = SolanaRpcRuby::WebsocketsMethodsWrapper.new(
+  ws_cluster: 'ws://api.testnet.solana.com', # optional, if not passed, default cluster from config will be used
+  id: 123 # optional, if not passed, default random number from range 1 to 99_999 will be used
+)
+
+# You should see stream of messages in your console.
+ws_method_wrapper.root_subscribe
+
+# You can check cluster and id that are used.
+ws_method_wrapper.cluster
+ws_method_wrapper.id
+```
+### Demo scripts
+Gem is coming with demo scripts that you can run and test API and Websockets.
+
+1. Clone the repo
+2. Set the gemset
+3. Run `ruby demo.rb` or `ruby demo_ws.rb`
+4. Check the gem or Solana JSON RPC API docs to get more information about method usage and modify demo scripts loosely. 
 
 All info about methods you can find in the docs on: https://www.rubydoc.info/github/Block-Logic/solana-rpc-ruby/main/SolanaRpcRuby
 
