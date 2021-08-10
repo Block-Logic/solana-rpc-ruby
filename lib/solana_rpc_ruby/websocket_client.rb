@@ -54,8 +54,6 @@ module SolanaRpcRuby
       
       loop do
         ws.send STDIN.gets.strip
-      rescue StandardError
-        retry
       end
     rescue Timeout::Error,
            Net::HTTPError,
@@ -65,7 +63,6 @@ module SolanaRpcRuby
            Net::ReadTimeout => e
       fail ApiError.new(message: e.message)
     rescue StandardError => e
-
       message = "#{e.class} #{e.message}\n Backtrace: \n #{e.backtrace}"
       fail ApiError.new(message: message)
     end
