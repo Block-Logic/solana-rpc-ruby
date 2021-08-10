@@ -36,7 +36,10 @@ module SolanaRpcRuby
       ws = @client.connect(@cluster)
 
       ws.on :message do |msg|
-        puts msg.data
+        data = msg.data
+        json = JSON.parse(data)
+        
+        puts json.dig('params', 'result')
       end
       
       ws.on :open do
