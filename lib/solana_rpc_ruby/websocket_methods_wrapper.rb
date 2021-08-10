@@ -29,7 +29,7 @@ module SolanaRpcRuby
     # @param cluster [String] cluster where requests will be sent.
     def initialize(
       websocket_client: WebsocketClient, 
-      cluster: SolanaRpcRuby.cluster,
+      cluster: SolanaRpcRuby.ws_cluster,
       id: rand(1...99_999)
     )
       @websocket_client = websocket_client.new(cluster: cluster)

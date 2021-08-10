@@ -12,6 +12,10 @@ module SolanaRpcRuby
     # @return [String] cluster address.
     attr_accessor :cluster
 
+    # Default websocket cluster address that will be used if not passed.
+    # @return [String] websocket cluster address.
+    attr_accessor :ws_cluster
+
     # Default json rpc version that will be used.
     # @return [String] json rpc version.
     attr_accessor :json_rpc_version

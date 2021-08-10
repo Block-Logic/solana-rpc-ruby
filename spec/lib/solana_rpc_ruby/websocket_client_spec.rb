@@ -2,33 +2,32 @@ require 'vcr'
 
 describe SolanaRpcRuby::WebsocketClient do 
   describe '#initialize' do
-    let(:mainnet_cluster) { 'https://api.mainnet-beta.solana.com' }
-    let(:testnet_cluster) { 'https://api.testnet.solana.com' }
+    let(:ws_mainnet_cluster) { 'ws://api.mainnet-beta.solana.com' }
+    let(:ws_testnet_cluster) { 'ws://api.testnet.solana.com' }
 
-    it 'uses cluster from config' do
+    it 'uses ws cluster from config' do
       api_client = described_class.new
       
-      expect(api_client.cluster).to eq(SolanaRpcRuby.cluster)
-      expect(api_client.cluster).to eq(testnet_cluster)
+      expect(api_client.cluster).to eq(SolanaRpcRuby.ws_cluster)
     end
 
-    it 'fails without cluster passed in or set in config' do
+    it 'fails without ws cluster passed in or set in config' do
       SolanaRpcRuby.config do |c|
-        c.cluster = nil
+        c.ws_cluster = nil
       end
 
-      expect { described_class.new }.to raise_error(ArgumentError, /Cluster is missing/)
+      expect { described_class.new }.to raise_error(ArgumentError, /Websocket cluster is missing/)
 
       SolanaRpcRuby.config do |c|
-        c.cluster = testnet_cluster
+        c.ws_cluster = ws_testnet_cluster
       end
     end
 
-    it 'allows to set different cluster than in config' do
-      api_client = described_class.new(cluster: mainnet_cluster)
+    it 'allows to set different ws cluster than in config' do
+      api_client = described_class.new(cluster: ws_mainnet_cluster)
       
       expect(api_client.cluster).to_not eq(SolanaRpcRuby.cluster)
-      expect(api_client.cluster).to eq('https://api.mainnet-beta.solana.com')
+      expect(api_client.cluster).to eq(ws_mainnet_cluster)
     end
 
     it 'uses WebSocket::Client::Simple as a client' do

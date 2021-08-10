@@ -21,9 +21,9 @@ module SolanaRpcRuby
 
     def initialize(websocket_client: WebSocket::Client::Simple, cluster: nil)
       @client = websocket_client
-      @cluster = cluster || SolanaRpcRuby.cluster
+      @cluster = cluster || SolanaRpcRuby.ws_cluster
 
-      message = 'Cluster is missing. Please provide default cluster in config or pass it to the client directly.'
+      message = 'Websocket cluster is missing. Please provide default cluster in config or pass it to the client directly.'
       raise ArgumentError, message unless @cluster
     end
 
