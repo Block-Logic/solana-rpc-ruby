@@ -19,7 +19,7 @@ module SolanaRpcRuby
     # 
     # @return [String]
     def create_method_name(method)
-      return '' unless method
+      return '' unless method && (method.is_a?(String) || method.is_a?(Symbol))
 
       method.to_s.split('_').map.with_index do |string, i|
         i == 0 ? string : string.capitalize
