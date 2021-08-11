@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
     'source_code_uri' => 'https://github.com/Block-Logic/solana-rpc-ruby'
   }
 
-  spec.add_dependency 'websocket-client-simple', '~> 0.3'
+  spec.add_dependency 'faye-websocket', '~> 0.11'
 
   spec.add_development_dependency 'rubocop', '~> 1.15'
   spec.add_development_dependency 'rubocop-performance', '~> 1.11'

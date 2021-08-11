@@ -33,7 +33,7 @@ describe SolanaRpcRuby::WebsocketClient do
     it 'uses WebSocket::Client::Simple as a client' do
       api_client = described_class.new
 
-      expect(api_client.client).to eq(WebSocket::Client::Simple)
+      expect(api_client.client).to eq(Faye::WebSocket)
     end
 
   end

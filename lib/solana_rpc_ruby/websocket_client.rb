@@ -1,6 +1,5 @@
 require 'net/http'
-require 'websocket-client-simple'
-
+require 'faye/websocket'
 module SolanaRpcRuby
   ##
   # WebsocketClient class serves as a websocket client for solana JSON RPC API.
@@ -19,7 +18,7 @@ module SolanaRpcRuby
     # @param websocket_client [Object]
     # @param cluster [String]
 
-    def initialize(websocket_client: WebSocket::Client::Simple, cluster: nil)
+    def initialize(websocket_client: Faye::WebSocket, cluster: nil)
       @client = websocket_client
       @cluster = cluster || SolanaRpcRuby.ws_cluster
 
@@ -33,28 +32,23 @@ module SolanaRpcRuby
     #
     # @return [Object] Net::HTTPOK
     def connect(method)
-      ws = @client.connect(@cluster)
-
-      ws.on :message do |msg|
-        puts msg.data
-      end
+      EM.run {
+        ws = Faye::WebSocket::Client.new(@cluster)
       
-      ws.on :open do
-        ws.send method
-      end
+        ws.on :open do |event|
+          p [:open]
+          ws.send(method)
+        end
       
-      ws.on :close do |e|
-        p e
-        exit 1
-      end
+        ws.on :message do |event|
+          p event.data
+        end
       
-      ws.on :error do |e|
-        p e
-      end
-      
-      loop do
-        ws.send STDIN.gets.strip
-      end
+        ws.on :close do |event|
+          p [:close, event.code, event.reason]
+          ws = nil
+        end
+      }
     rescue Timeout::Error,
            Net::HTTPError,
            Net::HTTPNotFound,
