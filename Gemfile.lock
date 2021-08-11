@@ -3,6 +3,7 @@ PATH
   specs:
     solana_rpc_ruby (1.0.1)
       faye-websocket (~> 0.11)
+      redis (~> 4.4)
 
 GEM
   remote: http://rubygems.org/
@@ -141,6 +142,7 @@ GEM
       thor (~> 1.0)
     rainbow (3.0.0)
     rake (13.0.6)
+    redis (4.4.0)
     regexp_parser (2.1.1)
     rexml (3.2.5)
     rspec (3.10.0)

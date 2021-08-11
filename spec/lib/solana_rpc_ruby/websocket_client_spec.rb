@@ -1,6 +1,14 @@
 require 'vcr'
 
-describe SolanaRpcRuby::WebsocketClient do 
+describe SolanaRpcRuby::WebsocketClient do
+  before do
+    ENV['test_mode'] = 'true'
+  end
+
+  after do
+    ENV['test_mode'] = nil
+  end
+
   describe '#initialize' do
     let(:ws_mainnet_cluster) { 'ws://api.mainnet-beta.solana.com' }
     let(:ws_testnet_cluster) { 'ws://api.testnet.solana.com' }

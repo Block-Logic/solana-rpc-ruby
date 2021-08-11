@@ -1,6 +1,7 @@
 require_relative 'solana_rpc_ruby/api_client'
 require_relative 'solana_rpc_ruby/api_error'
 require_relative 'solana_rpc_ruby/methods_wrapper'
+require_relative 'solana_rpc_ruby/redis_client'
 require_relative 'solana_rpc_ruby/response'
 require_relative 'solana_rpc_ruby/websocket_client'
 require_relative 'solana_rpc_ruby/websocket_methods_wrapper'
