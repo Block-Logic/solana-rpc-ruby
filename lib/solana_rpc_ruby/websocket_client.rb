@@ -31,7 +31,7 @@ module SolanaRpcRuby
     # @param method [Symbol]
     #
     # @return [Object] Net::HTTPOK
-    def connect(method)
+    def connect(method, &block)
       EM.run {
         ws = Faye::WebSocket::Client.new(@cluster)
       
@@ -41,7 +41,11 @@ module SolanaRpcRuby
         end
       
         ws.on :message do |event|
-          p event.data
+          if block_given?
+            block.call(event.data)
+          else
+            puts event.data
+          end
         end
       
         ws.on :close do |event|

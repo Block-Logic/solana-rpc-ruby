@@ -42,9 +42,10 @@ module SolanaRpcRuby
     # @param account_pubkey [String]
     # @param commitment [String]
     # @param encoding [String]
+    # @param &block [Proc]
     #
     # @return [Integer] Subscription id (needed to unsubscribe)
-    def account_subscribe(account_pubkey:, commitment: nil, encoding: '')
+    def account_subscribe(account_pubkey, commitment: nil, encoding: '', &block)
       method = create_method_name(__method__) 
 
       params = []
@@ -55,7 +56,7 @@ module SolanaRpcRuby
       params << account_pubkey
       params << params_hash if params_hash.any?
       
-      subscribe(method, method_params: params)
+      subscribe(method, method_params: params, &block)
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#accountunsubscribe
@@ -75,9 +76,10 @@ module SolanaRpcRuby
     # @param filter [String]|[Hash]
     # @option filter [Array] :mentions
     # @param commitment [String]
+    # @param &block [Proc]
     #
     # @return [Integer] Subscription id (needed to unsubscribe)
-    def logs_subscribe(filter, commitment: nil)
+    def logs_subscribe(filter, commitment: nil, &block)
       method = create_method_name(__method__) 
 
       params = []
@@ -87,7 +89,7 @@ module SolanaRpcRuby
       params << filter
       params << params_hash
       
-      subscribe(method, method_params: params)
+      subscribe(method, method_params: params, &block)
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#logsunsubscribe
@@ -109,9 +111,16 @@ module SolanaRpcRuby
     # @param commitment [String]
     # @param encoding [String]
     # @param filters [Array]
+    # @param &block [Proc]
     #
     # @return [Integer] Subscription id (needed to unsubscribe)
-    def program_subscribe(program_id_pubkey, commitment: nil, encoding: '', filters: [])
+    def program_subscribe(
+      program_id_pubkey, 
+      commitment: nil, 
+      encoding: '', 
+      filters: [],
+      &block
+    )
       method = create_method_name(__method__) 
 
       params = []
@@ -123,7 +132,7 @@ module SolanaRpcRuby
       params << program_id_pubkey
       params << params_hash if params_hash.any?
       
-      subscribe(method, method_params: params)
+      subscribe(method, method_params: params, &block)
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#programunsubscribe
@@ -144,9 +153,14 @@ module SolanaRpcRuby
     #
     # @param transaction_signature [String]
     # @param commitment [String]
+    # @param &block [Proc]
     #
     # @return [Integer] Subscription id (needed to unsubscribe)
-    def signature_subscribe(transaction_signature, commitment: nil)
+    def signature_subscribe(
+      transaction_signature, 
+      commitment: nil,
+      &block
+    )
       method = create_method_name(__method__) 
 
       params = []
@@ -156,7 +170,7 @@ module SolanaRpcRuby
       params << transaction_signature
       params << params_hash
       
-      subscribe(method, method_params: params)
+      subscribe(method, method_params: params, &block)
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#signatureunsubscribe
@@ -173,11 +187,13 @@ module SolanaRpcRuby
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#slotsubscribe
     # Subscribe to receive notification anytime a slot is processed by the validator
     #
+    # @param &block [Proc]
+    # 
     # @return [Integer] Subscription id (needed to unsubscribe)
-    def slot_subscribe
+    def slot_subscribe(&block)
       method = create_method_name(__method__)
       
-      subscribe(method)
+      subscribe(method, &block)
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#slotunsubscribe
@@ -196,11 +212,13 @@ module SolanaRpcRuby
     # This subscription is unstable; the format of this subscription may change in the future and it may not always be supported
     # Subscribe to receive a notification from the validator on a variety of updates on every slot
     #
+    # @param &block [Proc]
+    # 
     # @return [Integer] Subscription id (needed to unsubscribe)
-    def slot_updates_subscribe
+    def slot_updates_subscribe(&block)
       method = create_method_name(__method__)
       
-      subscribe(method)
+      subscribe(method, &block)
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#slotsupdatesunsubscribe
@@ -218,11 +236,13 @@ module SolanaRpcRuby
     # 
     # Subscribe to receive notification anytime a new root is set by the validator.
     #
+    # @param &block [Proc]
+    # 
     # @return [Integer] Subscription id (needed to unsubscribe)
-    def root_subscribe
+    def root_subscribe(&block)
       method = create_method_name(__method__)
       
-      subscribe(method)
+      subscribe(method, &block)
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#rootunsubscribe
@@ -244,11 +264,13 @@ module SolanaRpcRuby
     # Subscribe to receive notification anytime a new vote is observed in gossip. 
     # These votes are pre-consensus therefore there is no guarantee these votes will enter the ledger.
     #
+    # @param &block [Proc]
+    # 
     # @return [Integer] Subscription id (needed to unsubscribe)
-    def vote_subscribe
+    def vote_subscribe(&block)
       method = create_method_name(__method__)
       
-      subscribe(method)
+      subscribe(method, &block)
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#rootunsubscribe
@@ -264,9 +286,9 @@ module SolanaRpcRuby
 
     private
 
-    def subscribe(method, method_params: [])
+    def subscribe(method, method_params: [], &block)
       body = create_json_body(method, method_params: method_params)
-      @websocket_client.connect(body)
+      @websocket_client.connect(body, &block)
     end
 
     def unsubscribe(method, subscription_id:)
