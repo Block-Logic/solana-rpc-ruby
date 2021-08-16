@@ -29,7 +29,6 @@ Gem::Specification.new do |spec|
   }
 
   spec.add_dependency 'faye-websocket', '~> 0.11'
-  spec.add_dependency 'redis', '~> 4.4'
 
   spec.add_development_dependency 'rubocop', '~> 1.15'
   spec.add_development_dependency 'rubocop-performance', '~> 1.11'

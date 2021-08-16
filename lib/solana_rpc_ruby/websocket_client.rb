@@ -1,3 +1,4 @@
+require 'net/http'
 require 'faye/websocket'
 module SolanaRpcRuby
   ##
@@ -17,14 +18,9 @@ module SolanaRpcRuby
     # @param websocket_client [Object]
     # @param cluster [String]
 
-    def initialize(
-      websocket_client: Faye::WebSocket, 
-      cluster: nil,
-      messages_store: RedisClient
-    )
+    def initialize(websocket_client: Faye::WebSocket, cluster: nil)
       @client = websocket_client
       @cluster = cluster || SolanaRpcRuby.ws_cluster
-      @messages_store = messages_store.new unless ENV['test_mode'] == 'true'
 
       message = 'Websocket cluster is missing. Please provide default cluster in config or pass it to the client directly.'
       raise ArgumentError, message unless @cluster
@@ -46,7 +42,6 @@ module SolanaRpcRuby
       
         ws.on :message do |event|
           p event.data
-          @messages_store.add_to_set(event.data) if @messages_store
         end
       
         ws.on :close do |event|
