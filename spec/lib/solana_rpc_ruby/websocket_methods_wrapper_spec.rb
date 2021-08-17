@@ -162,18 +162,18 @@ describe SolanaRpcRuby::WebsocketsMethodsWrapper do
       end
     end
 
-    describe '#slot_updates_subscribe' do
+    describe '#slots_updates_subscribe' do
       it 'returns correct data from endpoint' do
-        response = described_class.new.slot_updates_subscribe
+        response = described_class.new.slots_updates_subscribe
       end
     end
 
-    describe '#slot_updates_unsubscribe' do
+    describe '#slots_updates_unsubscribe' do
       let(:subscription_id) { 1 }
 
       context 'with required params' do
         it 'returns correct data from endpoint' do
-          response = described_class.new.slot_updates_unsubscribe(
+          response = described_class.new.slots_updates_unsubscribe(
             subscription_id
           )
         end

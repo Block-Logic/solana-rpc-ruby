@@ -45,7 +45,7 @@ end
 ws_method_wrapper.root_subscribe(&block)
 # ws_method_wrapper.signature_subscribe('provide_signature')
 # ws_method_wrapper.slot_subscribe(&block)
-# ws_method_wrapper.slot_updates_subscribe
-# ws_method_wrapper.slot_updates_subscribe(&block)
+# ws_method_wrapper.slots_updates_subscribe
+# ws_method_wrapper.slots_updates_subscribe(&block)
 # ws_method_wrapper.vote_subscribe(&block) # unstable, disabled by default, check the solana docs
 

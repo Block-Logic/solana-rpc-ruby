@@ -215,7 +215,7 @@ module SolanaRpcRuby
     # @param &block [Proc]
     # 
     # @return [Integer] Subscription id (needed to unsubscribe)
-    def slot_updates_subscribe(&block)
+    def slots_updates_subscribe(&block)
       method = create_method_name(__method__)
       
       subscribe(method, &block)
@@ -227,7 +227,7 @@ module SolanaRpcRuby
     # @param subscription_id [Integer]
     #
     # @return [Bool] unsubscribe success message
-    def slot_updates_unsubscribe(subscription_id)
+    def slots_updates_unsubscribe(subscription_id)
       method = create_method_name(__method__)
       unsubscribe(method, subscription_id: subscription_id)
     end
