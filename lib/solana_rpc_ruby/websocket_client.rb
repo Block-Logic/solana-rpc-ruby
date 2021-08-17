@@ -41,6 +41,15 @@ module SolanaRpcRuby
         end
       
         ws.on :message do |event|
+          # To run websocket_methods_wrapper_spec.rb, uncomment code below
+          # to return info about connection estabilished.
+          # Also, read the comment from the top of the mentioned file.
+          # 
+          # if ENV['test'] == 'true'
+          #   result = block_given? ? block.call(event.data) : event.data
+          #   return result
+          # end
+
           if block_given?
             block.call(event.data)
           else
