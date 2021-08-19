@@ -9,15 +9,14 @@ module SolanaRpcRuby
     # @return [String]
     attr_accessor :cluster
 
-    # Default headers.
-    # @return [Hash]
+    # Api client used to connect with API.
+    # @return [Object]
     attr_accessor :client
 
     # Initialize object with cluster address where requests will be sent.
     #
     # @param websocket_client [Object]
     # @param cluster [String]
-
     def initialize(websocket_client: Faye::WebSocket, cluster: nil)
       @client = websocket_client
       @cluster = cluster || SolanaRpcRuby.ws_cluster
@@ -29,8 +28,9 @@ module SolanaRpcRuby
     # Connects with cluster's websocket.
     #
     # @param method [Symbol]
+    # @param &block [Proc]
     #
-    # @return [Object] Net::HTTPOK
+    # @return [String] # messages from websocket
     def connect(method, &block)
       EM.run {
         # ping option sends some data to the server periodically, 

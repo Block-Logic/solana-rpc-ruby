@@ -27,6 +27,7 @@ module SolanaRpcRuby
     #
     # @param api_client [ApiClient]
     # @param cluster [String] cluster where requests will be sent.
+    # @param id [Integer] unique client-generated identifying integer.
     def initialize(
       websocket_client: WebsocketClient, 
       cluster: SolanaRpcRuby.ws_cluster,

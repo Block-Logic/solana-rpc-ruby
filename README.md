@@ -61,6 +61,14 @@ ws_method_wrapper = SolanaRpcRuby::WebsocketsMethodsWrapper.new(
 # You should see stream of messages in your console.
 ws_method_wrapper.root_subscribe
 
+# You could pass a block to do something with websocket's messages, ie:
+block = Proc.new do |message|
+  json = JSON.parse(message) 
+  puts json['params']
+end
+
+ws_method_wrapper.root_subscribe(&block)
+
 # You can check cluster and id that are used.
 ws_method_wrapper.cluster
 ws_method_wrapper.id

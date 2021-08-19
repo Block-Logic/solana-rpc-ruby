@@ -15,7 +15,7 @@ module SolanaRpcRuby
 
     # Creates method name to match names required by Solana RPC JSON.
     # 
-    # @param method [String
+    # @param method [String]
     # 
     # @return [String]
     def create_method_name(method)
