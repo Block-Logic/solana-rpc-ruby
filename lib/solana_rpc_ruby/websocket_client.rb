@@ -33,10 +33,13 @@ module SolanaRpcRuby
     # @return [Object] Net::HTTPOK
     def connect(method, &block)
       EM.run {
-        ws = Faye::WebSocket::Client.new(@cluster)
+        # ping option sends some data to the server periodically, 
+        # which prevents the connection to go idle.
+        ws = Faye::WebSocket::Client.new(@cluster, nil, ping: 60)
       
         ws.on :open do |event|
           p [:open]
+          p "Status: #{ws.status}"
           ws.send(method)
         end
       
@@ -56,10 +59,13 @@ module SolanaRpcRuby
             puts event.data
           end
         end
-      
+
         ws.on :close do |event|
           p [:close, event.code, event.reason]
           ws = nil
+
+          # It restarts the websocket connection.
+          connect(method, &block)
         end
       }
     rescue Timeout::Error,
