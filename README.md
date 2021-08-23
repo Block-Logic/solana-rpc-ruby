@@ -40,8 +40,12 @@ You can customize it to your needs.
 ```ruby
 # If you set default cluster you don't need to pass it every time.
 method_wrapper = SolanaRpcRuby::MethodsWrapper.new(
-  cluster: 'https://api.testnet.solana.com', # optional, if not passed, default cluster from config will be used
-  id: 123 # optional, if not passed, default random number from range 1 to 99_999 will be used
+  # optional, if not passed, default cluster from config will be used
+  cluster: 'https://api.testnet.solana.com',
+
+  # optional, if not passed, default random number 
+  # from range 1 to 99_999 will be used
+  id: 123 
 )
 
 response = method_wrapper.get_account_info(account_pubkey)
@@ -54,8 +58,12 @@ method_wrapper.id
 #### Subscription Websocket (BETA)
 ```ruby
 ws_method_wrapper = SolanaRpcRuby::WebsocketsMethodsWrapper.new(
-  ws_cluster: 'ws://api.testnet.solana.com', # optional, if not passed, default cluster from config will be used
-  id: 123 # optional, if not passed, default random number from range 1 to 99_999 will be used
+  # optional, if not passed, default ws_cluster from config will be used
+  cluster: 'ws://api.testnet.solana.com',
+
+  # optional, if not passed, default random number 
+  # from range 1 to 99_999 will be used
+  id: 123 
 )
 
 # You should see stream of messages in your console.
@@ -73,6 +81,109 @@ ws_method_wrapper.root_subscribe(&block)
 ws_method_wrapper.cluster
 ws_method_wrapper.id
 ```
+
+#### Websockets usage in Rails
+You can easily plug-in websockets connection to your rails app by using ActionCable.
+Here is an example for development environment.
+More explanation on Action Cable here: https://www.pluralsight.com/guides/updating-a-rails-app's-wall-feed-in-real-time-with-actioncable
+
+0. Make sure that you have action_cable and solana_rpc_ruby gems installed properly. Also install redis unless you have it.
+
+1. Mount action_cable in `routes.rb`.
+```
+Rails.application.routes.draw do
+  mount ActionCable.server => '/cable'
+  ...
+end
+```
+
+2. Update `config/environments/development.rb`.
+```
+config.action_cable.url = "ws://localhost:3000/cable"
+config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
+```
+
+3. Update adapter in `cable.yml`.
+```
+development:
+  adapter: redis
+  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
+```
+
+4. Create a channel.
+```
+rails g channel wall
+```
+
+5. Your `wall_channel.rb` should look like this:
+```
+class WallChannel < ApplicationCable::Channel
+  def subscribed
+    stream_from "wall_channel"
+  end
+
+  def unsubscribed
+    # Any cleanup needed when channel is unsubscribed
+  end
+end
+```
+
+6. Your `wall_channel.js` should look like this (json keys are configured for `root_subscription` method response):
+```
+import consumer from "./consumer"
+
+consumer.subscriptions.create("WallChannel", {
+  connected() {
+    console.log("Connected to WallChannel");
+    // Called when the subscription is ready for use on the server
+  },
+
+  disconnected() {
+    // Called when the subscription has been terminated by the server
+  },
+
+  received(data) {
+    let wall = document.getElementById('wall');
+
+    wall.innerHTML += "<p>Result: "+ data['message']['result'] + "</p>";
+    // Called when there's incoming data on the websocket for this channel
+  }
+});
+
+
+```
+
+7. Create placeholder somewhere in your view for messages.
+```
+<div id='wall' style='overflow-y: scroll; height:400px;''>
+  <h1>Solana subscription messages</h1>
+</div>
+```
+
+8. Create a script with a block to run websockets (`script/websockets_solana.rb`).
+```
+require_relative '../config/environment'
+
+ws_method_wrapper = SolanaRpcRuby::WebsocketsMethodsWrapper.new
+
+# Example of block that can be passed to the method to manipulate the data.
+block = Proc.new do |message|
+  json = JSON.parse(message)
+
+  ActionCable.server.broadcast(
+    "wall_channel",
+    {
+      message: json['params']
+    }
+  )
+end
+
+ws_method_wrapper.root_subscribe(&block)
+```
+9. Run `rails s`, open webpage where you put your placeholder.
+10. Open `http://localhost:3000/address_with_websockets_view`.
+11. Run `rails r script/websockets_solana.rb` in another terminal window.
+12. You should see incoming websocket messages on your webpage.
 ### Demo scripts
 Gem is coming with demo scripts that you can run and test API and Websockets.
 
