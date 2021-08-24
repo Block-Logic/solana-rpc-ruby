@@ -6,7 +6,9 @@ module SolanaRpcRuby
   # @see https://docs.solana.com/developing/clients/jsonrpc-api
   class WebsocketClient
     KEEPALIVE_TIME = 60
+    SLEEP_TIME = 10
     RETRIES_LIMIT = 3
+
     # Determines which cluster will be used to send requests.
     # @return [String]
     attr_accessor :cluster
@@ -38,8 +40,24 @@ module SolanaRpcRuby
       EM.run {
         # ping option sends some data to the server periodically, 
         # which prevents the connection to go idle.
-        ws = Faye::WebSocket::Client.new(@cluster, nil, ping: KEEPALIVE_TIME)
-      
+        ws = Faye::WebSocket::Client.new(@cluster, nil)
+
+        EM::PeriodicTimer.new(KEEPALIVE_TIME) do
+          while !ws.ping
+            @retries += 1
+
+            unless @retries <= 3
+              puts '3 ping retries failed, close connection.'
+              ws.close
+              break
+            end
+
+            puts 'Ping failed, sleep for 10 seconds...'
+            sleep SLEEP_TIME
+            puts "#{@retries} ping retry..."
+          end
+        end
+
         ws.on :open do |event|
           p [:open]
           p "Status: #{ws.status}"
@@ -73,7 +91,7 @@ module SolanaRpcRuby
             # It restarts the websocket connection.
             connect(method, &block) 
           else
-            puts 'Retries limit reached, closing. Wrong cluster address might be a reason, please check.'
+            puts 'Retries limit reached, closing. Wrong cluster address or unhealthy node might be a reason, please check.'
             EM.stop
           end
         end
