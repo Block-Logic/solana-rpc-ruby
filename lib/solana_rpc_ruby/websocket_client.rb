@@ -5,6 +5,8 @@ module SolanaRpcRuby
   # WebsocketClient class serves as a websocket client for solana JSON RPC API.
   # @see https://docs.solana.com/developing/clients/jsonrpc-api
   class WebsocketClient
+    KEEPALIVE_TIME = 60
+    RETRIES_LIMIT = 3
     # Determines which cluster will be used to send requests.
     # @return [String]
     attr_accessor :cluster
@@ -20,6 +22,7 @@ module SolanaRpcRuby
     def initialize(websocket_client: Faye::WebSocket, cluster: nil)
       @client = websocket_client
       @cluster = cluster || SolanaRpcRuby.ws_cluster
+      @retries = 0
 
       message = 'Websocket cluster is missing. Please provide default cluster in config or pass it to the client directly.'
       raise ArgumentError, message unless @cluster
@@ -35,7 +38,7 @@ module SolanaRpcRuby
       EM.run {
         # ping option sends some data to the server periodically, 
         # which prevents the connection to go idle.
-        ws = Faye::WebSocket::Client.new(@cluster, nil, ping: 60)
+        ws = Faye::WebSocket::Client.new(@cluster, nil, ping: KEEPALIVE_TIME)
       
         ws.on :open do |event|
           p [:open]
@@ -64,8 +67,15 @@ module SolanaRpcRuby
           p [:close, event.code, event.reason]
           ws = nil
 
-          # It restarts the websocket connection.
-          connect(method, &block)
+          @retries += 1
+          if @retries <= RETRIES_LIMIT
+            puts 'Retry...'
+            # It restarts the websocket connection.
+            connect(method, &block) 
+          else
+            puts 'Retries limit reached, closing. Wrong cluster address might be a reason, please check.'
+            EM.stop
+          end
         end
       }
     rescue Timeout::Error,
