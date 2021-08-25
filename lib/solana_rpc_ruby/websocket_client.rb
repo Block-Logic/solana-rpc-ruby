@@ -32,11 +32,11 @@ module SolanaRpcRuby
 
     # Connects with cluster's websocket.
     #
-    # @param method [Symbol]
+    # @param body [String]
     # @param &block [Proc]
     #
     # @return [String] # messages from websocket
-    def connect(method, &block)
+    def connect(body, &block)
       EM.run {
         # ping option sends some data to the server periodically, 
         # which prevents the connection to go idle.
@@ -61,7 +61,7 @@ module SolanaRpcRuby
         ws.on :open do |event|
           p [:open]
           p "Status: #{ws.status}"
-          ws.send(method)
+          ws.send(body)
         end
       
         ws.on :message do |event|
@@ -89,7 +89,7 @@ module SolanaRpcRuby
           if @retries <= RETRIES_LIMIT
             puts 'Retry...'
             # It restarts the websocket connection.
-            connect(method, &block) 
+            connect(body, &block) 
           else
             puts 'Retries limit reached, closing. Wrong cluster address or unhealthy node might be a reason, please check.'
             EM.stop
