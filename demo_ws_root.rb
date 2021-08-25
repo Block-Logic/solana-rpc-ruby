@@ -1,15 +1,14 @@
 require_relative 'lib/solana_rpc_ruby'
 require 'pry'
 
-# ws_testnet_cluster = 'ws://api.testnet.solana.com'
-# ws_mainnet_cluster = 'ws://api.mainnet-beta.solana.com'
+ws_testnet_cluster = 'ws://api.testnet.solana.com'
+ws_mainnet_cluster = 'ws://api.mainnet-beta.solana.com'
 
-cluster = ARGV[0]
+cluster = ARGV[0] || ws_mainnet_cluster
 raise "Please provide a cluster endpoint in this format: ws://api.mainnet-beta.solana.com" if cluster.nil?
 
 SolanaRpcRuby.config do |c|
   c.json_rpc_version = '2.0'
-  # c.ws_cluster = ws_mainnet_cluster
   c.ws_cluster = cluster
 end
 
