@@ -189,7 +189,7 @@ Gem is coming with demo scripts that you can run and test API and Websockets.
 
 1. Clone the repo
 2. Set the gemset
-3. Run `ruby demo.rb` or `ruby demo_ws.rb`
+3. Run `ruby demo.rb` or `ruby demo_ws_METHOD.rb` to see example output.
 4. Check the gem or Solana JSON RPC API docs to get more information about method usage and modify demo scripts loosely.
 
 All info about methods you can find in the docs on: https://www.rubydoc.info/github/Block-Logic/solana-rpc-ruby/main/SolanaRpcRuby
