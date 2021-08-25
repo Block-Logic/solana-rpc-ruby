@@ -79,7 +79,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/solana_rpc_ruby.rb<span class="defines">,<br />
-  lib/solana_rpc_ruby/version.rb,<br /> lib/solana_rpc_ruby/response.rb,<br /> lib/solana_rpc_ruby/api_error.rb,<br /> lib/solana_rpc_ruby/api_client.rb,<br /> lib/solana_rpc_ruby/request_body.rb,<br /> lib/solana_rpc_ruby/helper_methods.rb,<br /> lib/solana_rpc_ruby/methods_wrapper.rb,<br /> lib/generators/solana_rpc_ruby/install_generator.rb</span>
+  lib/solana_rpc_ruby/version.rb,<br /> lib/solana_rpc_ruby/response.rb,<br /> lib/solana_rpc_ruby/api_error.rb,<br /> lib/solana_rpc_ruby/api_client.rb,<br /> lib/solana_rpc_ruby/request_body.rb,<br /> lib/solana_rpc_ruby/helper_methods.rb,<br /> lib/solana_rpc_ruby/methods_wrapper.rb,<br /> lib/solana_rpc_ruby/websocket_client.rb,<br /> lib/solana_rpc_ruby/websocket_methods_wrapper.rb,<br /> lib/generators/solana_rpc_ruby/install_generator.rb</span>
 </dd>
   </dl>
   
@@ -104,7 +104,7 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="SolanaRpcRuby/ApiClient.html" title="SolanaRpcRuby::ApiClient (class)">ApiClient</a></span>, <span class='object_link'><a href="SolanaRpcRuby/ApiError.html" title="SolanaRpcRuby::ApiError (class)">ApiError</a></span>, <span class='object_link'><a href="SolanaRpcRuby/MethodsWrapper.html" title="SolanaRpcRuby::MethodsWrapper (class)">MethodsWrapper</a></span>, <span class='object_link'><a href="SolanaRpcRuby/Response.html" title="SolanaRpcRuby::Response (class)">Response</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="SolanaRpcRuby/ApiClient.html" title="SolanaRpcRuby::ApiClient (class)">ApiClient</a></span>, <span class='object_link'><a href="SolanaRpcRuby/ApiError.html" title="SolanaRpcRuby::ApiError (class)">ApiError</a></span>, <span class='object_link'><a href="SolanaRpcRuby/MethodsWrapper.html" title="SolanaRpcRuby::MethodsWrapper (class)">MethodsWrapper</a></span>, <span class='object_link'><a href="SolanaRpcRuby/Response.html" title="SolanaRpcRuby::Response (class)">Response</a></span>, <span class='object_link'><a href="SolanaRpcRuby/WebsocketClient.html" title="SolanaRpcRuby::WebsocketClient (class)">WebsocketClient</a></span>, <span class='object_link'><a href="SolanaRpcRuby/WebsocketsMethodsWrapper.html" title="SolanaRpcRuby::WebsocketsMethodsWrapper (class)">WebsocketsMethodsWrapper</a></span>
     
   
 </p>
@@ -120,7 +120,7 @@
         <dt id="VERSION-constant" class="">VERSION =
           
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>1.0.0</span><span class='tstring_end'>&#39;</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>1.0.1</span><span class='tstring_end'>&#39;</span></span></pre></dd>
       
     </dl>
   
@@ -180,6 +180,33 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Default json rpc version that will be used.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ws_cluster-class_method" title="ws_cluster (class method)">.<strong>ws_cluster</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Default websocket cluster address that will be used if not passed.</p>
 </div></span>
   
 </li>
@@ -275,12 +302,12 @@
       <pre class="lines">
 
 
-11
-12
-13</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cluster'>cluster</span>
   <span class='ivar'>@cluster</span>
@@ -336,15 +363,76 @@
       <pre class="lines">
 
 
-15
-16
-17</pre>
+21
+22
+23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_json_rpc_version'>json_rpc_version</span>
   <span class='ivar'>@json_rpc_version</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="ws_cluster=-class_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="ws_cluster-class_method">
+  
+    .<strong>ws_cluster</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Default websocket cluster address that will be used if not passed.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>websocket cluster address.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+17
+18
+19</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby.rb', line 17</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ws_cluster'>ws_cluster</span>
+  <span class='ivar'>@ws_cluster</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -435,12 +523,12 @@
       <pre class="lines">
 
 
-19
-20
-21</pre>
+25
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_config'>config</span>
   <span class='kw'>yield</span> <span class='kw'>self</span>
@@ -455,7 +543,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Aug  4 14:04:29 2021 by
+  Generated on Thu Aug 19 16:22:10 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.6.5).
 </div>

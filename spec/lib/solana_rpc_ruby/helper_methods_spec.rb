@@ -23,4 +23,16 @@ describe SolanaRpcRuby::RequestBody do
       expect { blank?(false) } .to raise_error(ArgumentError, message)
     end
   end
+
+  describe '#create_method_name' do
+    it 'creates correct camel-cased method name' do
+      expect(create_method_name('create_method_name')).to eq('createMethodName')
+    end
+
+    it 'returns an empty string when method argument is not provided or is different than String or Symbol' do
+      expect(create_method_name('')).to eq('')
+      expect(create_method_name(nil)).to eq('')
+      expect(create_method_name(1)).to eq('')
+    end
+  end
 end

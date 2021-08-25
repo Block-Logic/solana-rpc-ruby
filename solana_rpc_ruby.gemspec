@@ -28,14 +28,16 @@ Gem::Specification.new do |spec|
     'source_code_uri' => 'https://github.com/Block-Logic/solana-rpc-ruby'
   }
 
+  spec.add_dependency 'faye-websocket', '~> 0.11'
+
   spec.add_development_dependency 'rubocop', '~> 1.15'
   spec.add_development_dependency 'rubocop-performance', '~> 1.11'
   spec.add_development_dependency 'rubocop-rspec', '~> 2.3'
-  spec.add_development_dependency 'pry', '~> 0.13.1'
+  spec.add_development_dependency 'pry', '~> 0.14'
 
   spec.add_development_dependency 'codecov', '~> 0.4'
   spec.add_development_dependency 'dotenv', '~> 2.7'
-  spec.add_development_dependency 'rails', '~> 6.1.3'
+  spec.add_development_dependency 'rails', '~> 6.1'
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.10'
   spec.add_development_dependency 'rspec-rails', '~> 4.0'

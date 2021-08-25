@@ -95,14 +95,57 @@
 
 <h3 id="label-Usage+examples">Usage examples</h3>
 
+<h4 id="label-JSON+RPC+API">JSON RPC API</h4>
+
 <pre class="code ruby"><code class="ruby"><span class='comment'># If you set default cluster you don&#39;t need to pass it every time.
 </span><span class='id identifier rubyid_method_wrapper'>method_wrapper</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="SolanaRpcRuby.html" title="SolanaRpcRuby (module)">SolanaRpcRuby</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="SolanaRpcRuby/MethodsWrapper.html" title="SolanaRpcRuby::MethodsWrapper (class)">MethodsWrapper</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="SolanaRpcRuby/MethodsWrapper.html#initialize-instance_method" title="SolanaRpcRuby::MethodsWrapper#initialize (method)">new</a></span></span><span class='lparen'>(</span>
   <span class='label'>cluster:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>https://api.testnet.solana.com</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='comment'># optional, if not passed, default cluster from config will be used
 </span>  <span class='label'>id:</span> <span class='int'>123</span> <span class='comment'># optional, if not passed, default random number from range 1 to 99_999 will be used
 </span><span class='rparen'>)</span>
+
 <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_method_wrapper'>method_wrapper</span><span class='period'>.</span><span class='id identifier rubyid_get_account_info'>get_account_info</span><span class='lparen'>(</span><span class='id identifier rubyid_account_pubkey'>account_pubkey</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_response'>response</span>
+
+<span class='comment'># You can check cluster and id that are used.
+</span><span class='id identifier rubyid_method_wrapper'>method_wrapper</span><span class='period'>.</span><span class='id identifier rubyid_cluster'>cluster</span>
+<span class='id identifier rubyid_method_wrapper'>method_wrapper</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
 </code></pre>
+
+<h4 id="label-Subscription+Websocket">Subscription Websocket</h4>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_ws_method_wrapper'>ws_method_wrapper</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="SolanaRpcRuby.html" title="SolanaRpcRuby (module)">SolanaRpcRuby</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="SolanaRpcRuby/WebsocketsMethodsWrapper.html" title="SolanaRpcRuby::WebsocketsMethodsWrapper (class)">WebsocketsMethodsWrapper</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="SolanaRpcRuby/WebsocketsMethodsWrapper.html#initialize-instance_method" title="SolanaRpcRuby::WebsocketsMethodsWrapper#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+  <span class='label'>ws_cluster:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ws://api.testnet.solana.com</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='comment'># optional, if not passed, default cluster from config will be used
+</span>  <span class='label'>id:</span> <span class='int'>123</span> <span class='comment'># optional, if not passed, default random number from range 1 to 99_999 will be used
+</span><span class='rparen'>)</span>
+
+<span class='comment'># You should see stream of messages in your console.
+</span><span class='id identifier rubyid_ws_method_wrapper'>ws_method_wrapper</span><span class='period'>.</span><span class='id identifier rubyid_root_subscribe'>root_subscribe</span>
+
+<span class='comment'># You could pass a block to do something with websocket&#39;s messages, ie:
+</span><span class='id identifier rubyid_block'>block</span> <span class='op'>=</span> <span class='const'>Proc</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_message'>message</span><span class='op'>|</span>
+  <span class='id identifier rubyid_json'>json</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span> 
+  <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_json'>json</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>params</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span>
+
+<span class='id identifier rubyid_ws_method_wrapper'>ws_method_wrapper</span><span class='period'>.</span><span class='id identifier rubyid_root_subscribe'>root_subscribe</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+
+<span class='comment'># You can check cluster and id that are used.
+</span><span class='id identifier rubyid_ws_method_wrapper'>ws_method_wrapper</span><span class='period'>.</span><span class='id identifier rubyid_cluster'>cluster</span>
+<span class='id identifier rubyid_ws_method_wrapper'>ws_method_wrapper</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+</code></pre>
+
+<h3 id="label-Demo+scripts">Demo scripts</h3>
+
+<p>Gem is coming with demo scripts that you can run and test API and Websockets.</p>
+<ol><li>
+<p>Clone the repo</p>
+</li><li>
+<p>Set the gemset</p>
+</li><li>
+<p>Run <code>ruby demo.rb</code> or <code>ruby demo_ws.rb</code></p>
+</li><li>
+<p>Check the gem or Solana JSON RPC API docs to get more information about method usage and modify demo scripts loosely.</p>
+</li></ol>
 
 <p>All info about methods you can find in the docs on: <a href="https://www.rubydoc.info/github/Block-Logic/solana-rpc-ruby/main/SolanaRpcRuby">www.rubydoc.info/github/Block-Logic/solana-rpc-ruby/main/SolanaRpcRuby</a></p>
 
@@ -114,7 +157,7 @@
 </div></div>
 
       <div id="footer">
-  Generated on Wed Aug  4 14:04:29 2021 by
+  Generated on Thu Aug 19 16:22:10 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.6.5).
 </div>

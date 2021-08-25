@@ -1321,13 +1321,5 @@ module SolanaRpcRuby
         return response
       end
     end
-
-    def create_method_name(method)
-      return '' unless method
-
-      method.to_s.split('_').map.with_index do |string, i|
-        i == 0 ? string : string.capitalize
-      end.join
-    end
   end
 end
