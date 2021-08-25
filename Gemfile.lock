@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    solana_rpc_ruby (1.0.1)
+    solana_rpc_ruby (1.1.0)
       faye-websocket (~> 0.11)
 
 GEM
