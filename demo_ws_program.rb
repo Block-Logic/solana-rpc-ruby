@@ -1,7 +1,11 @@
+#!/usr/bin/env ruby -wKU
+
+# ruby demo_ws_program.rb
+
 require_relative 'lib/solana_rpc_ruby'
 require 'pry'
 
-ws_testnet_cluster = 'ws://api.testnet.solana.com'
+# ws_testnet_cluster = 'ws://api.testnet.solana.com'
 ws_mainnet_cluster = 'ws://api.mainnet-beta.solana.com'
 
 cluster = ARGV[0] || ws_mainnet_cluster
@@ -19,7 +23,10 @@ puts SolanaRpcRuby.ws_cluster
 ws_method_wrapper = SolanaRpcRuby::WebsocketsMethodsWrapper.new(cluster: SolanaRpcRuby.cluster)
 
 # SOL
-program_id = '11111111111111111111111111111111'
+# program_id = '11111111111111111111111111111111'
+
+# Serum Program V3
+program_id = '9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin'
 
 interrupted = false
 trap('INT') { interrupted = true }
