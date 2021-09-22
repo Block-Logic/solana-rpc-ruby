@@ -43,8 +43,7 @@ module SolanaRpcRuby
       EM.run {
         # ping option sends some data to the server periodically, 
         # which prevents the connection to go idle.
-        ws = Faye::WebSocket::Client.new(@cluster, nil)
-
+        ws ||= Faye::WebSocket::Client.new(@cluster, nil)
         EM::PeriodicTimer.new(KEEPALIVE_TIME) do
           while !ws.ping
             @retries += 1
@@ -57,7 +56,6 @@ module SolanaRpcRuby
 
             puts 'Ping failed, sleep for 10 seconds...'
             sleep SLEEP_TIME
-            puts "#{@retries} ping retry..."
           end
         end
 
@@ -92,7 +90,6 @@ module SolanaRpcRuby
 
         ws.on :close do |event|
           p [:close, event.code, event.reason]
-          ws = nil
 
           @retries += 1
           if @retries <= RETRIES_LIMIT
@@ -100,6 +97,7 @@ module SolanaRpcRuby
             # It restarts the websocket connection.
             connect(body, &block) 
           else
+            ws = nil
             puts 'Retries limit reached, closing. Wrong cluster address or unhealthy node might be a reason, please check.'
             EM.stop
           end
