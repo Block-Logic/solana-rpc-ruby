@@ -10,4 +10,4 @@
 
 ## 1.1.1
 * Fix SolanaRpcRuby::ApiError occurring when websocket program runs for too long
-(#<SolanaRpcRuby::ApiError: NoMethodError undefined methodping)
+(#<SolanaRpcRuby::ApiError: NoMethodError undefined method ping)
