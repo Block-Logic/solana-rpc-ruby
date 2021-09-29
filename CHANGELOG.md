@@ -7,3 +7,6 @@
 
 ## 1.1.0
 * Add websockets connection to gem.
+
+## 1.1.1
+* Fix SolanaRpcRuby::ApiError
