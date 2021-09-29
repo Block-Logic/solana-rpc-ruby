@@ -9,4 +9,5 @@
 * Add websockets connection to gem.
 
 ## 1.1.1
-* Fix SolanaRpcRuby::ApiError
+* Fix SolanaRpcRuby::ApiError occurring when websocket program runs for too long
+(#<SolanaRpcRuby::ApiError: NoMethodError undefined methodping)
