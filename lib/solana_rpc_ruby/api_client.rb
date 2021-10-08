@@ -45,12 +45,13 @@ module SolanaRpcRuby
            Net::HTTPNotFound,
            Net::HTTPClientException,
            Net::HTTPFatalError,
-           Net::ReadTimeout => e
-      fail ApiError.new(message: e.message)
+           Net::ReadTimeout,
+           Errno::ECONNREFUSED => e
+      fail ApiError.new(error_class: e.class, message: e.message)
     rescue StandardError => e
 
       message = "#{e.class} #{e.message}\n Backtrace: \n #{e.backtrace}"
-      fail ApiError.new(message: message)
+      fail ApiError.new(error_class: e.class, message: e.message)
     end
 
     private

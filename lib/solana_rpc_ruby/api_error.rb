@@ -17,11 +17,21 @@ module SolanaRpcRuby
     # @param message [String]
     #
     # @return [SolanaRpcRuby::ApiError]
-    def initialize(code: nil, message:)
+    def initialize(message:, error_class: nil, code: nil)
       @code = code
       @message = message.to_s
+      @error_class = error_class
 
-      super message
+      additional_info
+
+      super @message
+    end
+
+    private
+    def additional_info
+      if  @error_class == Errno::ECONNREFUSED
+        @message += '. Check if the RPC url you provided is correct.'
+      end
     end
   end
 end
