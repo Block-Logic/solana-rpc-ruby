@@ -28,4 +28,16 @@ describe SolanaRpcRuby::ApiError do
     expect(error.message).to eq(message + '. Check if the RPC url you provided is correct.')
     expect(error.code).to eq(nil)
   end
+
+  it 'SocketError returns additional info' do
+    message = 'Failed to open TCP connection to api.mainnet-beta.solanaa.com:443 (getaddrinfo: Name or service not known)'
+    error = described_class.new(
+      error_class: SocketError,
+      message: message
+    )
+
+    expect(error.class).to eq(SolanaRpcRuby::ApiError)
+    expect(error.message).to eq(message + '. Check if the RPC url you provided is correct.')
+    expect(error.code).to eq(nil)
+  end
 end

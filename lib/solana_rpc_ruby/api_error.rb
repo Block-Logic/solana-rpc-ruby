@@ -29,7 +29,8 @@ module SolanaRpcRuby
 
     private
     def additional_info
-      if  @error_class == Errno::ECONNREFUSED
+      wrong_url_errors = [Errno::ECONNREFUSED, SocketError]
+      if wrong_url_errors.include?(@error_class)
         @message += '. Check if the RPC url you provided is correct.'
       end
     end

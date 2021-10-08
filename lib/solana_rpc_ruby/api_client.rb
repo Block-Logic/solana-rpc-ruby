@@ -46,7 +46,8 @@ module SolanaRpcRuby
            Net::HTTPClientException,
            Net::HTTPFatalError,
            Net::ReadTimeout,
-           Errno::ECONNREFUSED => e
+           Errno::ECONNREFUSED,
+           SocketError => e
       fail ApiError.new(error_class: e.class, message: e.message)
     rescue StandardError => e
 
