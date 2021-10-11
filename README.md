@@ -1,4 +1,9 @@
 ![specs](https://github.com/Block-Logic/solana-rpc-ruby/actions/workflows/specs.yml/badge.svg)
+![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
+![Last Commit](https://img.shields.io/github/last-commit/Block-Logic/solana-rpc-ruby)
+![Tag](https://img.shields.io/github/v/tag/Block-Logic/solana-rpc-ruby)
+![Stars](https://img.shields.io/github/stars/Block-Logic/solana-rpc-ruby.svg)
+![GitHub top language](https://img.shields.io/github/languages/top/Block-Logic/solana-rpc-ruby)
 # solana_rpc_ruby
 A Solana RPC Client for Ruby. This gem provides a wrapper methods for Solana RPC JSON API https://docs.solana.com/developing/clients/jsonrpc-api.
 
@@ -6,7 +11,7 @@ A Solana RPC Client for Ruby. This gem provides a wrapper methods for Solana RPC
 
 ### Requirements
 
-This gem requires Ruby 2.6+ and h Rails 6.0+. It MIGHT work with lower versions, but was not tested againt them.
+This gem requires Ruby 2.6+ and h Rails 6.0+. It MIGHT work with lower versions, but was not tested with them.
 Add the following line to your Gemfile:
 
 ```ruby
