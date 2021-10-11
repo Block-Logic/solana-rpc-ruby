@@ -95,7 +95,7 @@ More explanation on Action Cable here: https://www.pluralsight.com/guides/updati
 0. Make sure that you have action_cable and solana_rpc_ruby gems installed properly. Also install redis unless you have it.
 
 1. Mount action_cable in `routes.rb`.
-```
+```ruby
 Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   ...
@@ -103,25 +103,25 @@ end
 ```
 
 2. Update `config/environments/development.rb`.
-```
+```ruby
 config.action_cable.url = "ws://localhost:3000/cable"
 config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
 ```
 
 3. Update adapter in `cable.yml`.
-```
+```ruby
 development:
   adapter: redis
   url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
 ```
 
 4. Create a channel.
-```
+```ruby
 rails g channel wall
 ```
 
 5. Your `wall_channel.rb` should look like this:
-```
+```ruby
 class WallChannel < ApplicationCable::Channel
   def subscribed
     stream_from "wall_channel"
@@ -134,7 +134,7 @@ end
 ```
 
 6. Your `wall_channel.js` should look like this (json keys are configured for `root_subscription` method response):
-```
+```js
 import consumer from "./consumer"
 
 consumer.subscriptions.create("WallChannel", {
@@ -159,14 +159,14 @@ consumer.subscriptions.create("WallChannel", {
 ```
 
 7. Create placeholder somewhere in your view for messages.
-```
+```html
 <div id='wall' style='overflow-y: scroll; height:400px;''>
   <h1>Solana subscription messages</h1>
 </div>
 ```
 
 8. Create a script with a block to run websockets (`script/websockets_solana.rb`).
-```
+```ruby
 require_relative '../config/environment'
 
 ws_method_wrapper = SolanaRpcRuby::WebsocketsMethodsWrapper.new
