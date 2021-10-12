@@ -27,7 +27,6 @@ module SolanaRpcRuby
       @client = websocket_client
       @cluster = cluster || SolanaRpcRuby.ws_cluster
       @retries = 0
-      @subscription_info = nil
 
       message = 'Websocket cluster is missing. Please provide default cluster in config or pass it to the client directly.'
       raise ArgumentError, message unless @cluster
@@ -59,11 +58,6 @@ module SolanaRpcRuby
           end
         end
 
-        # Uncomment to disconnect websocket.
-        # EM::Timer.new(2) do
-        #   ws.send(unsubscribe_body(body))
-        # end
-
         ws.on :open do |event|
           p [:open]
           p "Status: #{ws.status}"
@@ -79,7 +73,6 @@ module SolanaRpcRuby
           #   result = block_given? ? block.call(event.data) : event.data
           #   return result
           # end
-          @subscription_info = event.data unless @subscription_info
 
           if block_given?
             block.call(event.data)
@@ -113,17 +106,6 @@ module SolanaRpcRuby
     rescue StandardError => e
       message = "#{e.class} #{e.message}\n Backtrace: \n #{e.backtrace}"
       fail ApiError.new(message: message)
-    end
-
-    def unsubscribe_body(body)
-      method = JSON.parse(body)['method']
-      info = JSON.parse(@subscription_info)
-      
-      subscription_id = info['result']
-      id = info['id']
-      unsubscribe_method = method.gsub('Sub', 'Unsub')
-
-      create_json_body(unsubscribe_method, method_params: [subscription_id], id: id)
     end
   end
 end

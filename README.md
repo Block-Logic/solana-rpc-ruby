@@ -1,4 +1,9 @@
 ![specs](https://github.com/Block-Logic/solana-rpc-ruby/actions/workflows/specs.yml/badge.svg)
+![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
+![Last Commit](https://img.shields.io/github/last-commit/Block-Logic/solana-rpc-ruby)
+![Tag](https://img.shields.io/github/v/tag/Block-Logic/solana-rpc-ruby)
+![Stars](https://img.shields.io/github/stars/Block-Logic/solana-rpc-ruby.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # solana_rpc_ruby
 A Solana RPC Client for Ruby. This gem provides a wrapper methods for Solana RPC JSON API https://docs.solana.com/developing/clients/jsonrpc-api.
 
@@ -6,7 +11,7 @@ A Solana RPC Client for Ruby. This gem provides a wrapper methods for Solana RPC
 
 ### Requirements
 
-This gem requires Ruby 2.6+ and h Rails 6.0+. It MIGHT work with lower versions, but was not tested againt them.
+This gem requires Ruby 2.6+ and h Rails 6.0+. It MIGHT work with lower versions, but was not tested with them.
 Add the following line to your Gemfile:
 
 ```ruby
@@ -90,7 +95,7 @@ More explanation on Action Cable here: https://www.pluralsight.com/guides/updati
 0. Make sure that you have action_cable and solana_rpc_ruby gems installed properly. Also install redis unless you have it.
 
 1. Mount action_cable in `routes.rb`.
-```
+```ruby
 Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   ...
@@ -98,25 +103,25 @@ end
 ```
 
 2. Update `config/environments/development.rb`.
-```
+```ruby
 config.action_cable.url = "ws://localhost:3000/cable"
 config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
 ```
 
 3. Update adapter in `cable.yml`.
-```
+```ruby
 development:
   adapter: redis
   url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
 ```
 
 4. Create a channel.
-```
+```ruby
 rails g channel wall
 ```
 
 5. Your `wall_channel.rb` should look like this:
-```
+```ruby
 class WallChannel < ApplicationCable::Channel
   def subscribed
     stream_from "wall_channel"
@@ -129,7 +134,7 @@ end
 ```
 
 6. Your `wall_channel.js` should look like this (json keys are configured for `root_subscription` method response):
-```
+```js
 import consumer from "./consumer"
 
 consumer.subscriptions.create("WallChannel", {
@@ -154,14 +159,14 @@ consumer.subscriptions.create("WallChannel", {
 ```
 
 7. Create placeholder somewhere in your view for messages.
-```
+```html
 <div id='wall' style='overflow-y: scroll; height:400px;''>
   <h1>Solana subscription messages</h1>
 </div>
 ```
 
 8. Create a script with a block to run websockets (`script/websockets_solana.rb`).
-```
+```ruby
 require_relative '../config/environment'
 
 ws_method_wrapper = SolanaRpcRuby::WebsocketsMethodsWrapper.new
