@@ -3,7 +3,7 @@
 ![Last Commit](https://img.shields.io/github/last-commit/Block-Logic/solana-rpc-ruby)
 ![Tag](https://img.shields.io/github/v/tag/Block-Logic/solana-rpc-ruby)
 ![Stars](https://img.shields.io/github/stars/Block-Logic/solana-rpc-ruby.svg)
-
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # solana_rpc_ruby
 A Solana RPC Client for Ruby. This gem provides a wrapper methods for Solana RPC JSON API https://docs.solana.com/developing/clients/jsonrpc-api.
 
