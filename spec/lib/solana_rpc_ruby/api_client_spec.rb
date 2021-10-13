@@ -77,6 +77,20 @@ describe SolanaRpcRuby::ApiClient do
         end
       end
 
+      describe 'Net::HTTPClientException' do
+        it 'raise error correctly' do
+          http = double
+          allow(Net::HTTP).to receive(:start).and_yield http
+          allow(http).to \
+            receive(:request).with(an_instance_of(Net::HTTP::Post))
+              .and_raise(Net::HTTPClientException.new('Net::HTTPClientException', 'Response'))
+
+          expect do
+            described_class.new.call_api(body: {}, http_method: :post)
+          end.to raise_error(SolanaRpcRuby::ApiError, 'Net::HTTPClientException')
+        end
+      end
+
       describe 'Net::HTTPFatalError' do
         it 'raise error correctly' do
           http = double
@@ -102,6 +116,40 @@ describe SolanaRpcRuby::ApiClient do
           expect do
             described_class.new.call_api(body: {}, http_method: :post)
           end.to raise_error(SolanaRpcRuby::ApiError, 'Net::ReadTimeout')
+        end
+      end
+
+      describe 'Errno::ECONNREFUSED' do
+        it 'raise error correctly' do
+          http = double
+          allow(Net::HTTP).to receive(:start).and_yield http
+          allow(http).to \
+            receive(:request).with(an_instance_of(Net::HTTP::Post))
+              .and_raise(Errno::ECONNREFUSED)
+
+          expect do
+            described_class.new.call_api(body: {}, http_method: :post)
+          end.to raise_error(
+            SolanaRpcRuby::ApiError, 
+            'Connection refused. Check if the RPC url you provided is correct.'
+          )
+        end
+      end
+
+      describe 'SocketError' do
+        it 'raise error correctly' do
+          http = double
+          allow(Net::HTTP).to receive(:start).and_yield http
+          allow(http).to \
+            receive(:request).with(an_instance_of(Net::HTTP::Post))
+              .and_raise(SocketError)
+
+          expect do
+            described_class.new.call_api(body: {}, http_method: :post)
+          end.to raise_error(
+            SolanaRpcRuby::ApiError, 
+            'SocketError. Check if the RPC url you provided is correct.'
+          )
         end
       end
 
