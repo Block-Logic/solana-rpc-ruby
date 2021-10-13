@@ -37,7 +37,7 @@ module SolanaRpcRuby
       request.body = body
 
       Net::HTTP.start(uri.host, uri.port, use_ssl: true, read_timeout: 120) do |http|
-        rpc_response = http.request(request)
+        http.request(request)
       end
 
     rescue Timeout::Error,

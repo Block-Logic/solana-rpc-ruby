@@ -35,10 +35,13 @@ describe SolanaRpcRuby::ApiClient do
 
   describe '#call_api' do
     describe 'error handling' do
+      let(:http) { double }
+      before do
+        allow(Net::HTTP).to receive(:start).and_yield http
+      end
+
       describe 'Timeout::Error' do
         it 'raise error correctly' do
-          http = double
-          allow(Net::HTTP).to receive(:start).and_yield http
           allow(http).to \
             receive(:request).with(an_instance_of(Net::HTTP::Post))
               .and_raise(Timeout::Error, 'TimeoutError')
@@ -51,8 +54,6 @@ describe SolanaRpcRuby::ApiClient do
 
       describe 'Net::HTTPError' do
         it 'raise error correctly' do
-          http = double
-          allow(Net::HTTP).to receive(:start).and_yield http
           allow(http).to \
             receive(:request).with(an_instance_of(Net::HTTP::Post))
               .and_raise(Net::HTTPError.new('Net::HTTPError', 'Response'))
@@ -65,8 +66,6 @@ describe SolanaRpcRuby::ApiClient do
 
       describe 'Net::HTTPServerException' do
         it 'raise error correctly' do
-          http = double
-          allow(Net::HTTP).to receive(:start).and_yield http
           allow(http).to \
             receive(:request).with(an_instance_of(Net::HTTP::Post))
               .and_raise(Net::HTTPServerException.new('Net::HTTPServerException', 'Response'))
@@ -79,8 +78,6 @@ describe SolanaRpcRuby::ApiClient do
 
       describe 'Net::HTTPClientException' do
         it 'raise error correctly' do
-          http = double
-          allow(Net::HTTP).to receive(:start).and_yield http
           allow(http).to \
             receive(:request).with(an_instance_of(Net::HTTP::Post))
               .and_raise(Net::HTTPClientException.new('Net::HTTPClientException', 'Response'))
@@ -93,8 +90,6 @@ describe SolanaRpcRuby::ApiClient do
 
       describe 'Net::HTTPFatalError' do
         it 'raise error correctly' do
-          http = double
-          allow(Net::HTTP).to receive(:start).and_yield http
           allow(http).to \
             receive(:request).with(an_instance_of(Net::HTTP::Post))
               .and_raise(Net::HTTPServerException.new('Net::HTTPFatalError', 'Response'))
@@ -107,8 +102,6 @@ describe SolanaRpcRuby::ApiClient do
 
       describe 'Net::ReadTimeout' do
         it 'raise error correctly' do
-          http = double
-          allow(Net::HTTP).to receive(:start).and_yield http
           allow(http).to \
             receive(:request).with(an_instance_of(Net::HTTP::Post))
               .and_raise(Net::ReadTimeout)
@@ -121,8 +114,6 @@ describe SolanaRpcRuby::ApiClient do
 
       describe 'Errno::ECONNREFUSED' do
         it 'raise error correctly' do
-          http = double
-          allow(Net::HTTP).to receive(:start).and_yield http
           allow(http).to \
             receive(:request).with(an_instance_of(Net::HTTP::Post))
               .and_raise(Errno::ECONNREFUSED)
@@ -138,8 +129,6 @@ describe SolanaRpcRuby::ApiClient do
 
       describe 'SocketError' do
         it 'raise error correctly' do
-          http = double
-          allow(Net::HTTP).to receive(:start).and_yield http
           allow(http).to \
             receive(:request).with(an_instance_of(Net::HTTP::Post))
               .and_raise(SocketError)
@@ -155,8 +144,6 @@ describe SolanaRpcRuby::ApiClient do
 
       describe 'StandardError' do
         it 'raise error correctly' do
-          http = double
-          allow(Net::HTTP).to receive(:start).and_yield http
           allow(http).to \
             receive(:request).with(an_instance_of(Net::HTTP::Post))
               .and_raise(StandardError.new('Some Standard Error'))
