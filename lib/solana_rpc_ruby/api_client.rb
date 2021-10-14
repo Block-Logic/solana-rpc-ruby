@@ -31,7 +31,6 @@ module SolanaRpcRuby
     # @return [Object] Net::HTTPOK
     def call_api(body:, http_method:, params: {})
       uri = URI.parse(@cluster)
-      rpc_response = nil
 
       request = Net::HTTP::Post.new(uri, default_headers)
       request.body = body
