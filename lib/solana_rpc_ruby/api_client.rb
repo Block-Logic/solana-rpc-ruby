@@ -4,6 +4,9 @@ module SolanaRpcRuby
   # ApiClient class serves as a client for solana JSON RPC API.
   # @see https://docs.solana.com/developing/clients/jsonrpc-api
   class ApiClient
+    OPEN_TIMEOUT = 120
+    READ_TIMEOUT = 120
+
     # Determines which cluster will be used to send requests.
     # @return [String]
     attr_accessor :cluster
@@ -35,7 +38,13 @@ module SolanaRpcRuby
       request = Net::HTTP::Post.new(uri, default_headers)
       request.body = body
 
-      Net::HTTP.start(uri.host, uri.port, use_ssl: true, read_timeout: 120) do |http|
+      Net::HTTP.start(
+        uri.host, 
+        uri.port, 
+        use_ssl: true, 
+        open_timeout: OPEN_TIMEOUT,
+        read_timeout: READ_TIMEOUT
+      ) do |http|
         http.request(request)
       end
 
