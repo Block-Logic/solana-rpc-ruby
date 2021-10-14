@@ -7,7 +7,7 @@ describe SolanaRpcRuby::MethodsWrapper do
   # When you get different values, but the same keys it's ok.
   # Look more carefully when keys or format has changed or new keys have been added.
   # 
-  # VCR.turn_off!(:ignore_cassettes => true)
+  # VCR.turn_off!(ignore_cassettes: true)
   # WebMock.allow_net_connect! 
 
   describe 'rpc methods' do
