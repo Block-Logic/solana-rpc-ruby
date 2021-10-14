@@ -1,6 +1,15 @@
 require 'vcr'
 
 describe SolanaRpcRuby::MethodsWrapper do
+  # Uncomment code below to send real time requests, just run `rspec` command.
+  # Please do that when you introduce changes to sending request.
+  # 
+  # When you get different values, but the same keys it's ok.
+  # Look more carefully when keys or format has changed or new keys have been added.
+  # 
+  # VCR.turn_off!(:ignore_cassettes => true)
+  # WebMock.allow_net_connect! 
+
   describe 'rpc methods' do
     let(:account_pubkey) { '71bhKKL89U3dNHzuZVZ7KarqV6XtHEgjXjvJTsguD11B'}
     let(:stake_boss_account_pubkey) { 'BossttsdneANBePn2mJhooAewt3fo4aLg7enmpgMvdoH' }
