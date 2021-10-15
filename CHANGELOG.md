@@ -18,3 +18,7 @@
 * Add new badges.
 * Handle new errors (Errno::ECONNREFUSED, SocketError)
 * Code maintenance and cleanup.
+
+## 1.1.3
+* Increase open_timeout and read_timeout.
+* New specs.

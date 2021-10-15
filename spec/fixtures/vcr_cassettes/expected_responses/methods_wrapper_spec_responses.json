@@ -1,0 +1,326 @@
+{ 
+  "get_program_accounts_config_program": {"account": 
+    {"data": 
+      {"parsed": 
+        {"info": 
+          {"configData": 
+            {"keybaseUsername": "ilyavi",
+              "name": "IIVIVI Validator",
+              "website": "https://solana.com"},
+            "keys": 
+            [{"pubkey": "Va1idator1nfo111111111111111111111111111111", "signer": false},
+              {"pubkey": "5zRUbp1Dtu3qQaRVf36oMDaeH91D2ePnc5DEgnh1ivFg", "signer": true}]},
+          "type": "validatorInfo"},
+        "program": "config",
+        "space": 643},
+      "executable": false,
+      "lamports": 4077088,
+      "owner": "Config1111111111111111111111111111111111111",
+      "rentEpoch": 240},
+    "pubkey": "GPyhKigdeyPQhMJFiyTQdkJ4awxSLYJTSZmhnwP3u9qd"
+  },
+  "get_program_accounts_vote_program": {
+    "account": 
+    {"data": 
+      {"parsed": 
+        {"info": 
+          {"authorizedVoters": [{"authorizedVoter": "9kKpZomqGpNYRPa3A9o7s2SKZVeHKFCWGt3GdXxbbymR", "epoch": 240}],
+           "authorizedWithdrawer": "9kKpZomqGpNYRPa3A9o7s2SKZVeHKFCWGt3GdXxbbymR",
+           "commission": 100,
+           "epochCredits": 
+            [{"credits": "5189524", "epoch": 177, "previousCredits": "4821455"},
+             {"credits": "5555719", "epoch": 178, "previousCredits": "5189524"},
+             {"credits": "5894122", "epoch": 179, "previousCredits": "5555719"},
+             {"credits": "6243091", "epoch": 180, "previousCredits": "5894122"},
+             {"credits": "6586251", "epoch": 181, "previousCredits": "6243091"},
+             {"credits": "6938851", "epoch": 182, "previousCredits": "6586251"},
+             {"credits": "7324540", "epoch": 183, "previousCredits": "6938851"},
+             {"credits": "7713507", "epoch": 184, "previousCredits": "7324540"},
+             {"credits": "8102966", "epoch": 185, "previousCredits": "7713507"},
+             {"credits": "8366760", "epoch": 186, "previousCredits": "8102966"},
+             {"credits": "8744537", "epoch": 187, "previousCredits": "8366760"},
+             {"credits": "9111569", "epoch": 188, "previousCredits": "8744537"},
+             {"credits": "9475592", "epoch": 189, "previousCredits": "9111569"},
+             {"credits": "9821135", "epoch": 190, "previousCredits": "9475592"},
+             {"credits": "10093257", "epoch": 191, "previousCredits": "9821135"},
+             {"credits": "10375919", "epoch": 192, "previousCredits": "10093257"},
+             {"credits": "10662317", "epoch": 193, "previousCredits": "10375919"},
+             {"credits": "10947545", "epoch": 194, "previousCredits": "10662317"},
+             {"credits": "11216600", "epoch": 195, "previousCredits": "10947545"},
+             {"credits": "11466886", "epoch": 196, "previousCredits": "11216600"},
+             {"credits": "11628548", "epoch": 197, "previousCredits": "11466886"},
+             {"credits": "11806663", "epoch": 198, "previousCredits": "11628548"},
+             {"credits": "11982140", "epoch": 199, "previousCredits": "11806663"},
+             {"credits": "12158955", "epoch": 200, "previousCredits": "11982140"},
+             {"credits": "12328460", "epoch": 201, "previousCredits": "12158955"},
+             {"credits": "12501267", "epoch": 202, "previousCredits": "12328460"},
+             {"credits": "12655964", "epoch": 203, "previousCredits": "12501267"},
+             {"credits": "12793369", "epoch": 204, "previousCredits": "12655964"},
+             {"credits": "12948185", "epoch": 205, "previousCredits": "12793369"},
+             {"credits": "13129486", "epoch": 206, "previousCredits": "12948185"},
+             {"credits": "13291256", "epoch": 207, "previousCredits": "13129486"},
+             {"credits": "13442487", "epoch": 208, "previousCredits": "13291256"},
+             {"credits": "13634586", "epoch": 209, "previousCredits": "13442487"},
+             {"credits": "13777065", "epoch": 210, "previousCredits": "13634586"},
+             {"credits": "13923698", "epoch": 211, "previousCredits": "13777065"},
+             {"credits": "14108073", "epoch": 212, "previousCredits": "13923698"},
+             {"credits": "14272995", "epoch": 213, "previousCredits": "14108073"},
+             {"credits": "14367600", "epoch": 214, "previousCredits": "14272995"},
+             {"credits": "14614265", "epoch": 215, "previousCredits": "14367600"},
+             {"credits": "14866973", "epoch": 216, "previousCredits": "14614265"},
+             {"credits": "15106363", "epoch": 217, "previousCredits": "14866973"},
+             {"credits": "15303887", "epoch": 218, "previousCredits": "15106363"},
+             {"credits": "15484028", "epoch": 219, "previousCredits": "15303887"},
+             {"credits": "15722579", "epoch": 220, "previousCredits": "15484028"},
+             {"credits": "15855953", "epoch": 221, "previousCredits": "15722579"},
+             {"credits": "16096492", "epoch": 222, "previousCredits": "15855953"},
+             {"credits": "16357810", "epoch": 223, "previousCredits": "16096492"},
+             {"credits": "16602068", "epoch": 224, "previousCredits": "16357810"},
+             {"credits": "16864729", "epoch": 225, "previousCredits": "16602068"},
+             {"credits": "17119568", "epoch": 226, "previousCredits": "16864729"},
+             {"credits": "17325067", "epoch": 227, "previousCredits": "17119568"},
+             {"credits": "17559925", "epoch": 228, "previousCredits": "17325067"},
+             {"credits": "17778221", "epoch": 229, "previousCredits": "17559925"},
+             {"credits": "18001869", "epoch": 230, "previousCredits": "17778221"},
+             {"credits": "18218646", "epoch": 231, "previousCredits": "18001869"},
+             {"credits": "18411424", "epoch": 232, "previousCredits": "18218646"},
+             {"credits": "18649217", "epoch": 233, "previousCredits": "18411424"},
+             {"credits": "18876727", "epoch": 234, "previousCredits": "18649217"},
+             {"credits": "19082646", "epoch": 235, "previousCredits": "18876727"},
+             {"credits": "19328322", "epoch": 236, "previousCredits": "19082646"},
+             {"credits": "19629819", "epoch": 237, "previousCredits": "19328322"},
+             {"credits": "19903015", "epoch": 238, "previousCredits": "19629819"},
+             {"credits": "20203281", "epoch": 239, "previousCredits": "19903015"},
+             {"credits": "20333876", "epoch": 240, "previousCredits": "20203281"}],
+           "lastTimestamp": {"slot": 98336207, "timestamp": 1634222716},
+           "nodePubkey": "9kKpZomqGpNYRPa3A9o7s2SKZVeHKFCWGt3GdXxbbymR",
+           "priorVoters": [],
+           "rootSlot": 98336144,
+           "votes": 
+            [{"confirmationCount": 31, "slot": 98336145},
+             {"confirmationCount": 30, "slot": 98336146},
+             {"confirmationCount": 29, "slot": 98336147},
+             {"confirmationCount": 28, "slot": 98336148},
+             {"confirmationCount": 27, "slot": 98336149},
+             {"confirmationCount": 26, "slot": 98336150},
+             {"confirmationCount": 25, "slot": 98336151},
+             {"confirmationCount": 24, "slot": 98336152},
+             {"confirmationCount": 23, "slot": 98336153},
+             {"confirmationCount": 22, "slot": 98336164},
+             {"confirmationCount": 21, "slot": 98336165},
+             {"confirmationCount": 20, "slot": 98336188},
+             {"confirmationCount": 19, "slot": 98336189},
+             {"confirmationCount": 18, "slot": 98336190},
+             {"confirmationCount": 17, "slot": 98336191},
+             {"confirmationCount": 16, "slot": 98336192},
+             {"confirmationCount": 15, "slot": 98336193},
+             {"confirmationCount": 14, "slot": 98336194},
+             {"confirmationCount": 13, "slot": 98336195},
+             {"confirmationCount": 12, "slot": 98336196},
+             {"confirmationCount": 11, "slot": 98336197},
+             {"confirmationCount": 10, "slot": 98336198},
+             {"confirmationCount": 9, "slot": 98336199},
+             {"confirmationCount": 8, "slot": 98336200},
+             {"confirmationCount": 7, "slot": 98336201},
+             {"confirmationCount": 6, "slot": 98336202},
+             {"confirmationCount": 5, "slot": 98336203},
+             {"confirmationCount": 4, "slot": 98336204},
+             {"confirmationCount": 3, "slot": 98336205},
+             {"confirmationCount": 2, "slot": 98336206},
+             {"confirmationCount": 1, "slot": 98336207}]},
+         "type": "vote"},
+       "program": "vote",
+       "space": 3731},
+     "executable": false,
+     "lamports": 53921655621000,
+     "owner": "Vote111111111111111111111111111111111111111",
+     "rentEpoch": 240},
+   "pubkey": "Hicak7AgeYMWpiyPmbhUZmgpLWTSHyoJUUJn7HCjyHeM"
+  },
+  "get_account_info": {
+    "context": {"slot": 81319292},
+    "value": {
+      "data": ["", "base58"],
+      "executable": false,
+      "lamports": 21949231980027307,
+      "owner": "11111111111111111111111111111111",
+      "rentEpoch": 200
+    }
+  },
+  "get_balance": {
+    "context": {"slot": 82106586},
+    "value": 3999645000
+  },
+  "get_block": {
+    "blockHeight": null,
+    "blockTime": 1606682139,
+    "blockhash": "AwJaDBHMjwPzNwqYWuVfmVj57i8Us6qHcoM7nR64GFbX",
+    "parentSlot": 49999999,
+    "previousBlockhash": "AMcQfqHFW9FFAVfYEgUJFouGDX2p1v8tyTyMMK2rtd9E"
+  },
+  "get_epoch_schedule": {
+    "firstNormalEpoch": 14,
+    "firstNormalSlot": 524256,
+    "leaderScheduleSlotOffset": 432000,
+    "slotsPerEpoch": 432000,
+    "warmup": true
+  },
+  "get_epoch_info_without_params":{
+    "absoluteSlot": 81858689,
+    "blockHeight": 67735186,
+    "epoch": 202,
+    "slotIndex": 118433,
+    "slotsInEpoch": 432000,
+    "transactionCount": 25649833512
+  },
+  "get_epoch_info_with_params":{
+    "absoluteSlot": 81981060,
+    "blockHeight": 67823574,
+    "epoch": 202,
+    "slotIndex": 240804,
+    "slotsInEpoch": 432000,
+    "transactionCount": 25746869785
+  },
+  "get_fee_calculator_for_blockhash": {
+    "context": {"slot": 82383838},
+    "value": {
+      "feeCalculator": {"lamportsPerSignature": 5000}
+    }
+  },
+  "get_fee_rate_governor": {
+    "feeRateGovernor": {
+      "burnPercent": 50,
+      "maxLamportsPerSignature": 100000,
+      "minLamportsPerSignature": 5000,
+      "targetLamportsPerSignature": 10000,
+      "targetSignaturesPerSlot": 20000
+    }
+  },
+  "get_fees": {
+    "blockhash": "5ENJWYp5X6zrAnhBZmZhLKaoWyr2cHXAB24UMVYemBnb",
+    "feeCalculator": {"lamportsPerSignature": 5000},
+    "lastValidBlockHeight": 68111306,
+    "lastValidSlot": 82384078
+  },
+  "get_inflation_governor": {
+    "foundation": 0.0,
+    "foundationTerm": 0.0,
+    "initial": 0.15,
+    "taper": 0.15,
+    "terminal": 0.015
+  },
+  "get_inflation_rate": {
+    "epoch": 204,
+    "foundation": 0.0,
+    "total": 0.1406902625026958,
+    "validator": 0.1406902625026958
+  },
+  "get_inflation_reward": [
+    {
+      "amount": 58625515732,
+      "effectiveSlot": 82604257,
+      "epoch": 203,
+      "postBalance": 3521208340839
+    },
+    null
+  ],
+  "get_recent_blockhash": {
+    "blockhash": "6M1AMekz95Y3c5UjHq9GkEs6YX1BEJrB4vxcoHjjMJuF",
+    "feeCalculator": {
+      "lamportsPerSignature": 5000
+    }
+  },
+  "get_recent_performance_samples_without_params": {
+    "numSlots": 93,
+    "numTransactions": 73456,
+    "samplePeriodSecs": 60,
+    "slot": 83055946
+  },
+  "get_recent_performance_samples_with_params": {
+    "numSlots": 91,
+    "numTransactions": 67251,
+    "samplePeriodSecs": 60,
+    "slot": 83056219
+  },
+  "get_signatures_for_address": {
+    "blockTime": 1624651458,
+    "confirmationStatus": "finalized",
+    "err": null,
+    "memo": null,
+    "signature": "aLoUEJQHE3JBocPVEdKZ1JUKW89FpRutf9qsTwAAkGPfuVkFL9HfSvhRuYD31Ui1U5C5vgqmuddn2pvByo5g8E8",
+    "slot": 83027168
+  },
+  "get_signature_statuses_without_params": {
+    "context": {"slot": 83160615},
+    "value": [null, null]
+  },
+  "get_signature_statuses_with_params": {
+    "confirmationStatus": "finalized",
+    "confirmations": null,
+    "err": null,
+    "slot": 82507366,
+    "status": {"Ok": null}
+  },
+  "get_stake_activation": {
+    "active": 79529161339, 
+    "inactive": 0, 
+    "state": "active"
+  },
+  "get_token_account_balance":{
+    "context": {"slot": 87139018},
+    "value": {
+      "amount": "0", 
+      "decimals": 9, 
+      "uiAmount": 0.0, 
+      "uiAmountString": "0"
+    }
+  },
+  "get_token_accounts_by_delegate_with_required_params": {
+    "context": {
+      "slot": 87148116
+      }, "value": []
+  },
+  "get_token_accounts_by_delegate_with_optional_params": {
+    "context": {
+      "slot": 87149118
+    }, "value": []
+  },
+  "get_token_accounts_by_owner_with_required_params": {
+    "context": {"slot": 87149255},
+    "value":  [
+      {"account": 
+        {"data": 
+          "qpJ4yNiR5j7UVVJG46YuizxkrL7UJpsJv5R9i45pg1gLm8C1Ymf9nuJtDVgkwcB6R4javmTdC73UJGdDsRKTwDv3FMB2KejVNH2d36FgbuXxugtxQstxs3K1tLye76oudJYETtZf6Eo7GUN5q9bUUnkBWZz5FykgdXdx2Wai6k7zEqS8zLnKpEGwbeKCtunazaAWFBo4FTCjDkCJ97adZS8MzupjrcEf9",
+          "executable": false,
+          "lamports": 2039280,
+          "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "rentEpoch": 200
+        },
+      "pubkey": "J3Rknuc3CjskKE4H1BUmRFtGffpsWFT1NSPevxWqLCx1"}
+    ]
+  },
+  "get_token_accounts_by_owner_with_optional_params": {
+    "context": {"slot": 87149968},
+    "value":  [
+      {
+        "account": {
+          "data": ["26Qf2", "base58"],
+          "executable": false,
+          "lamports": 2039280,
+          "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "rentEpoch": 200
+        },
+        "pubkey": "J3Rknuc3CjskKE4H1BUmRFtGffpsWFT1NSPevxWqLCx1"
+      }
+    ]
+  },
+  "simulate_transaction": {
+    "context": {"slot": 83294564},
+    "value": {
+    "accounts": [],
+    "err": "BlockhashNotFound",
+    "logs": []
+    }
+  }
+}
+
