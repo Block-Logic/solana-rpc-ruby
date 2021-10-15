@@ -10,6 +10,19 @@ describe SolanaRpcRuby::MethodsWrapper do
   # VCR.turn_off!(ignore_cassettes: true)
   # WebMock.allow_net_connect! 
 
+  before(:all) do
+    path = File.join(
+      'spec',
+      'fixtures', 
+      'vcr_cassettes', 
+      'expected_responses', 
+      'methods_wrapper_spec_responses.json'
+    )
+
+    file = File.read(path)
+    @expected_responses ||= JSON.parse(file)
+  end
+
   describe 'rpc methods' do
     let(:account_pubkey) { '71bhKKL89U3dNHzuZVZ7KarqV6XtHEgjXjvJTsguD11B'}
     let(:stake_boss_account_pubkey) { 'BossttsdneANBePn2mJhooAewt3fo4aLg7enmpgMvdoH' }
@@ -726,43 +739,82 @@ describe SolanaRpcRuby::MethodsWrapper do
     end
 
     describe '#get_program_accounts' do
-      let(:program_key) { 'Vote111111111111111111111111111111111111111' }
+      # https://docs.solana.com/developing/runtime-facilities/programs
+      describe 'Vote Program' do
+        let(:program_key) { 'Vote111111111111111111111111111111111111111' }
 
-      context 'with optional params (without slicing data is too big)' do
-        it 'returns correct data from endpoint'  do
-          VCR.use_cassette('get_program_accounts') do
-            response = described_class.new.get_program_accounts(
-              program_key,
-              data_slice: { offset: 1, length: 1 }
-            )
+        context 'with optional params (without slicing data is too big)' do
+          it 'returns correct data from endpoint'  do
+            VCR.use_cassette('get_program_accounts') do
+              response = described_class.new.get_program_accounts(
+                program_key,
+                data_slice: { offset: 1, length: 1 }
+              )
 
-            expect(response.result.size).to eq(2824)
+              expect(response.result.size).to eq(2824)
+            end
+          end
+        end
+
+        context 'with optional params' do
+          let(:filters) { [{ 'dataSize': 2 }, {'memcmp': { 'offset': 4 } }] }
+
+          it 'returns correct data from endpoint'  do
+            VCR.use_cassette('get_program_accounts with optional params') do
+              response = described_class.new.get_program_accounts(
+                program_key,
+                encoding: 'base64',
+                data_slice: { offset: 1, length: 1 },
+                filters: [
+                  { 'dataSize': 2 },
+                  {
+                    'memcmp': {
+                      'offset': 4,
+                      'bytes': '3Mc6vR'
+                    }
+                  }
+                ],
+                with_context: true
+              )
+
+              expect(response.result['value']).to eq([])
+            end
           end
         end
       end
 
-      context 'with optional params' do
-        let(:filters) { [{ 'dataSize': 2 }, {'memcmp': { 'offset': 4 } }] }
+      describe 'Config Program' do
+        let(:program_key) { 'Config1111111111111111111111111111111111111' }
 
-        it 'returns correct data from endpoint'  do
-          VCR.use_cassette('get_program_accounts with optional params') do
-            response = described_class.new.get_program_accounts(
-              program_key,
-              encoding: 'base64',
-              data_slice: { offset: 1, length: 1 },
-              filters: [
-                { 'dataSize': 2 },
-                {
-                  'memcmp': {
-                    'offset': 4,
-                    'bytes': '3Mc6vR'
-                  }
-                }
-              ],
-              with_context: true
-            )
+        context 'with optional params (encoding jsonParsed)' do
+          it 'returns correct data from endpoint'  do
+            VCR.use_cassette('get_program_accounts_config_program') do
+              response = described_class.new.get_program_accounts(
+                program_key,
+                encoding: 'jsonParsed'
+              )
 
-            expect(response.result['value']).to eq([])
+              expect(response.result.size).to eq(1379)
+              expect(response.result.first).to eq(@expected_responses['get_program_accounts_config_program'])
+            end
+          end
+        end
+      end
+
+      describe 'Vote111111111111111111111111111111111111111' do
+        let(:program_key) { 'Vote111111111111111111111111111111111111111' }
+
+        context 'without optional params' do
+          it 'returns correct data from endpoint'  do
+            VCR.use_cassette('get_program_accounts_vote_program') do
+              response = described_class.new.get_program_accounts(
+                program_key,
+                encoding: 'jsonParsed'
+              )
+
+              expect(response.result.size).to eq(4064)
+              expect(response.result.first).to eq(@expected_responses['get_program_accounts_vote_program'])
+            end
           end
         end
       end
