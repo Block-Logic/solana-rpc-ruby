@@ -72,22 +72,7 @@ describe SolanaRpcRuby::MethodsWrapper do
           VCR.use_cassette('get_account_info') do
             response = described_class.new.get_account_info(account_pubkey)
 
-            expected_result = {
-              "id"=>1,
-              "jsonrpc"=>"2.0",
-              "result"=>{
-                "context"=>{"slot"=>81319292},
-                "value"=>{
-                  "data"=>["", "base58"],
-                  "executable"=>false,
-                  "lamports"=>21949231980027307,
-                  "owner"=>"11111111111111111111111111111111",
-                  "rentEpoch"=>200
-                }
-              }
-            }
-
-            expect(response.result).to eq(expected_result['result'])
+            expect(response.result).to eq(@expected_responses['get_account_info'])
             expect(response.json_rpc).to eq('2.0')
             expect(response.id).to eq(1)
           end
@@ -147,16 +132,7 @@ describe SolanaRpcRuby::MethodsWrapper do
           VCR.use_cassette('get_balance') do
             response = described_class.new.get_balance(stake_boss_account_pubkey)
 
-            expected_result = {
-              "jsonrpc"=>"2.0",
-              "result"=>{
-                "context"=>{"slot"=>82106586},
-                "value"=>3999645000
-              },
-              "id"=>1
-            }
-
-            expect(response.result).to eq(expected_result['result'])
+            expect(response.result).to eq(@expected_responses['get_balance'])
             expect(response.json_rpc).to eq('2.0')
             expect(response.id).to eq(1)
           end
@@ -189,19 +165,7 @@ describe SolanaRpcRuby::MethodsWrapper do
               rewards: false,
             )
 
-            expected_result = {
-              "jsonrpc"=>"2.0",
-              "result"=>{
-                "blockHeight"=>nil,
-                "blockTime"=>1606682139,
-                "blockhash"=>"AwJaDBHMjwPzNwqYWuVfmVj57i8Us6qHcoM7nR64GFbX",
-                "parentSlot"=>49999999,
-                "previousBlockhash"=>"AMcQfqHFW9FFAVfYEgUJFouGDX2p1v8tyTyMMK2rtd9E"
-              },
-              "id"=>1
-            }
-
-            expect(response.result).to eq(expected_result['result'])
+            expect(response.result).to eq(@expected_responses['get_block'])
             expect(response.result['rewards']).to be_nil
             expect(response.result['transactions']).to be_nil
             expect(response.json_rpc).to eq('2.0')
@@ -285,15 +249,8 @@ describe SolanaRpcRuby::MethodsWrapper do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_blocks') do
             response = described_class.new.get_blocks(5, end_slot: 100)
-            expected_result = {
-              "jsonrpc"=>"2.0",
-              "result"=>[],
-              "id"=>1
-            }
 
-            expect(response.result).to eq(
-              expected_result['result']
-            )
+            expect(response.result).to eq([])
             expect(response.json_rpc).to eq('2.0')
             expect(response.id).to eq(1)
           end
@@ -344,15 +301,7 @@ describe SolanaRpcRuby::MethodsWrapper do
         VCR.use_cassette('get_epoch_schedule') do
           response = described_class.new.get_epoch_schedule
 
-          expected_result = {
-            "firstNormalEpoch"=>14,
-            "firstNormalSlot"=>524256,
-            "leaderScheduleSlotOffset"=>432000,
-            "slotsPerEpoch"=>432000,
-            "warmup"=>true
-          }
-
-          expect(response.result).to eq(expected_result)
+          expect(response.result).to eq(@expected_responses['get_epoch_schedule'])
         end
       end
     end
@@ -362,15 +311,8 @@ describe SolanaRpcRuby::MethodsWrapper do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_confirmed_blocks') do
             response = described_class.new.get_confirmed_blocks(5, end_slot: 100)
-            expected_result = {
-              "jsonrpc"=>"2.0",
-              "result"=>[],
-              "id"=>1
-            }
 
-            expect(response.result).to eq(
-              expected_result['result']
-            )
+            expect(response.result).to eq([])
             expect(response.json_rpc).to eq('2.0')
             expect(response.id).to eq(1)
           end
@@ -383,20 +325,9 @@ describe SolanaRpcRuby::MethodsWrapper do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_epoch_info') do
             response = described_class.new.get_epoch_info
-            expected_result = {
-              "jsonrpc"=>"2.0",
-              "result"=>
-               {"absoluteSlot"=>81858689,
-                "blockHeight"=>67735186,
-                "epoch"=>202,
-                "slotIndex"=>118433,
-                "slotsInEpoch"=>432000,
-                "transactionCount"=>25649833512},
-              "id"=>1
-            }
 
             expect(response.result).to eq(
-              expected_result['result']
+              @expected_responses['get_epoch_info_without_params']
             )
             expect(response.json_rpc).to eq('2.0')
             expect(response.id).to eq(1)
@@ -408,21 +339,9 @@ describe SolanaRpcRuby::MethodsWrapper do
         it 'returns correct data with commitment param' do
           VCR.use_cassette('get_epoch_info with commitment') do
             response = described_class.new.get_epoch_info(commitment: 'confirmed')
-            expected_result = {
-              "jsonrpc"=>"2.0",
-              "result"=>{
-                "absoluteSlot"=>81981060,
-                "blockHeight"=>67823574,
-                "epoch"=>202,
-                "slotIndex"=>240804,
-                "slotsInEpoch"=>432000,
-                "transactionCount"=>25746869785
-              },
-              "id"=>1
-            }
 
             expect(response.result).to eq(
-              expected_result['result']
+              @expected_responses['get_epoch_info_with_params']
             )
             expect(response.json_rpc).to eq('2.0')
             expect(response.id).to eq(1)
@@ -439,14 +358,9 @@ describe SolanaRpcRuby::MethodsWrapper do
               '5ENJWYp5X6zrAnhBZmZhLKaoWyr2cHXAB24UMVYemBnb'
             )
 
-            expected_result = {
-              "context"=>{"slot"=>82383838},
-              "value"=>{
-                "feeCalculator"=>{"lamportsPerSignature"=>5000}
-              }
-            }
-
-            expect(response.result).to eq(expected_result)
+            expect(response.result).to eq(
+              @expected_responses['get_fee_calculator_for_blockhash']
+            )
           end
         end
       end
@@ -467,7 +381,9 @@ describe SolanaRpcRuby::MethodsWrapper do
             }
           }
 
-          expect(response.result['value']).to eq(expected_value)
+          expect(response.result['value']).to eq(
+            @expected_responses['get_fee_rate_governor']
+          )
         end
       end
     end
@@ -477,14 +393,7 @@ describe SolanaRpcRuby::MethodsWrapper do
         VCR.use_cassette('get_fees') do
           response = described_class.new.get_fees
 
-          expected_value = {
-            "blockhash"=>"5ENJWYp5X6zrAnhBZmZhLKaoWyr2cHXAB24UMVYemBnb",
-            "feeCalculator"=>{"lamportsPerSignature"=>5000},
-            "lastValidBlockHeight"=>68111306,
-            "lastValidSlot"=>82384078
-          }
-
-          expect(response.result['value']).to eq(expected_value)
+          expect(response.result['value']).to eq(@expected_responses['get_fees'])
         end
       end
     end
@@ -493,13 +402,6 @@ describe SolanaRpcRuby::MethodsWrapper do
       it 'returns correct data from endpoint'  do
         VCR.use_cassette('get_first_available_block') do
           response = described_class.new.get_first_available_block
-
-          expected_value = {
-            "blockhash"=>"5ENJWYp5X6zrAnhBZmZhLKaoWyr2cHXAB24UMVYemBnb",
-            "feeCalculator"=>{"lamportsPerSignature"=>5000},
-            "lastValidBlockHeight"=>68111306,
-            "lastValidSlot"=>82384078
-          }
 
           expect(response.result).to eq(39368303)
         end
@@ -541,15 +443,10 @@ describe SolanaRpcRuby::MethodsWrapper do
       it 'returns correct data from endpoint'  do
         VCR.use_cassette('get_inflation_governor') do
           response = described_class.new.get_inflation_governor
-          expected_result = {
-            "foundation"=>0.0,
-            "foundationTerm"=>0.0,
-            "initial"=>0.15,
-            "taper"=>0.15,
-            "terminal"=>0.015
-          }
 
-          expect(response.result).to eq(expected_result)
+          expect(response.result).to eq(
+            @expected_responses['get_inflation_governor']
+          )
         end
       end
     end
@@ -558,14 +455,8 @@ describe SolanaRpcRuby::MethodsWrapper do
       it 'returns correct data from endpoint'  do
         VCR.use_cassette('get_inflation_rate') do
           response = described_class.new.get_inflation_rate
-          expected_result = {
-            "epoch"=>204,
-            "foundation"=>0.0,
-            "total"=>0.1406902625026958,
-            "validator"=>0.1406902625026958
-          }
 
-          expect(response.result).to eq(expected_result)
+          expect(response.result).to eq(@expected_responses['get_inflation_rate'])
         end
       end
     end
@@ -579,15 +470,7 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
 
       let(:expected_result) do
-        [
-          {
-            "amount"=>58625515732,
-            "effectiveSlot"=>82604257,
-            "epoch"=>203,
-            "postBalance"=>3521208340839
-          },
-          nil
-        ]
+        
       end
 
       context 'without optional params' do
@@ -595,7 +478,9 @@ describe SolanaRpcRuby::MethodsWrapper do
           VCR.use_cassette('get_inflation_reward') do
             response = described_class.new.get_inflation_reward(addresses)
 
-            expect(response.result).to eq(expected_result)
+            expect(response.result).to eq(
+              @expected_responses['get_inflation_reward']
+            )
           end
         end
       end
@@ -607,7 +492,9 @@ describe SolanaRpcRuby::MethodsWrapper do
               addresses,
               epoch: 203
             )
-            expect(response.result).to eq(expected_result)
+            expect(response.result).to eq(
+              @expected_responses['get_inflation_reward']
+            )
           end
         end
       end
@@ -824,14 +711,10 @@ describe SolanaRpcRuby::MethodsWrapper do
       it 'returns correct data from endpoint' do
         VCR.use_cassette('get_recent_blockhash') do
           response = described_class.new.get_recent_blockhash
-          expected_results = {
-            "blockhash"=>"6M1AMekz95Y3c5UjHq9GkEs6YX1BEJrB4vxcoHjjMJuF",
-            "feeCalculator"=>{
-              "lamportsPerSignature"=>5000
-            }
-          }
 
-          expect(response.result['value']).to eq(expected_results)
+          expect(response.result['value']).to eq(
+            @expected_responses['get_recent_blockhash']
+          )
         end
       end
     end
@@ -841,15 +724,12 @@ describe SolanaRpcRuby::MethodsWrapper do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_recent_performance_samples') do
             response = described_class.new.get_recent_performance_samples
-            expected_result = {
-              "numSlots"=>93,
-              "numTransactions"=>73456,
-              "samplePeriodSecs"=>60,
-              "slot"=>83055946
-            }
+            expected_result = 
 
             expect(response.result.size).to eq(720)
-            expect(response.result.first).to eq(expected_result)
+            expect(response.result.first).to eq(
+              @expected_responses['get_recent_performance_samples_without_params']
+            )
           end
         end
       end
@@ -858,15 +738,11 @@ describe SolanaRpcRuby::MethodsWrapper do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_recent_performance_samples with optional params') do
             response = described_class.new.get_recent_performance_samples(limit: 10)
-            expected_result = {
-              "numSlots"=>91,
-              "numTransactions"=>67251,
-              "samplePeriodSecs"=>60,
-              "slot"=>83056219
-            }
 
             expect(response.result.size).to eq(10)
-            expect(response.result.first).to eq(expected_result)
+            expect(response.result.first).to eq(
+              @expected_responses['get_recent_performance_samples_with_params']
+            )
           end
         end
       end
@@ -884,16 +760,6 @@ describe SolanaRpcRuby::MethodsWrapper do
 
     describe '#get_signatures_for_address' do
       let(:account_address) { '8oz37poDhVBdUPcHDVFc7ChoS7yA1E1hMFp5tgaB1m7N' }
-      let(:expected_result) do
-        {
-          "blockTime"=>1624651458,
-          "confirmationStatus"=>"finalized",
-          "err"=>nil,
-          "memo"=>nil,
-          "signature"=>"aLoUEJQHE3JBocPVEdKZ1JUKW89FpRutf9qsTwAAkGPfuVkFL9HfSvhRuYD31Ui1U5C5vgqmuddn2pvByo5g8E8",
-          "slot"=>83027168
-        }
-      end
 
       context 'without optional params' do
         it 'returns correct data from endpoint' do
@@ -901,7 +767,9 @@ describe SolanaRpcRuby::MethodsWrapper do
             response = described_class.new.get_signatures_for_address(account_address)
 
             expect(response.result.size).to eq(3)
-            expect(response.result.first).to eq(expected_result)
+            expect(response.result.first).to eq(
+              @expected_responses['get_signatures_for_address']
+            )
           end
         end
       end
@@ -917,7 +785,9 @@ describe SolanaRpcRuby::MethodsWrapper do
             )
 
             expect(response.result.size).to eq(1)
-            expect(response.result.first).to eq(expected_result)
+            expect(response.result.first).to eq(
+              @expected_responses['get_signatures_for_address']
+            )
           end
         end
       end
@@ -929,11 +799,9 @@ describe SolanaRpcRuby::MethodsWrapper do
           VCR.use_cassette('get_signature_statuses') do
             response = described_class.new.get_signature_statuses(signatures)
 
-            expected_result = {
-              "context"=>{"slot"=>83160615},
-              "value"=>[nil, nil]
-            }
-            expect(response.result).to eq(expected_result)
+            expect(response.result).to eq(
+              @expected_responses['get_signature_statuses_without_params']
+            )
           end
         end
       end
@@ -946,17 +814,10 @@ describe SolanaRpcRuby::MethodsWrapper do
               search_transaction_history: true
             )
 
-            expected_result = {
-              "confirmationStatus"=>"finalized",
-              "confirmations"=>nil,
-              "err"=>nil,
-              "slot"=>82507366,
-              "status"=>{"Ok"=>nil}
-            }
-
             expect(response.result['value'].size).to eq(2)
-            expect(response.result['value'].first).to eq(expected_result)
-
+            expect(response.result['value'].first).to eq(
+              @expected_responses['get_signature_statuses_with_params']
+            )
           end
         end
       end
@@ -1000,9 +861,10 @@ describe SolanaRpcRuby::MethodsWrapper do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_stake_activation') do
             response = described_class.new.get_stake_activation(stake_account_pubkey)
-            expected_result = {"active"=>79529161339, "inactive"=>0, "state"=>"active"}
 
-            expect(response.result).to eq(expected_result)
+            expect(response.result).to eq(
+              @expected_responses['get_stake_activation']
+            )
           end
         end
       end
@@ -1032,12 +894,7 @@ describe SolanaRpcRuby::MethodsWrapper do
               token_account_pubkey
             )
 
-            expected_result = {
-              "context"=>{"slot"=>87139018},
-              "value"=>{"amount"=>"0", "decimals"=>9, "uiAmount"=>0.0, "uiAmountString"=>"0"}
-            }
-
-            expect(response.result).to eq(expected_result)
+            expect(response.result).to eq(@expected_responses['get_token_account_balance'])
           end
         end
       end
@@ -1058,9 +915,9 @@ describe SolanaRpcRuby::MethodsWrapper do
                 mint: mint
               )
 
-              expected_result = {"context"=>{"slot"=>87148116}, "value"=>[]}
-
-              expect(response.result).to eq(expected_result)
+              expect(response.result).to eq(
+                @expected_responses['get_token_accounts_by_delegate_with_required_params']
+              )
             end
           end
         end
@@ -1073,9 +930,9 @@ describe SolanaRpcRuby::MethodsWrapper do
                 mint: mint
               )
 
-              expected_result = {"context"=>{"slot"=>87149118}, "value"=>[]}
-
-              expect(response.result).to eq(expected_result)
+              expect(response.result).to eq(
+                @expected_responses['get_token_accounts_by_delegate_with_optional_params']
+              )
             end
           end
         end
@@ -1104,21 +961,9 @@ describe SolanaRpcRuby::MethodsWrapper do
                 mint: mint
               )
 
-              expected_result = {
-                "context"=>{"slot"=>87149255},
-                "value"=> [
-                  {"account"=>
-                    {"data"=>
-                      "qpJ4yNiR5j7UVVJG46YuizxkrL7UJpsJv5R9i45pg1gLm8C1Ymf9nuJtDVgkwcB6R4javmTdC73UJGdDsRKTwDv3FMB2KejVNH2d36FgbuXxugtxQstxs3K1tLye76oudJYETtZf6Eo7GUN5q9bUUnkBWZz5FykgdXdx2Wai6k7zEqS8zLnKpEGwbeKCtunazaAWFBo4FTCjDkCJ97adZS8MzupjrcEf9",
-                      "executable"=>false,
-                      "lamports"=>2039280,
-                      "owner"=>"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-                      "rentEpoch"=>200
-                    },
-                  "pubkey"=>"J3Rknuc3CjskKE4H1BUmRFtGffpsWFT1NSPevxWqLCx1"}]
-              }
-
-              expect(response.result).to eq(expected_result)
+              expect(response.result).to eq(
+                @expected_responses['get_token_accounts_by_owner_with_required_params']
+              )
             end
           end
         end
@@ -1137,23 +982,9 @@ describe SolanaRpcRuby::MethodsWrapper do
                 }
               )
 
-              expected_result = {
-                "context"=>{"slot"=>87149968},
-                "value"=> [
-                  {
-                    "account"=>{
-                      "data"=>["26Qf2", "base58"],
-                      "executable"=>false,
-                      "lamports"=>2039280,
-                      "owner"=>"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-                      "rentEpoch"=>200
-                    },
-                    "pubkey"=>"J3Rknuc3CjskKE4H1BUmRFtGffpsWFT1NSPevxWqLCx1"
-                  }
-                ]
-              }
-
-              expect(response.result).to eq(expected_result)
+              expect(response.result).to eq(
+                @expected_responses['get_token_accounts_by_owner_with_optional_params']
+              )
             end
           end
         end
@@ -1354,16 +1185,9 @@ describe SolanaRpcRuby::MethodsWrapper do
               []
             )
 
-            expected_result = {
-              "context"=>{"slot"=>83294564},
-              "value"=>{
-              "accounts"=>[],
-              "err"=>"BlockhashNotFound",
-              "logs"=>[]
-              }
-            }
-
-            expect(response.result).to eq(expected_result)
+            expect(response.result).to eq(
+              @expected_responses['simulate_transaction']
+            )
           end
         end
       end
