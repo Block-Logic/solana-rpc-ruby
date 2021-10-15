@@ -22,3 +22,6 @@
 ## 1.1.3
 * Increase open_timeout and read_timeout.
 * New specs.
+
+## 1.1.4
+* Removes deprecated constant
