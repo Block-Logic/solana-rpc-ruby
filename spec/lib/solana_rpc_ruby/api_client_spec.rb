@@ -64,18 +64,6 @@ describe SolanaRpcRuby::ApiClient do
         end
       end
 
-      describe 'Net::HTTPServerException' do
-        it 'raise error correctly' do
-          allow(http).to \
-            receive(:request).with(an_instance_of(Net::HTTP::Post))
-              .and_raise(Net::HTTPServerException.new('Net::HTTPServerException', 'Response'))
-
-          expect do
-            described_class.new.call_api(body: {}, http_method: :post)
-          end.to raise_error(SolanaRpcRuby::ApiError, 'Net::HTTPServerException')
-        end
-      end
-
       describe 'Net::HTTPClientException' do
         it 'raise error correctly' do
           allow(http).to \
@@ -92,7 +80,7 @@ describe SolanaRpcRuby::ApiClient do
         it 'raise error correctly' do
           allow(http).to \
             receive(:request).with(an_instance_of(Net::HTTP::Post))
-              .and_raise(Net::HTTPServerException.new('Net::HTTPFatalError', 'Response'))
+              .and_raise(Net::HTTPFatalError.new('Net::HTTPFatalError', 'Response'))
 
           expect do
             described_class.new.call_api(body: {}, http_method: :post)
