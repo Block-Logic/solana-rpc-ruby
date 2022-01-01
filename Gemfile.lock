@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    solana_rpc_ruby (1.1.4)
+    solana_rpc_ruby (1.1.5)
       faye-websocket (~> 0.11)
 
 GEM
@@ -216,6 +216,7 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
+  -darwin-21
   ruby
   x86_64-darwin-21
   x86_64-linux

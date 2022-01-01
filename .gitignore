@@ -3,6 +3,7 @@ coverage/*
 *~
 .bundle
 .rvmrc
+.byebug_history
 log/*
 measurement/*
 pkg/*

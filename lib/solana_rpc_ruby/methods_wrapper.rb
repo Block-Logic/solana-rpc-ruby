@@ -29,7 +29,7 @@ module SolanaRpcRuby
     # @param cluster [String] cluster where requests will be sent.
     # @param id [Integer] unique client-generated identifying integer.
     def initialize(
-      api_client: ApiClient, 
+      api_client: ApiClient,
       cluster: SolanaRpcRuby.cluster,
       id: rand(1...99_999)
     )
@@ -49,7 +49,7 @@ module SolanaRpcRuby
     # @option data_slice [Integer] :length
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_account_info(account_pubkey, encoding: '', data_slice: {})
+    def get_account_info(account_pubkey, encoding: '', data_slice: {}, commitment: '')
       http_method = :post
       method =  create_method_name(__method__)
 
@@ -58,6 +58,7 @@ module SolanaRpcRuby
 
       params_hash['encoding'] = encoding unless blank?(encoding)
       params_hash['dataSlice'] = data_slice unless data_slice.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << account_pubkey
       params << params_hash unless params_hash.empty?
