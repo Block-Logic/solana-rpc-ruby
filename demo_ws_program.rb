@@ -31,20 +31,33 @@ program_id = '9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin'
 interrupted = false
 trap('INT') { interrupted = true }
 
+script_start = Time.now
+puts "SCRIPT START: #{script_start}"
 begin
   time_last = Time.now
-  ws_method_wrapper.program_subscribe(program_id) do |message|
+  ws_method_wrapper.program_subscribe(program_id, commitment: 'confirmed', encoding: 'base64', filters: [{dataSize: 65548}]) do |message|
     json = JSON.parse(message)
     # puts json['params']
     time_elapsed = Time.now - time_last
-    puts "#{time_elapsed.round(4)} seconds. #{json['params']}"
+    if json['params']
+      slot = json['params']['result']['context']['slot']
+      pubkey = json['params']['result']['value']['pubkey']
+      owner = json['params']['result']['value']['account']['owner']
+      lamports = json['params']['result']['value']['account']['lamports']
+
+      # puts "#{time_elapsed.round(4)} seconds. #{json['params']}"
+      puts "#{time_elapsed.round(4)} seconds. #{slot} #{pubkey} #{owner} #{lamports}"
+
+    end
     time_last = Time.now
     break if interrupted
   end
 rescue SolanaRpcRuby::ApiError => e
   puts e.inspect
 end # begin
-
+script_end = Time.now
+puts "SCRIPT END: #{script_end}"
+puts "SCRIPT RUN TIME: #{script_end - script_start}"
 # Example of block that can be passed to the method to manipualte the data.
 # block = Proc.new do |message|
 #   json = JSON.parse(message)
