@@ -5,7 +5,7 @@ ws_testnet_cluster = 'ws://api.testnet.solana.com'
 ws_mainnet_cluster = 'ws://api.mainnet-beta.solana.com'
 
 cluster = ARGV[0] || ws_mainnet_cluster
-raise "Please provide a cluster endpoint in this format: ws://api.mainnet-beta.solana.com" if cluster.nil?
+raise 'Please provide a cluster endpoint in this format: ws://api.mainnet-beta.solana.com' if cluster.nil?
 
 SolanaRpcRuby.config do |c|
   c.json_rpc_version = '2.0'
@@ -33,7 +33,7 @@ begin
   end
 rescue SolanaRpcRuby::ApiError => e
   puts e.inspect
-end # begin
+end
 
 # Example of block that can be passed to the method to manipualte the data.
 # block = Proc.new do |message|
