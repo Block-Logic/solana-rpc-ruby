@@ -282,8 +282,10 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # @deprecated Please use getBlocks instead This method is expected to be removed in solana-core v1.8
+    #
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getepochinfo
-    # DEPRECATED: Please use getBlocks instead This method is expected to be removed in solana-core v1.8
+    #
     # Returns a list of confirmed blocks between two slots
     #
     # @param start_slot [Integer]
@@ -291,6 +293,8 @@ module SolanaRpcRuby
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
     def get_confirmed_blocks(start_slot, end_slot: nil)
+      warn 'DEPRECATED: Please use getBlocks instead. This method is expected to be removed in solana-core v1.8'
+
       http_method = :post
       method =  create_method_name(__method__)
 
@@ -339,7 +343,10 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # @deprecated Please use isBlockhashValid or getFeeForMessage instead This method is expected to be removed in solana-core v2.0
+    #
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfeecalculatorforblockhash
+    #
     # Returns the fee calculator associated with the query blockhash, or null if the blockhash has expired
     #
     # @param query_blockhash [String]
@@ -347,6 +354,8 @@ module SolanaRpcRuby
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
     def get_fee_calculator_for_blockhash(query_blockhash, commitment: nil)
+      warn "DEPRECATED: Please use isBlockhashValid or getFeeForMessage instead. This method is expected to be removed in solana-core v2.0"
+
       http_method = :post
       method =  create_method_name(__method__)
 
@@ -363,11 +372,14 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # @ deprecated Please check solana docs for substitution.
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfeerategovernor
     # Returns the fee rate governor information from the root bank
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
     def get_fee_rate_governor
+      warn "DEPRECATED Please check solana docs for substitution."
+
       http_method = :post
       method =  create_method_name(__method__)
 
@@ -376,7 +388,10 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # @deprecated DEPRECATED: Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0
+    #
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfees
+    #
     # Returns a recent block hash from the ledger, a fee schedule that can be used to compute
     # the cost of submitting a transaction using it, and the last slot in which the blockhash will be valid.
     #
@@ -384,6 +399,8 @@ module SolanaRpcRuby
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
     def get_fees(commitment: nil)
+      warn "DEPRECATED: Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0"
+
       http_method = :post
       method =  create_method_name(__method__)
 
@@ -616,12 +633,15 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getmultipleaccounts
-    # Returns the account information for a list of Pubkeys.
-        # @param account_data_length [String]
-    # @param commitment [String]
     #
-    # @return [Response, ApiError] Response when success, ApiError on failure.    # @param account_data_length [String]
+    # Returns the account information for a list of Pubkeys.
+    #
+    # @param pubkeys [Array]
     # @param commitment [String]
+    # @param encoding [String]
+    # @param data_slice [Hash]
+    # @option data_slice [Integer] :offset
+    # @option data_slice [Integer] :length
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
     def get_multiple_accounts(
@@ -695,6 +715,8 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # @depreated Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0
+    #
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getrecentblockhash
     # Returns a recent block hash from the ledger, and a fee schedule
     # that can be used to compute the cost of submitting a transaction using it.
@@ -703,6 +725,7 @@ module SolanaRpcRuby
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
     def get_recent_blockhash(commitment: nil)
+      warn "DEPRECATED: Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0"
       http_method = :post
       method =  create_method_name(__method__)
 
@@ -738,11 +761,14 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # @deprecated Please use getHighestSnapshotSlot instead This method is expected to be removed in solana-core v2.0
+    #
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getsnapshotslot
     # Returns the highest slot that the node has a snapshot for.
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
     def get_snapshot_slot
+      warn "DEPRECATED: Please use getHighestSnapshotSlot instead This method is expected to be removed in solana-core v2.0"
       http_method = :post
       method =  create_method_name(__method__)
 
@@ -823,6 +849,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getslot
+    #
     # Returns the current slot the node is processing.
     #
     # @param commitment [String]
@@ -914,9 +941,10 @@ module SolanaRpcRuby
     # Returns information about the current supply.
     #
     # @param commitment [String]
+    # @param exclude_non_circulating_accounts_list [Boolean]
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_supply(commitment: nil)
+    def get_supply(commitment: nil, exclude_non_circulating_accounts_list: nil)
       http_method = :post
       method =  create_method_name(__method__)
 
@@ -924,6 +952,8 @@ module SolanaRpcRuby
       params_hash = {}
 
       params_hash['commitment'] = commitment unless blank?(commitment)
+      params_hash['exclude_non_circulating_accounts_list'] = exclude_non_circulating_accounts_list \
+        unless exclude_non_circulating_accounts_list.nil?
 
       params << params_hash unless params_hash.empty?
 
@@ -1156,9 +1186,16 @@ module SolanaRpcRuby
     #
     # @param commitment [String]
     # @param vote_pubkey [String]
+    # @param keep_unstaked_delinquents [Boolean]
+    # @param delinquent_slot_distance [Integer] NOTE: For the sake of consistency between ecosystem products, it is not recommended that this argument be specified.
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_vote_accounts(commitment: nil, vote_pubkey: nil)
+    def get_vote_accounts(
+      commitment: nil,
+      vote_pubkey: nil,
+      keep_unstaked_delinquents: nil,
+      delinquent_slot_distance: nil
+    )
       http_method = :post
       method =  create_method_name(__method__)
 
@@ -1167,6 +1204,8 @@ module SolanaRpcRuby
 
       params_hash['votePubkey'] = vote_pubkey unless blank?(vote_pubkey)
       params_hash['commitment'] = commitment unless blank?(commitment)
+      params_hash['keep_unstaked_delinquents'] = keep_unstaked_delinquents unless keep_unstaked_delinquents.nil?
+      params_hash['delinquent_slot_distance'] = delinquent_slot_distance unless blank?(delinquent_slot_distance)
 
       params << params_hash unless params_hash.empty?
 
@@ -1224,13 +1263,15 @@ module SolanaRpcRuby
     # @param skip_pre_flight [Boolean]
     # @param pre_flight_commitment [String]
     # @param encoding [String]
+    # @param max_retries [Integer]
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
     def send_transaction(
           transaction_signature,
           skip_pre_flight: false,
           pre_flight_commitment: nil,
-          encoding: ''
+          encoding: '',
+          max_retries: nil
         )
       http_method = :post
       method =  create_method_name(__method__)
@@ -1241,6 +1282,7 @@ module SolanaRpcRuby
       params_hash['skipPreFlight'] = skip_pre_flight unless skip_pre_flight.nil?
       params_hash['preflightCommitment'] = pre_flight_commitment unless blank?(pre_flight_commitment)
       params_hash['encoding'] = encoding unless blank?(encoding)
+      params_hash['max_retries'] = max_retries unless blank?(max_retries)
 
       params << transaction_signature
       params << params_hash unless params_hash.empty?
