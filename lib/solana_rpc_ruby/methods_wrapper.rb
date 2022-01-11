@@ -44,6 +44,7 @@ module SolanaRpcRuby
     #
     # @param account_pubkey [String]
     # @param encoding [String]
+    # @param commitment [String]
     # @param data_slice [Hash]
     # @option data_slice [Integer] :offset
     # @option data_slice [Integer] :length
