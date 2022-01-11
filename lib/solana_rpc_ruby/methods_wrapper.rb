@@ -169,6 +169,7 @@ module SolanaRpcRuby
 
       params_hash['identity'] = identity unless blank?(identity)
       params_hash['range'] = range_hash unless range_hash.empty?
+      params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << params_hash unless params_hash.empty?
 
@@ -204,14 +205,18 @@ module SolanaRpcRuby
     # @param end_slot [Integer]
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_blocks(start_slot, end_slot: nil)
+    def get_blocks(start_slot, end_slot: nil, commitment: nil)
       http_method = :post
       method =  create_method_name(__method__)
 
       params = []
+      params_hash = {}
 
       params << start_slot
       params << end_slot unless end_slot.nil?
+      params_hash['commitment'] = commitment unless blank?(commitment)
+
+      params << params_hash unless params_hash.empty?
 
       body = create_json_body(method, method_params: params)
 
@@ -1172,20 +1177,6 @@ module SolanaRpcRuby
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#minimumledgerslot
     #
-    # Returns the current solana versions running on the node.
-    #
-    # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_version
-      http_method = :post
-      method =  create_method_name(__method__)
-
-      body = create_json_body(method)
-
-      send_request(body, http_method)
-    end
-
-    # @see https://docs.solana.com/developing/clients/jsonrpc-api#minimumledgerslot
-    #
     # Returns the lowest slot that the node has information about in its ledger.
     # This value may increase over time if the node is configured to purge older ledger data
     #
@@ -1214,6 +1205,7 @@ module SolanaRpcRuby
 
       params = []
       params_hash = {}
+      params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << pubkey
       params << lamports
