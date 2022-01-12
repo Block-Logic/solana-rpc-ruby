@@ -3,19 +3,19 @@ require 'vcr'
 describe SolanaRpcRuby::MethodsWrapper do
   # Uncomment code below to send real time requests, just run `rspec` command.
   # Please do that when you introduce changes to sending request.
-  # 
+  #
   # When you get different values, but the same keys it's ok.
   # Look more carefully when keys or format has changed or new keys have been added.
-  # 
+  #
   # VCR.turn_off!(ignore_cassettes: true)
-  # WebMock.allow_net_connect! 
+  # WebMock.allow_net_connect!
 
   before(:all) do
     path = File.join(
       'spec',
-      'fixtures', 
-      'vcr_cassettes', 
-      'expected_responses', 
+      'fixtures',
+      'vcr_cassettes',
+      'expected_responses',
       'methods_wrapper_spec_responses.json'
     )
 
@@ -37,10 +37,10 @@ describe SolanaRpcRuby::MethodsWrapper do
     end
 
     describe '#initialize' do
-      context 'without arguments passed in' do        
+      context 'without arguments passed in' do
         it 'correctly initialize class' do
           instance = described_class.new
-          
+
           expect(instance.api_client).to be_kind_of(SolanaRpcRuby::ApiClient)
           expect(instance.cluster).to eq(SolanaRpcRuby.cluster)
           expect(instance.id).to be
@@ -52,11 +52,11 @@ describe SolanaRpcRuby::MethodsWrapper do
         it 'correctly sets id' do
           id = 99
           instance = described_class.new(id: id)
-          
+
           expect(instance.id).to eq(id)
         end
       end
-  
+
       context 'with cluster argument passed' do
         it 'correctly sets cluster' do
           instance = described_class.new(cluster: mainnet_cluster)
@@ -366,6 +366,27 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_fee_for_message' do
+      context 'with required params' do
+        xit 'returns correct data from endpoint' do
+          # I don't know why I am getting error:
+          # {"code"=>-32602,
+          # "message"=>"Invalid params:
+          # invalid type: string \"AQABAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAA\",
+          # expected struct CommitmentConfig."}
+          # According to current docs it should work properly.
+          VCR.use_cassette('get_fee_for_message') do
+            blockhash = 'FxVKTksYShgKjnFG3RQUEo2AEesDb4ZHGY3NGJ7KHd7F'
+            message = 'AQABAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAA'
+
+            response = described_class.new.get_fee_for_message(blockhash, message)
+
+            expect(response.result).to eq('')
+          end
+        end
+      end
+    end
+
     describe '#get_fee_rate_governor' do
       it 'returns correct data from endpoint' do
         VCR.use_cassette('get_fee_rate_governor') do
@@ -470,7 +491,7 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
 
       let(:expected_result) do
-        
+
       end
 
       context 'without optional params' do
@@ -724,7 +745,7 @@ describe SolanaRpcRuby::MethodsWrapper do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_recent_performance_samples') do
             response = described_class.new.get_recent_performance_samples
-            expected_result = 
+            expected_result =
 
             expect(response.result.size).to eq(720)
             expect(response.result.first).to eq(
