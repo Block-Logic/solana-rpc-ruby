@@ -557,6 +557,18 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_latest_blockhash' do
+      it 'returns correct data from endpoint'  do
+        VCR.use_cassette('get_latest_blockhash') do
+          response = described_class.new.get_latest_blockhash
+
+          expected_result = {"blockhash"=>"ERoYQz1Wo9XoUyENaNAb1s21AJoCGMjwvwDZuuJ1LCiw", "lastValidBlockHeight"=>91969814}
+
+          expect(response.result['value']).to eq(expected_result)
+        end
+      end
+    end
+
     describe '#get_leader_schedule' do
       context 'without optional params' do
         it 'returns correct data from endpoint' do

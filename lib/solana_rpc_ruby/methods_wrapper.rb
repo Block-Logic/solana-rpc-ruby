@@ -597,6 +597,30 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getlatestblockhash
+    # NEW: This method is only available in solana-core v1.9 or newer. Please use getRecentBlockhash for solana-core v1.8
+    #
+    # Returns the latest blockhash.
+    #
+    # @param commitment [String]
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_latest_blockhash(commitment: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+      params_hash = {}
+
+      params_hash['commitment'] = commitment unless blank?(commitment)
+
+      params << params_hash unless params_hash.empty?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getleaderschedule
     # Returns the leader schedule for an epoch.
     #
