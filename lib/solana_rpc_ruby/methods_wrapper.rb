@@ -282,32 +282,6 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
-    # @deprecated Please use getBlocks instead This method is expected to be removed in solana-core v1.8
-    #
-    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getepochinfo
-    #
-    # Returns a list of confirmed blocks between two slots
-    #
-    # @param start_slot [Integer]
-    # @param end_slot [Integer]
-    #
-    # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_confirmed_blocks(start_slot, end_slot: nil)
-      warn 'DEPRECATED: Please use getBlocks instead. This method is expected to be removed in solana-core v1.8'
-
-      http_method = :post
-      method =  create_method_name(__method__)
-
-      params = []
-
-      params << start_slot
-      params << end_slot unless end_slot.nil? # optional
-
-      body = create_json_body(method, method_params: params)
-
-      send_request(body, http_method)
-    end
-
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getepochinfo
     # Returns information about the current epoch
     #
@@ -343,35 +317,6 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
-    # @deprecated Please use isBlockhashValid or getFeeForMessage instead This method is expected to be removed in solana-core v2.0
-    #
-    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfeecalculatorforblockhash
-    #
-    # Returns the fee calculator associated with the query blockhash, or null if the blockhash has expired
-    #
-    # @param query_blockhash [String]
-    # @param commitment [String]
-    #
-    # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_fee_calculator_for_blockhash(query_blockhash, commitment: nil)
-      warn "DEPRECATED: Please use isBlockhashValid or getFeeForMessage instead. This method is expected to be removed in solana-core v2.0"
-
-      http_method = :post
-      method =  create_method_name(__method__)
-
-      params = []
-      params_hash = {}
-
-      params_hash['commitment'] = commitment unless blank?(commitment)
-
-      params << query_blockhash
-      params << params_hash unless params_hash.empty?
-
-      body = create_json_body(method, method_params: params)
-
-      send_request(body, http_method)
-    end
-
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfeeformessage
     # NEW: This method is only available in solana-core v1.9 or newer. Please use getFees for solana-core v1.8
     #
@@ -396,49 +341,6 @@ module SolanaRpcRuby
       params << params_hash unless params_hash.empty?
       body = create_json_body(method, method_params: params)
       binding.pry
-
-      send_request(body, http_method)
-    end
-
-    # @ deprecated Please check solana docs for substitution.
-    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfeerategovernor
-    # Returns the fee rate governor information from the root bank
-    #
-    # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_fee_rate_governor
-      warn "DEPRECATED Please check solana docs for substitution."
-
-      http_method = :post
-      method =  create_method_name(__method__)
-
-      body = create_json_body(method)
-
-      send_request(body, http_method)
-    end
-
-    # @deprecated DEPRECATED: Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0
-    #
-    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfees
-    #
-    # Returns a recent block hash from the ledger, a fee schedule that can be used to compute
-    # the cost of submitting a transaction using it, and the last slot in which the blockhash will be valid.
-    #
-    # @param commitment [String]
-    #
-    # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_fees(commitment: nil)
-      warn "DEPRECATED: Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0"
-
-      http_method = :post
-      method =  create_method_name(__method__)
-
-      params = []
-      params_hash = {}
-
-      params_hash['commitment'] = commitment unless blank?(commitment)
-      params << params_hash unless params_hash.empty?
-
-      body = create_json_body(method, method_params: params)
 
       send_request(body, http_method)
     end
@@ -783,32 +685,6 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
-    # @depreated Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0
-    #
-    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getrecentblockhash
-    # Returns a recent block hash from the ledger, and a fee schedule
-    # that can be used to compute the cost of submitting a transaction using it.
-    #
-    # @param commitment [String]
-    #
-    # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_recent_blockhash(commitment: nil)
-      warn "DEPRECATED: Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0"
-      http_method = :post
-      method =  create_method_name(__method__)
-
-      params = []
-      params_hash = {}
-
-      params_hash['commitment'] = commitment unless blank?(commitment)
-
-      params << params_hash unless params_hash.empty?
-
-      body = create_json_body(method, method_params: params)
-
-      send_request(body, http_method)
-    end
-
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getrecentperformancesamples
     # Returns a list of recent performance samples, in reverse slot order.
     # Performance samples are taken every 60 seconds and include the number of transactions and slots that occur in a given time window.
@@ -825,22 +701,6 @@ module SolanaRpcRuby
       params << limit unless limit.nil?
 
       body = create_json_body(method, method_params: params)
-
-      send_request(body, http_method)
-    end
-
-    # @deprecated Please use getHighestSnapshotSlot instead This method is expected to be removed in solana-core v2.0
-    #
-    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getsnapshotslot
-    # Returns the highest slot that the node has a snapshot for.
-    #
-    # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_snapshot_slot
-      warn "DEPRECATED: Please use getHighestSnapshotSlot instead This method is expected to be removed in solana-core v2.0"
-      http_method = :post
-      method =  create_method_name(__method__)
-
-      body = create_json_body(method)
 
       send_request(body, http_method)
     end
@@ -1465,7 +1325,151 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+
+    ######## DEPRECATED METHODS #########
+
+    # @deprecated Please use getBlocks instead This method is expected to be removed in solana-core v1.8
+    #
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getepochinfo
+    #
+    # Returns a list of confirmed blocks between two slots
+    #
+    # @param start_slot [Integer]
+    # @param end_slot [Integer]
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_confirmed_blocks(start_slot, end_slot: nil)
+      warn 'DEPRECATED: Please use getBlocks instead. This method is expected to be removed in solana-core v1.8'
+
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+
+      params << start_slot
+      params << end_slot unless end_slot.nil? # optional
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
+    # @deprecated Please use isBlockhashValid or getFeeForMessage instead This method is expected to be removed in solana-core v2.0
+    #
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfeecalculatorforblockhash
+    #
+    # Returns the fee calculator associated with the query blockhash, or null if the blockhash has expired
+    #
+    # @param query_blockhash [String]
+    # @param commitment [String]
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_fee_calculator_for_blockhash(query_blockhash, commitment: nil)
+      warn "DEPRECATED: Please use isBlockhashValid or getFeeForMessage instead. This method is expected to be removed in solana-core v2.0"
+
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+      params_hash = {}
+
+      params_hash['commitment'] = commitment unless blank?(commitment)
+
+      params << query_blockhash
+      params << params_hash unless params_hash.empty?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
+    # @ deprecated Please check solana docs for substitution.
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfeerategovernor
+    # Returns the fee rate governor information from the root bank
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_fee_rate_governor
+      warn "DEPRECATED Please check solana docs for substitution."
+
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      body = create_json_body(method)
+
+      send_request(body, http_method)
+    end
+
+    # @deprecated DEPRECATED: Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0
+    #
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfees
+    #
+    # Returns a recent block hash from the ledger, a fee schedule that can be used to compute
+    # the cost of submitting a transaction using it, and the last slot in which the blockhash will be valid.
+    #
+    # @param commitment [String]
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_fees(commitment: nil)
+      warn "DEPRECATED: Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0"
+
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+      params_hash = {}
+
+      params_hash['commitment'] = commitment unless blank?(commitment)
+      params << params_hash unless params_hash.empty?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
+    # @depreated Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0
+    #
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getrecentblockhash
+    # Returns a recent block hash from the ledger, and a fee schedule
+    # that can be used to compute the cost of submitting a transaction using it.
+    #
+    # @param commitment [String]
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_recent_blockhash(commitment: nil)
+      warn "DEPRECATED: Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0"
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+      params_hash = {}
+
+      params_hash['commitment'] = commitment unless blank?(commitment)
+
+      params << params_hash unless params_hash.empty?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
+    # @deprecated Please use getHighestSnapshotSlot instead This method is expected to be removed in solana-core v2.0
+    #
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getsnapshotslot
+    # Returns the highest slot that the node has a snapshot for.
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_snapshot_slot
+      warn "DEPRECATED: Please use getHighestSnapshotSlot instead This method is expected to be removed in solana-core v2.0"
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      body = create_json_body(method)
+
+      send_request(body, http_method)
+    end
+
     private
+
     def send_request(body, http_method)
       api_response = api_client.call_api(
         body: body,
