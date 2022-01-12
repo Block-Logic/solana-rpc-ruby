@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.testnet.solana.com/
     body:
       encoding: UTF-8
-      string: '{"jsonrpc":"2.0","id":57966,"method":"getFeeForMessage","params":["FxVKTksYShgKjnFG3RQUEo2AEesDb4ZHGY3NGJ7KHd7F","AQABAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAA"]}'
+      string: '{"jsonrpc":"2.0","id":95893,"method":"getFeeForMessage","params":["AQABAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAA"]}'
     headers:
       Content-Type:
       - application/json
@@ -25,17 +25,15 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 12 Jan 2022 09:47:32 GMT
+      - Wed, 12 Jan 2022 15:43:40 GMT
       Transfer-Encoding:
       - chunked
       Vary:
       - Accept-Encoding
     body:
       encoding: ASCII-8BIT
-      string: '{"jsonrpc":"2.0","error":{"code":-32602,"message":"Invalid params:
-        invalid type: string \"AQABAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAA\",
-        expected struct CommitmentConfig."},"id":57966}
+      string: '{"jsonrpc":"2.0","result":{"context":{"slot":112593693},"value":null},"id":95893}
 
 '
-  recorded_at: Wed, 12 Jan 2022 10:47:32 GMT
+  recorded_at: Wed, 12 Jan 2022 16:43:41 GMT
 recorded_with: VCR 6.0.0

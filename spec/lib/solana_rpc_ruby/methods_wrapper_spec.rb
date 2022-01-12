@@ -368,20 +368,13 @@ describe SolanaRpcRuby::MethodsWrapper do
 
     describe '#get_fee_for_message' do
       context 'with required params' do
-        xit 'returns correct data from endpoint' do
-          # I don't know why I am getting error:
-          # {"code"=>-32602,
-          # "message"=>"Invalid params:
-          # invalid type: string \"AQABAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAA\",
-          # expected struct CommitmentConfig."}
-          # According to current docs it should work properly.
+        it 'returns correct data from endpoint' do
           VCR.use_cassette('get_fee_for_message') do
-            blockhash = 'FxVKTksYShgKjnFG3RQUEo2AEesDb4ZHGY3NGJ7KHd7F'
             message = 'AQABAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAA'
 
-            response = described_class.new.get_fee_for_message(blockhash, message)
+            response = described_class.new.get_fee_for_message(message)
 
-            expect(response.result).to eq('')
+            expect(response.result).to eq({"context"=>{"slot"=>112593693}, "value"=>nil})
           end
         end
       end

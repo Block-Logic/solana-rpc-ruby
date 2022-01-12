@@ -334,25 +334,22 @@ module SolanaRpcRuby
     #
     # Get the fee the network will charge for a particular Message
     #
-    # @param blockhash [String]
     # @param message [String]
     # @param commitment [String]
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_fee_for_message(blockhash, message, commitment: nil)
+    def get_fee_for_message(message, commitment: nil)
       http_method = :post
       method =  create_method_name(__method__)
 
       params = []
       params_hash = {}
 
-      params << blockhash
       params << message
       params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << params_hash unless params_hash.empty?
       body = create_json_body(method, method_params: params)
-      binding.pry
 
       send_request(body, http_method)
     end
