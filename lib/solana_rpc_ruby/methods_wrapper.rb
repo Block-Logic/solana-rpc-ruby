@@ -40,6 +40,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getaccountinfo
+    #
     # Returns all information associated with the account of provided Pubkey
     #
     # @param account_pubkey [String]
@@ -70,6 +71,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getbalance
+    #
     # Returns the balance of the account of provided Pubkey
     #
     # @param account_pubkey [String]
@@ -96,6 +98,7 @@ module SolanaRpcRuby
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getblock
     # NEW: This method is only available in solana-core v1.7 or newer. Please use getConfirmedBlock for solana-core v1.6
+    #
     # Returns identity and transaction information about a confirmed block in the ledger
     #
     # @param slot [Integer]
@@ -126,6 +129,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getblockheight
+    #
     # Returns the current block height of the node
     #
     # @param commitment [String]
@@ -147,6 +151,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getblockproduction
+    #
     # Returns recent block production information from the current or previous epoch.
     #
     # @param identity [String]
@@ -179,6 +184,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getblockcommitment
+    #
     # Returns commitment for particular block
     #
     # @param block [Integer]
@@ -199,6 +205,7 @@ module SolanaRpcRuby
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getblocks
     # NEW: This method is only available in solana-core v1.7 or newer. Please use getConfirmedBlocks for solana-core v1.6
+    #
     # Returns a list of confirmed blocks between two slots
     #
     # @param start_slot [Integer]
@@ -225,6 +232,7 @@ module SolanaRpcRuby
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getblockswithlimit
     # NEW: This method is only available in solana-core v1.7 or newer. Please use getConfirmedBlocks for solana-core v1.6
+    #
     # Returns a list of confirmed blocks starting at the given slot
     #
     # @param start_slot [Integer]
@@ -251,6 +259,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getblocktime
+    #
     # Returns the estimated production time of a block.
     #
     # @param block [Integer]
@@ -270,6 +279,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getclusternodes
+    #
     # Returns information about all the nodes participating in the cluster
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
@@ -283,6 +293,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getepochinfo
+    #
     # Returns information about the current epoch
     #
     # @param commitment [String]
@@ -305,6 +316,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getepochschedule
+    #
     # Returns epoch schedule information from this cluster's genesis config
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
@@ -346,6 +358,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfirstavailableblock
+    #
     # Returns the slot of the lowest confirmed block that has not been purged from the ledger
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
@@ -359,6 +372,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getgenesishash
+    #
     # Returns the genesis hash.
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
@@ -372,6 +386,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#gethealth
+    #
     # Returns the current health of the node.
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
@@ -387,6 +402,7 @@ module SolanaRpcRuby
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#gethighestsnapshotslot
     #
     # NEW: This method is only available in solana-core v1.9 or newer. Please use getSnapshotSlot for solana-core v1.8
+    #
     # Returns the highest slot information that the node has snapshots for.
     # This will find the highest full snapshot slot, and the highest incremental snapshot slot based on the full snapshot slot, if there is one.
     #
@@ -401,6 +417,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getidentity
+    #
     # Returns the identity pubkey for the current node.
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
@@ -414,6 +431,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getinflationgovernor
+    #
     # Returns the current inflation governor.
     #
     # @param commitment [String]
@@ -436,6 +454,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getinflationrate
+    #
     # Returns the specific inflation values for the current epoch.
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
@@ -449,6 +468,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getinflationreward
+    #
     # Returns the inflation reward for a list of addresses for an epoch.
     #
     # @param addresses [Array]
@@ -476,6 +496,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getlargestaccounts
+    #
     # Returns the 20 largest accounts, by lamport balance (results may be cached up to two hours)
     #
     # @param commitment [String]
@@ -524,6 +545,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getleaderschedule
+    #
     # Returns the leader schedule for an epoch.
     #
     # @param epoch [Integer]
@@ -550,6 +572,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getmaxretransmitslot
+    #
     # Get the max slot seen from retransmit stage.
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
@@ -576,6 +599,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getminimumbalanceforrentexemption
+    #
     # Returns minimum balance required to make account rent exempt.
     #
     # @param account_data_length [String]
@@ -686,6 +710,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getrecentperformancesamples
+    #
     # Returns a list of recent performance samples, in reverse slot order.
     # Performance samples are taken every 60 seconds and include the number of transactions and slots that occur in a given time window.
     #
@@ -800,6 +825,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getslotleader
+    #
     # Returns the current slot leader
     #
     # @param commitment [String]
@@ -822,6 +848,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getslotleaders
+    #
     # Returns the slot leaders for a given slot range.
     #
     # @param start_slot [Integer]
@@ -840,6 +867,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getstakeactivation
+    #
     # Returns epoch activation information for a stake account.
     #
     # @param pubkey [String]
@@ -866,6 +894,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getsupply
+    #
     # Returns information about the current supply.
     #
     # @param commitment [String]
@@ -1139,6 +1168,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getvoteaccounts
+    #
     # Returns the account info and associated stake for all the voting accounts in the current bank.
     #
     # @param commitment [String]
@@ -1383,8 +1413,10 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
-    # @ deprecated Please check solana docs for substitution.
+    # @deprecated Please check solana docs for substitution.
+    #
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfeerategovernor
+    #
     # Returns the fee rate governor information from the root bank
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
@@ -1429,6 +1461,7 @@ module SolanaRpcRuby
     # @depreated Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0
     #
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getrecentblockhash
+    #
     # Returns a recent block hash from the ledger, and a fee schedule
     # that can be used to compute the cost of submitting a transaction using it.
     #
@@ -1455,6 +1488,7 @@ module SolanaRpcRuby
     # @deprecated Please use getHighestSnapshotSlot instead This method is expected to be removed in solana-core v2.0
     #
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getsnapshotslot
+    #
     # Returns the highest slot that the node has a snapshot for.
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
