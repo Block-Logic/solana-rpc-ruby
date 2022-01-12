@@ -482,6 +482,22 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#gethighestsnapshotslot
+    #
+    # NEW: This method is only available in solana-core v1.9 or newer. Please use getSnapshotSlot for solana-core v1.8
+    # Returns the highest slot information that the node has snapshots for.
+    # This will find the highest full snapshot slot, and the highest incremental snapshot slot based on the full snapshot slot, if there is one.
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_highest_snapshot_slot
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      body = create_json_body(method)
+
+      send_request(body, http_method)
+    end
+
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getidentity
     # Returns the identity pubkey for the current node.
     #

@@ -449,6 +449,16 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_highest_snapshot_slot' do
+      it 'returns correct data from endpoint'  do
+        VCR.use_cassette('get_highest_snapshot_slot') do
+          response = described_class.new.get_highest_snapshot_slot
+
+          expect(response.result).to eq({ "full" => 112553558, "incremental" => nil })
+        end
+      end
+    end
+
     describe '#get_identity' do
       it 'returns correct data from endpoint'  do
         VCR.use_cassette('get_identity') do
