@@ -1066,6 +1066,19 @@ describe SolanaRpcRuby::MethodsWrapper do
           end
         end
       end
+
+      describe '#get_token_supply' do
+        context 'with required params' do
+          it 'returns correct data from endpoint' do
+            VCR.use_cassette('get_token_supply') do
+              response = mainnet_client.get_token_supply(mint)
+
+              expect(response.result['value'].size).to eq(4)
+              expect(response.result['value'].first).to eq(["amount", "555000000000000"])
+            end
+          end
+        end
+      end
     end
 
     describe '#get_transaction' do

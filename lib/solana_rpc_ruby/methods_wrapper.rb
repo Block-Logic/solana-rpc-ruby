@@ -1185,6 +1185,35 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#gettokensupply
+    #
+    # Returns the total supply of an SPL Token type.
+    #
+    # @param token_mint_pubkey [String]
+    # @param commitment [String]
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_token_supply(
+      token_mint_pubkey,
+      commitment: nil
+    )
+
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+      params_hash = {}
+
+      params_hash['commitment'] = commitment unless blank?(commitment)
+
+      params << token_mint_pubkey
+      params << params_hash unless params_hash.empty?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#gettransaction
     #
     # Returns transaction details for a confirmed transaction
