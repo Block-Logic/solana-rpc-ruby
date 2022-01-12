@@ -1311,6 +1311,32 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#isblockhashvalid
+    # NEW: This method is only available in solana-core v1.9 or newer. Please use getFeeCalculatorForBlockhash for solana-core v1.8
+    #
+    # Returns whether a blockhash is still valid or not.
+    #
+    # @param blockhash [String]
+    # @param commitment [String]
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def is_blockhash_valid(blockhash, commitment: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+      params_hash = {}
+
+      params_hash['commitment'] = commitment unless blank?(commitment)
+
+      params << blockhash
+      params << params_hash unless params_hash.empty?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#minimumledgerslot
     #
     # Returns the lowest slot that the node has information about in its ledger.

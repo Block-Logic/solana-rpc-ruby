@@ -1165,6 +1165,20 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#is_blockhash_valid' do
+      context 'without optional params' do
+        let(:blockhash) { 'ERoYQz1Wo9XoUyENaNAb1s21AJoCGMjwvwDZuuJ1LCiw' }
+
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('is_blockhash_valid') do
+            response = described_class.new.is_blockhash_valid(blockhash)
+
+            expect(response.result).to eq({ "context"=>{"slot"=>112564333}, "value"=>false })
+          end
+        end
+      end
+    end
+
     describe '#minimum_ledger_slot' do
       context 'without optional params' do
         it 'returns correct data from endpoint' do
