@@ -25,3 +25,11 @@
 
 ## 1.1.4
 * Removes deprecated constant
+
+## 1.2.0
+* Fix handling commitment param in methods
+* Add RPC and websocket methods added by solana core to RPC recently
+* Add new params to methods added by solana core
+* Add warns to deprecated methods
+* Update docs
+* Small fixes
