@@ -760,7 +760,6 @@ describe SolanaRpcRuby::MethodsWrapper do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_recent_performance_samples') do
             response = described_class.new.get_recent_performance_samples
-            expected_result =
 
             expect(response.result.size).to eq(720)
             expect(response.result.first).to eq(
