@@ -3,19 +3,19 @@ require 'vcr'
 describe SolanaRpcRuby::MethodsWrapper do
   # Uncomment code below to send real time requests, just run `rspec` command.
   # Please do that when you introduce changes to sending request.
-  # 
+  #
   # When you get different values, but the same keys it's ok.
   # Look more carefully when keys or format has changed or new keys have been added.
-  # 
+  #
   # VCR.turn_off!(ignore_cassettes: true)
-  # WebMock.allow_net_connect! 
+  # WebMock.allow_net_connect!
 
   before(:all) do
     path = File.join(
       'spec',
-      'fixtures', 
-      'vcr_cassettes', 
-      'expected_responses', 
+      'fixtures',
+      'vcr_cassettes',
+      'expected_responses',
       'methods_wrapper_spec_responses.json'
     )
 
@@ -37,10 +37,10 @@ describe SolanaRpcRuby::MethodsWrapper do
     end
 
     describe '#initialize' do
-      context 'without arguments passed in' do        
+      context 'without arguments passed in' do
         it 'correctly initialize class' do
           instance = described_class.new
-          
+
           expect(instance.api_client).to be_kind_of(SolanaRpcRuby::ApiClient)
           expect(instance.cluster).to eq(SolanaRpcRuby.cluster)
           expect(instance.id).to be
@@ -52,11 +52,11 @@ describe SolanaRpcRuby::MethodsWrapper do
         it 'correctly sets id' do
           id = 99
           instance = described_class.new(id: id)
-          
+
           expect(instance.id).to eq(id)
         end
       end
-  
+
       context 'with cluster argument passed' do
         it 'correctly sets cluster' do
           instance = described_class.new(cluster: mainnet_cluster)
@@ -366,6 +366,20 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_fee_for_message' do
+      context 'with required params' do
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('get_fee_for_message') do
+            message = 'AQABAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQAA'
+
+            response = described_class.new.get_fee_for_message(message)
+
+            expect(response.result).to eq({"context"=>{"slot"=>112593693}, "value"=>nil})
+          end
+        end
+      end
+    end
+
     describe '#get_fee_rate_governor' do
       it 'returns correct data from endpoint' do
         VCR.use_cassette('get_fee_rate_governor') do
@@ -428,6 +442,16 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
     end
 
+    describe '#get_highest_snapshot_slot' do
+      it 'returns correct data from endpoint'  do
+        VCR.use_cassette('get_highest_snapshot_slot') do
+          response = described_class.new.get_highest_snapshot_slot
+
+          expect(response.result).to eq({ "full" => 112553558, "incremental" => nil })
+        end
+      end
+    end
+
     describe '#get_identity' do
       it 'returns correct data from endpoint'  do
         VCR.use_cassette('get_identity') do
@@ -470,7 +494,7 @@ describe SolanaRpcRuby::MethodsWrapper do
       end
 
       let(:expected_result) do
-        
+
       end
 
       context 'without optional params' do
@@ -522,6 +546,18 @@ describe SolanaRpcRuby::MethodsWrapper do
             expect(response.result.dig('context', 'slot')).to eq(83025918)
             expect(response.result['value'].size).to eq(20)
           end
+        end
+      end
+    end
+
+    describe '#get_latest_blockhash' do
+      it 'returns correct data from endpoint'  do
+        VCR.use_cassette('get_latest_blockhash') do
+          response = described_class.new.get_latest_blockhash
+
+          expected_result = {"blockhash"=>"ERoYQz1Wo9XoUyENaNAb1s21AJoCGMjwvwDZuuJ1LCiw", "lastValidBlockHeight"=>91969814}
+
+          expect(response.result['value']).to eq(expected_result)
         end
       end
     end
@@ -724,7 +760,6 @@ describe SolanaRpcRuby::MethodsWrapper do
         it 'returns correct data from endpoint' do
           VCR.use_cassette('get_recent_performance_samples') do
             response = described_class.new.get_recent_performance_samples
-            expected_result = 
 
             expect(response.result.size).to eq(720)
             expect(response.result.first).to eq(
@@ -1023,6 +1058,19 @@ describe SolanaRpcRuby::MethodsWrapper do
           end
         end
       end
+
+      describe '#get_token_supply' do
+        context 'with required params' do
+          it 'returns correct data from endpoint' do
+            VCR.use_cassette('get_token_supply') do
+              response = mainnet_client.get_token_supply(mint)
+
+              expect(response.result['value'].size).to eq(4)
+              expect(response.result['value'].first).to eq(["amount", "555000000000000"])
+            end
+          end
+        end
+      end
     end
 
     describe '#get_transaction' do
@@ -1104,6 +1152,20 @@ describe SolanaRpcRuby::MethodsWrapper do
             expect(response.result['current'].size).to eq(1)
             expect(response.result['delinquent']).to eq([])
             expect(response.id).to eq(1)
+          end
+        end
+      end
+    end
+
+    describe '#is_blockhash_valid' do
+      context 'without optional params' do
+        let(:blockhash) { 'ERoYQz1Wo9XoUyENaNAb1s21AJoCGMjwvwDZuuJ1LCiw' }
+
+        it 'returns correct data from endpoint' do
+          VCR.use_cassette('is_blockhash_valid') do
+            response = described_class.new.is_blockhash_valid(blockhash)
+
+            expect(response.result).to eq({ "context"=>{"slot"=>112564333}, "value"=>false })
           end
         end
       end

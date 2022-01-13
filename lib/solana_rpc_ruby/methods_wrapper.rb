@@ -40,10 +40,12 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getaccountinfo
+    #
     # Returns all information associated with the account of provided Pubkey
     #
     # @param account_pubkey [String]
     # @param encoding [String]
+    # @param commitment [String]
     # @param data_slice [Hash]
     # @option data_slice [Integer] :offset
     # @option data_slice [Integer] :length
@@ -69,6 +71,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getbalance
+    #
     # Returns the balance of the account of provided Pubkey
     #
     # @param account_pubkey [String]
@@ -95,6 +98,7 @@ module SolanaRpcRuby
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getblock
     # NEW: This method is only available in solana-core v1.7 or newer. Please use getConfirmedBlock for solana-core v1.6
+    #
     # Returns identity and transaction information about a confirmed block in the ledger
     #
     # @param slot [Integer]
@@ -125,6 +129,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getblockheight
+    #
     # Returns the current block height of the node
     #
     # @param commitment [String]
@@ -146,6 +151,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getblockproduction
+    #
     # Returns recent block production information from the current or previous epoch.
     #
     # @param identity [String]
@@ -178,6 +184,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getblockcommitment
+    #
     # Returns commitment for particular block
     #
     # @param block [Integer]
@@ -198,6 +205,7 @@ module SolanaRpcRuby
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getblocks
     # NEW: This method is only available in solana-core v1.7 or newer. Please use getConfirmedBlocks for solana-core v1.6
+    #
     # Returns a list of confirmed blocks between two slots
     #
     # @param start_slot [Integer]
@@ -224,6 +232,7 @@ module SolanaRpcRuby
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getblockswithlimit
     # NEW: This method is only available in solana-core v1.7 or newer. Please use getConfirmedBlocks for solana-core v1.6
+    #
     # Returns a list of confirmed blocks starting at the given slot
     #
     # @param start_slot [Integer]
@@ -250,6 +259,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getblocktime
+    #
     # Returns the estimated production time of a block.
     #
     # @param block [Integer]
@@ -269,6 +279,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getclusternodes
+    #
     # Returns information about all the nodes participating in the cluster
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
@@ -282,28 +293,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getepochinfo
-    # DEPRECATED: Please use getBlocks instead This method is expected to be removed in solana-core v1.8
-    # Returns a list of confirmed blocks between two slots
     #
-    # @param start_slot [Integer]
-    # @param end_slot [Integer]
-    #
-    # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_confirmed_blocks(start_slot, end_slot: nil)
-      http_method = :post
-      method =  create_method_name(__method__)
-
-      params = []
-
-      params << start_slot
-      params << end_slot unless end_slot.nil? # optional
-
-      body = create_json_body(method, method_params: params)
-
-      send_request(body, http_method)
-    end
-
-    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getepochinfo
     # Returns information about the current epoch
     #
     # @param commitment [String]
@@ -326,6 +316,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getepochschedule
+    #
     # Returns epoch schedule information from this cluster's genesis config
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
@@ -338,66 +329,33 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
-    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfeecalculatorforblockhash
-    # Returns the fee calculator associated with the query blockhash, or null if the blockhash has expired
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfeeformessage
+    # NEW: This method is only available in solana-core v1.9 or newer. Please use getFees for solana-core v1.8
     #
-    # @param query_blockhash [String]
+    # Get the fee the network will charge for a particular Message
+    #
+    # @param message [String]
     # @param commitment [String]
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_fee_calculator_for_blockhash(query_blockhash, commitment: nil)
+    def get_fee_for_message(message, commitment: nil)
       http_method = :post
       method =  create_method_name(__method__)
 
       params = []
       params_hash = {}
 
+      params << message
       params_hash['commitment'] = commitment unless blank?(commitment)
 
-      params << query_blockhash
       params << params_hash unless params_hash.empty?
-
-      body = create_json_body(method, method_params: params)
-
-      send_request(body, http_method)
-    end
-
-    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfeerategovernor
-    # Returns the fee rate governor information from the root bank
-    #
-    # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_fee_rate_governor
-      http_method = :post
-      method =  create_method_name(__method__)
-
-      body = create_json_body(method)
-
-      send_request(body, http_method)
-    end
-
-    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfees
-    # Returns a recent block hash from the ledger, a fee schedule that can be used to compute
-    # the cost of submitting a transaction using it, and the last slot in which the blockhash will be valid.
-    #
-    # @param commitment [String]
-    #
-    # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_fees(commitment: nil)
-      http_method = :post
-      method =  create_method_name(__method__)
-
-      params = []
-      params_hash = {}
-
-      params_hash['commitment'] = commitment unless blank?(commitment)
-      params << params_hash unless params_hash.empty?
-
       body = create_json_body(method, method_params: params)
 
       send_request(body, http_method)
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfirstavailableblock
+    #
     # Returns the slot of the lowest confirmed block that has not been purged from the ledger
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
@@ -411,6 +369,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getgenesishash
+    #
     # Returns the genesis hash.
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
@@ -424,6 +383,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#gethealth
+    #
     # Returns the current health of the node.
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
@@ -436,7 +396,25 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#gethighestsnapshotslot
+    #
+    # NEW: This method is only available in solana-core v1.9 or newer. Please use getSnapshotSlot for solana-core v1.8
+    #
+    # Returns the highest slot information that the node has snapshots for.
+    # This will find the highest full snapshot slot, and the highest incremental snapshot slot based on the full snapshot slot, if there is one.
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_highest_snapshot_slot
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      body = create_json_body(method)
+
+      send_request(body, http_method)
+    end
+
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getidentity
+    #
     # Returns the identity pubkey for the current node.
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
@@ -450,6 +428,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getinflationgovernor
+    #
     # Returns the current inflation governor.
     #
     # @param commitment [String]
@@ -472,6 +451,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getinflationrate
+    #
     # Returns the specific inflation values for the current epoch.
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
@@ -485,6 +465,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getinflationreward
+    #
     # Returns the inflation reward for a list of addresses for an epoch.
     #
     # @param addresses [Array]
@@ -512,6 +493,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getlargestaccounts
+    #
     # Returns the 20 largest accounts, by lamport balance (results may be cached up to two hours)
     #
     # @param commitment [String]
@@ -535,7 +517,32 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getlatestblockhash
+    # NEW: This method is only available in solana-core v1.9 or newer. Please use getRecentBlockhash for solana-core v1.8
+    #
+    # Returns the latest blockhash.
+    #
+    # @param commitment [String]
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_latest_blockhash(commitment: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+      params_hash = {}
+
+      params_hash['commitment'] = commitment unless blank?(commitment)
+
+      params << params_hash unless params_hash.empty?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getleaderschedule
+    #
     # Returns the leader schedule for an epoch.
     #
     # @param epoch [Integer]
@@ -562,6 +569,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getmaxretransmitslot
+    #
     # Get the max slot seen from retransmit stage.
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
@@ -588,6 +596,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getminimumbalanceforrentexemption
+    #
     # Returns minimum balance required to make account rent exempt.
     #
     # @param account_data_length [String]
@@ -615,12 +624,15 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getmultipleaccounts
-    # Returns the account information for a list of Pubkeys.
-        # @param account_data_length [String]
-    # @param commitment [String]
     #
-    # @return [Response, ApiError] Response when success, ApiError on failure.    # @param account_data_length [String]
+    # Returns the account information for a list of Pubkeys.
+    #
+    # @param pubkeys [Array]
     # @param commitment [String]
+    # @param encoding [String]
+    # @param data_slice [Hash]
+    # @option data_slice [Integer] :offset
+    # @option data_slice [Integer] :length
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
     def get_multiple_accounts(
@@ -694,30 +706,8 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
-    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getrecentblockhash
-    # Returns a recent block hash from the ledger, and a fee schedule
-    # that can be used to compute the cost of submitting a transaction using it.
-    #
-    # @param commitment [String]
-    #
-    # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_recent_blockhash(commitment: nil)
-      http_method = :post
-      method =  create_method_name(__method__)
-
-      params = []
-      params_hash = {}
-
-      params_hash['commitment'] = commitment unless blank?(commitment)
-
-      params << params_hash unless params_hash.empty?
-
-      body = create_json_body(method, method_params: params)
-
-      send_request(body, http_method)
-    end
-
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getrecentperformancesamples
+    #
     # Returns a list of recent performance samples, in reverse slot order.
     # Performance samples are taken every 60 seconds and include the number of transactions and slots that occur in a given time window.
     #
@@ -733,19 +723,6 @@ module SolanaRpcRuby
       params << limit unless limit.nil?
 
       body = create_json_body(method, method_params: params)
-
-      send_request(body, http_method)
-    end
-
-    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getsnapshotslot
-    # Returns the highest slot that the node has a snapshot for.
-    #
-    # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_snapshot_slot
-      http_method = :post
-      method =  create_method_name(__method__)
-
-      body = create_json_body(method)
 
       send_request(body, http_method)
     end
@@ -822,6 +799,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getslot
+    #
     # Returns the current slot the node is processing.
     #
     # @param commitment [String]
@@ -844,6 +822,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getslotleader
+    #
     # Returns the current slot leader
     #
     # @param commitment [String]
@@ -866,6 +845,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getslotleaders
+    #
     # Returns the slot leaders for a given slot range.
     #
     # @param start_slot [Integer]
@@ -884,6 +864,7 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getstakeactivation
+    #
     # Returns epoch activation information for a stake account.
     #
     # @param pubkey [String]
@@ -910,12 +891,14 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getsupply
+    #
     # Returns information about the current supply.
     #
     # @param commitment [String]
+    # @param exclude_non_circulating_accounts_list [Boolean]
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_supply(commitment: nil)
+    def get_supply(commitment: nil, exclude_non_circulating_accounts_list: nil)
       http_method = :post
       method =  create_method_name(__method__)
 
@@ -923,6 +906,8 @@ module SolanaRpcRuby
       params_hash = {}
 
       params_hash['commitment'] = commitment unless blank?(commitment)
+      params_hash['exclude_non_circulating_accounts_list'] = exclude_non_circulating_accounts_list \
+        unless exclude_non_circulating_accounts_list.nil?
 
       params << params_hash unless params_hash.empty?
 
@@ -1086,6 +1071,35 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#gettokensupply
+    #
+    # Returns the total supply of an SPL Token type.
+    #
+    # @param token_mint_pubkey [String]
+    # @param commitment [String]
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_token_supply(
+      token_mint_pubkey,
+      commitment: nil
+    )
+
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+      params_hash = {}
+
+      params_hash['commitment'] = commitment unless blank?(commitment)
+
+      params << token_mint_pubkey
+      params << params_hash unless params_hash.empty?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#gettransaction
     #
     # Returns transaction details for a confirmed transaction
@@ -1151,13 +1165,21 @@ module SolanaRpcRuby
     end
 
     # @see https://docs.solana.com/developing/clients/jsonrpc-api#getvoteaccounts
+    #
     # Returns the account info and associated stake for all the voting accounts in the current bank.
     #
     # @param commitment [String]
     # @param vote_pubkey [String]
+    # @param keep_unstaked_delinquents [Boolean]
+    # @param delinquent_slot_distance [Integer] NOTE: For the sake of consistency between ecosystem products, it is not recommended that this argument be specified.
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_vote_accounts(commitment: nil, vote_pubkey: nil)
+    def get_vote_accounts(
+      commitment: nil,
+      vote_pubkey: nil,
+      keep_unstaked_delinquents: nil,
+      delinquent_slot_distance: nil
+    )
       http_method = :post
       method =  create_method_name(__method__)
 
@@ -1166,7 +1188,35 @@ module SolanaRpcRuby
 
       params_hash['votePubkey'] = vote_pubkey unless blank?(vote_pubkey)
       params_hash['commitment'] = commitment unless blank?(commitment)
+      params_hash['keep_unstaked_delinquents'] = keep_unstaked_delinquents unless keep_unstaked_delinquents.nil?
+      params_hash['delinquent_slot_distance'] = delinquent_slot_distance unless blank?(delinquent_slot_distance)
 
+      params << params_hash unless params_hash.empty?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#isblockhashvalid
+    # NEW: This method is only available in solana-core v1.9 or newer. Please use getFeeCalculatorForBlockhash for solana-core v1.8
+    #
+    # Returns whether a blockhash is still valid or not.
+    #
+    # @param blockhash [String]
+    # @param commitment [String]
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def is_blockhash_valid(blockhash, commitment: nil)
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+      params_hash = {}
+
+      params_hash['commitment'] = commitment unless blank?(commitment)
+
+      params << blockhash
       params << params_hash unless params_hash.empty?
 
       body = create_json_body(method, method_params: params)
@@ -1223,13 +1273,15 @@ module SolanaRpcRuby
     # @param skip_pre_flight [Boolean]
     # @param pre_flight_commitment [String]
     # @param encoding [String]
+    # @param max_retries [Integer]
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
     def send_transaction(
           transaction_signature,
           skip_pre_flight: false,
           pre_flight_commitment: nil,
-          encoding: ''
+          encoding: '',
+          max_retries: nil
         )
       http_method = :post
       method =  create_method_name(__method__)
@@ -1240,6 +1292,7 @@ module SolanaRpcRuby
       params_hash['skipPreFlight'] = skip_pre_flight unless skip_pre_flight.nil?
       params_hash['preflightCommitment'] = pre_flight_commitment unless blank?(pre_flight_commitment)
       params_hash['encoding'] = encoding unless blank?(encoding)
+      params_hash['max_retries'] = max_retries unless blank?(max_retries)
 
       params << transaction_signature
       params << params_hash unless params_hash.empty?
@@ -1299,7 +1352,155 @@ module SolanaRpcRuby
       send_request(body, http_method)
     end
 
+
+    ######## DEPRECATED METHODS #########
+
+    # @deprecated Please use getBlocks instead This method is expected to be removed in solana-core v1.8
+    #
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getepochinfo
+    #
+    # Returns a list of confirmed blocks between two slots
+    #
+    # @param start_slot [Integer]
+    # @param end_slot [Integer]
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_confirmed_blocks(start_slot, end_slot: nil)
+      warn 'DEPRECATED: Please use getBlocks instead. This method is expected to be removed in solana-core v1.8'
+
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+
+      params << start_slot
+      params << end_slot unless end_slot.nil? # optional
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
+    # @deprecated Please use isBlockhashValid or getFeeForMessage instead This method is expected to be removed in solana-core v2.0
+    #
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfeecalculatorforblockhash
+    #
+    # Returns the fee calculator associated with the query blockhash, or null if the blockhash has expired
+    #
+    # @param query_blockhash [String]
+    # @param commitment [String]
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_fee_calculator_for_blockhash(query_blockhash, commitment: nil)
+      warn "DEPRECATED: Please use isBlockhashValid or getFeeForMessage instead. This method is expected to be removed in solana-core v2.0"
+
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+      params_hash = {}
+
+      params_hash['commitment'] = commitment unless blank?(commitment)
+
+      params << query_blockhash
+      params << params_hash unless params_hash.empty?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
+    # @deprecated Please check solana docs for substitution.
+    #
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfeerategovernor
+    #
+    # Returns the fee rate governor information from the root bank
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_fee_rate_governor
+      warn "DEPRECATED Please check solana docs for substitution."
+
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      body = create_json_body(method)
+
+      send_request(body, http_method)
+    end
+
+    # @deprecated DEPRECATED: Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0
+    #
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getfees
+    #
+    # Returns a recent block hash from the ledger, a fee schedule that can be used to compute
+    # the cost of submitting a transaction using it, and the last slot in which the blockhash will be valid.
+    #
+    # @param commitment [String]
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_fees(commitment: nil)
+      warn "DEPRECATED: Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0"
+
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+      params_hash = {}
+
+      params_hash['commitment'] = commitment unless blank?(commitment)
+      params << params_hash unless params_hash.empty?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
+    # @depreated Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0
+    #
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getrecentblockhash
+    #
+    # Returns a recent block hash from the ledger, and a fee schedule
+    # that can be used to compute the cost of submitting a transaction using it.
+    #
+    # @param commitment [String]
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_recent_blockhash(commitment: nil)
+      warn "DEPRECATED: Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0"
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      params = []
+      params_hash = {}
+
+      params_hash['commitment'] = commitment unless blank?(commitment)
+
+      params << params_hash unless params_hash.empty?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
+    # @deprecated Please use getHighestSnapshotSlot instead This method is expected to be removed in solana-core v2.0
+    #
+    # @see https://docs.solana.com/developing/clients/jsonrpc-api#getsnapshotslot
+    #
+    # Returns the highest slot that the node has a snapshot for.
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_snapshot_slot
+      warn "DEPRECATED: Please use getHighestSnapshotSlot instead This method is expected to be removed in solana-core v2.0"
+      http_method = :post
+      method =  create_method_name(__method__)
+
+      body = create_json_body(method)
+
+      send_request(body, http_method)
+    end
+
     private
+
     def send_request(body, http_method)
       api_response = api_client.call_api(
         body: body,

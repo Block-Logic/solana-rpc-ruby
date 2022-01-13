@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
@@ -57,18 +57,23 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'>
-<p><img src="https://github.com/Block-Logic/solana-rpc-ruby/actions/workflows/specs.yml/badge.svg"></p>
+      <div id="content"><div id='filecontents'><p><img src="https://github.com/Block-Logic/solana-rpc-ruby/actions/workflows/specs.yml/badge.svg" alt="specs">
+<img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" alt="Maintained">
+<img src="https://img.shields.io/github/last-commit/Block-Logic/solana-rpc-ruby" alt="Last Commit">
+<img src="https://img.shields.io/github/v/tag/Block-Logic/solana-rpc-ruby" alt="Tag">
+<img src="https://img.shields.io/github/stars/Block-Logic/solana-rpc-ruby.svg" alt="Stars">
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a></p>
 
-<h1 id="label-solana_rpc_ruby">solana_rpc_ruby</h1>
+<h1 id="solana_rpc_ruby">solana_rpc_ruby</h1>
 
-<p>A Solana RPC Client for Ruby. This gem provides a wrapper methods for Solana RPC JSON API <a href="https://docs.solana.com/developing/clients/jsonrpc-api">docs.solana.com/developing/clients/jsonrpc-api</a>.</p>
+<p>A Solana RPC Client for Ruby. This gem provides a wrapper methods for Solana RPC JSON API <a href="https://docs.solana.com/developing/clients/jsonrpc-api">https://docs.solana.com/developing/clients/jsonrpc-api</a>.</p>
 
-<h2 id="label-Getting+started">Getting started</h2>
+<h2 id="getting-started">Getting started</h2>
 
-<h3 id="label-Requirements">Requirements</h3>
+<h3 id="requirements">Requirements</h3>
 
-<p>This gem requires Ruby 2.6+ and h Rails 6.0+. It MIGHT work with lower versions, but was not tested againt them. Add the following line to your Gemfile:</p>
+<p>This gem requires Ruby 2.6+ and h Rails 6.0+. It MIGHT work with lower versions, but was not tested with them.
+Add the following line to your Gemfile:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>solana_rpc_ruby</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
@@ -77,7 +82,7 @@
 
 <p>Next, you need to run the generator:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_rails'>rails</span> <span class='id identifier rubyid_g'>g</span> <span class='label'>solana_rpc_ruby:</span><span class='id identifier rubyid_install'>install</span>
+<pre class="code console"><code class="console">rails g solana_rpc_ruby:install
 </code></pre>
 
 <p>The latter command will generate a new config file <code>config/initializers/solana_rpc_ruby_config.rb</code> looking like this:</p>
@@ -93,15 +98,19 @@
 
 <p>You can customize it to your needs.</p>
 
-<h3 id="label-Usage+examples">Usage examples</h3>
+<h3 id="usage-examples">Usage examples</h3>
 
-<h4 id="label-JSON+RPC+API">JSON RPC API</h4>
+<h4 id="json-rpc-api">JSON RPC API</h4>
 
 <pre class="code ruby"><code class="ruby"><span class='comment'># If you set default cluster you don&#39;t need to pass it every time.
 </span><span class='id identifier rubyid_method_wrapper'>method_wrapper</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="SolanaRpcRuby.html" title="SolanaRpcRuby (module)">SolanaRpcRuby</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="SolanaRpcRuby/MethodsWrapper.html" title="SolanaRpcRuby::MethodsWrapper (class)">MethodsWrapper</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="SolanaRpcRuby/MethodsWrapper.html#initialize-instance_method" title="SolanaRpcRuby::MethodsWrapper#initialize (method)">new</a></span></span><span class='lparen'>(</span>
-  <span class='label'>cluster:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>https://api.testnet.solana.com</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='comment'># optional, if not passed, default cluster from config will be used
-</span>  <span class='label'>id:</span> <span class='int'>123</span> <span class='comment'># optional, if not passed, default random number from range 1 to 99_999 will be used
-</span><span class='rparen'>)</span>
+  <span class='comment'># optional, if not passed, default cluster from config will be used
+</span>  <span class='label'>cluster:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>https://api.testnet.solana.com</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+
+  <span class='comment'># optional, if not passed, default random number 
+</span>  <span class='comment'># from range 1 to 99_999 will be used
+</span>  <span class='label'>id:</span> <span class='int'>123</span> 
+<span class='rparen'>)</span>
 
 <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_method_wrapper'>method_wrapper</span><span class='period'>.</span><span class='id identifier rubyid_get_account_info'>get_account_info</span><span class='lparen'>(</span><span class='id identifier rubyid_account_pubkey'>account_pubkey</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_response'>response</span>
@@ -111,19 +120,23 @@
 <span class='id identifier rubyid_method_wrapper'>method_wrapper</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
 </code></pre>
 
-<h4 id="label-Subscription+Websocket">Subscription Websocket</h4>
+<h4 id="subscription-websocket-beta">Subscription Websocket (BETA)</h4>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_ws_method_wrapper'>ws_method_wrapper</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="SolanaRpcRuby.html" title="SolanaRpcRuby (module)">SolanaRpcRuby</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="SolanaRpcRuby/WebsocketsMethodsWrapper.html" title="SolanaRpcRuby::WebsocketsMethodsWrapper (class)">WebsocketsMethodsWrapper</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="SolanaRpcRuby/WebsocketsMethodsWrapper.html#initialize-instance_method" title="SolanaRpcRuby::WebsocketsMethodsWrapper#initialize (method)">new</a></span></span><span class='lparen'>(</span>
-  <span class='label'>ws_cluster:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ws://api.testnet.solana.com</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='comment'># optional, if not passed, default cluster from config will be used
-</span>  <span class='label'>id:</span> <span class='int'>123</span> <span class='comment'># optional, if not passed, default random number from range 1 to 99_999 will be used
-</span><span class='rparen'>)</span>
+  <span class='comment'># optional, if not passed, default ws_cluster from config will be used
+</span>  <span class='label'>cluster:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ws://api.testnet.solana.com</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+
+  <span class='comment'># optional, if not passed, default random number 
+</span>  <span class='comment'># from range 1 to 99_999 will be used
+</span>  <span class='label'>id:</span> <span class='int'>123</span> 
+<span class='rparen'>)</span>
 
 <span class='comment'># You should see stream of messages in your console.
 </span><span class='id identifier rubyid_ws_method_wrapper'>ws_method_wrapper</span><span class='period'>.</span><span class='id identifier rubyid_root_subscribe'>root_subscribe</span>
 
-<span class='comment'># You could pass a block to do something with websocket&#39;s messages, ie:
+<span class='comment'># You can pass a block to do something with websocket&#39;s messages, ie:
 </span><span class='id identifier rubyid_block'>block</span> <span class='op'>=</span> <span class='const'>Proc</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_message'>message</span><span class='op'>|</span>
-  <span class='id identifier rubyid_json'>json</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span> 
+  <span class='id identifier rubyid_json'>json</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_json'>json</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>params</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
 <span class='kw'>end</span>
 
@@ -134,32 +147,131 @@
 <span class='id identifier rubyid_ws_method_wrapper'>ws_method_wrapper</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
 </code></pre>
 
-<h3 id="label-Demo+scripts">Demo scripts</h3>
+<h4 id="websockets-usage-in-rails">Websockets usage in Rails</h4>
 
-<p>Gem is coming with demo scripts that you can run and test API and Websockets.</p>
-<ol><li>
-<p>Clone the repo</p>
-</li><li>
-<p>Set the gemset</p>
-</li><li>
-<p>Run <code>ruby demo.rb</code> or <code>ruby demo_ws.rb</code></p>
-</li><li>
-<p>Check the gem or Solana JSON RPC API docs to get more information about method usage and modify demo scripts loosely.</p>
-</li></ol>
+<p>You can easily plug-in websockets connection to your rails app by using ActionCable.
+Here is an example for development environment.
+More explanation on Action Cable here: <a href="https://www.pluralsight.com/guides/updating-a-rails-app&#x27;s-wall-feed-in-real-time-with-actioncable">https://www.pluralsight.com/guides/updating-a-rails-app&#39;s-wall-feed-in-real-time-with-actioncable</a></p>
 
-<p>All info about methods you can find in the docs on: <a href="https://www.rubydoc.info/github/Block-Logic/solana-rpc-ruby/main/SolanaRpcRuby">www.rubydoc.info/github/Block-Logic/solana-rpc-ruby/main/SolanaRpcRuby</a></p>
+<ol>
+<li><p>Make sure that you have action_cable and solana_rpc_ruby gems installed properly. Also install redis unless you have it.</p></li>
+<li><p>Mount action_cable in <code>routes.rb</code>.</p>
 
-<p>Also, as a reference you can use docs from solana: <a href="https://docs.solana.com/developing/clients/jsonrpc-api">docs.solana.com/developing/clients/jsonrpc-api</a></p>
+<pre class="code ruby"><code class="ruby">Rails.application.routes.draw do
+mount ActionCable.server =&gt; &#39;/cable&#39;
+...
+end
+</code></pre></li>
+<li><p>Update <code>config/environments/development.rb</code>.</p>
 
-<h2 id="label-License">License</h2>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_action_cable'>action_cable</span><span class='period'>.</span><span class='id identifier rubyid_url'>url</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ws://localhost:3000/cable</span><span class='tstring_end'>&quot;</span></span>
+<span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_action_cable'>action_cable</span><span class='period'>.</span><span class='id identifier rubyid_allowed_request_origins'>allowed_request_origins</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>http:\/\/*</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>https:\/\/*</span><span class='regexp_end'>/</span></span><span class='rbracket'>]</span>
+</code></pre></li>
+<li><p>Update adapter in <code>cable.yml</code>.</p>
 
-<p>Copyright © [Block Logic Team]. License type is <a href="https://github.com/Block-Logic/solana-rpc-ruby/blob/main/LICENSE">MIT</a>.</p>
+<pre class="code ruby"><code class="ruby">development:
+adapter: redis
+url: &lt;%= ENV.fetch(&quot;REDIS_URL&quot;) { &quot;redis://localhost:6379/1&quot; } %&gt;
+</code></pre></li>
+<li><p>Create a channel.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_rails'>rails</span> <span class='id identifier rubyid_g'>g</span> <span class='id identifier rubyid_channel'>channel</span> <span class='id identifier rubyid_wall'>wall</span>
+</code></pre></li>
+<li><p>Your <code>wall_channel.rb</code> should look like this:</p>
+
+<pre class="code ruby"><code class="ruby">class WallChannel &lt; ApplicationCable::Channel
+def subscribed
+stream_from &quot;wall_channel&quot;
+end
+</code></pre></li>
+</ol>
+
+<p>def unsubscribed
+    # Any cleanup needed when channel is unsubscribed
+  end
+end</p>
+
+<pre class="code ruby"><code class="ruby">
+6. Your `wall_channel.js` should look like this (json keys are configured for `root_subscription` method response):
+```js
+import consumer from &quot;./consumer&quot;
+
+consumer.subscriptions.create(&quot;WallChannel&quot;, {
+  connected() {
+    console.log(&quot;Connected to WallChannel&quot;);
+    // Called when the subscription is ready for use on the server
+  },
+
+  disconnected() {
+    // Called when the subscription has been terminated by the server
+  },
+
+  received(data) {
+    let wall = document.getElementById(&#39;wall&#39;);
+
+    wall.innerHTML += &quot;&lt;p&gt;Result: &quot;+ data[&#39;message&#39;][&#39;result&#39;] + &quot;&lt;/p&gt;&quot;;
+    // Called when there&#39;s incoming data on the websocket for this channel
+  }
+});
+
+
+</code></pre>
+
+<ol>
+<li><p>Create placeholder somewhere in your view for messages.</p>
+
+<pre class="code html"><code class="html">&lt;div id=&#39;wall&#39; style=&#39;overflow-y: scroll; height:400px;&#39;&#39;&gt;
+&lt;h1&gt;Solana subscription messages&lt;/h1&gt;
+&lt;/div&gt;
+</code></pre></li>
+<li><p>Create a script with a block to run websockets (<code>script/websockets_solana.rb</code>).</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require_relative'>require_relative</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>../config/environment</span><span class='tstring_end'>&#39;</span></span>
+</code></pre></li>
+</ol>
+
+<p>ws_method_wrapper = SolanaRpcRuby::WebsocketsMethodsWrapper.new</p>
+
+<h1 id="example-of-block-that-can-be-passed-to-the-method-to-manipulate-the-data">Example of block that can be passed to the method to manipulate the data.</h1>
+
+<p>block = Proc.new do |message|
+  json = JSON.parse(message)</p>
+
+<p>ActionCable.server.broadcast(
+    &quot;wall_channel&quot;,
+    {
+      message: json[&#39;params&#39;]
+    }
+  )
+end</p>
+
+<p>ws_method_wrapper.root_subscribe(&amp;block)</p>
+
+<pre class="code ruby"><code class="ruby">9. Run `rails s`, open webpage where you put your placeholder.
+10. Open `http://localhost:3000/address_with_websockets_view`.
+11. Run `rails r script/websockets_solana.rb` in another terminal window.
+12. You should see incoming websocket messages on your webpage.
+### Demo scripts
+Gem is coming with demo scripts that you can run and test API and Websockets.
+
+1. Clone the repo
+2. Set the gemset
+3. Run `ruby demo.rb` or `ruby demo_ws_METHOD.rb` to see example output.
+4. Check the gem or Solana JSON RPC API docs to get more information about method usage and modify demo scripts loosely.
+
+All info about methods you can find in the docs on: https://www.rubydoc.info/github/Block-Logic/solana-rpc-ruby/main/SolanaRpcRuby
+
+Also, as a reference you can use docs from solana: https://docs.solana.com/developing/clients/jsonrpc-api
+## License
+
+Copyright (c) [Block Logic Team]. License type is [MIT](https://github.com/Block-Logic/solana-rpc-ruby/blob/main/LICENSE).
+</code></pre>
 </div></div>
 
       <div id="footer">
-  Generated on Thu Aug 19 16:22:10 2021 by
+  Generated on Thu Jan 13 11:40:58 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.6.5).
+  0.9.25 (ruby-2.6.5).
 </div>
 
     </div>
