@@ -66,6 +66,7 @@ describe SolanaRpcRuby::WebsocketsMethodsWrapper do
 
     xdescribe '#block_subscribe' do
       let(:filter) { 'all' }
+
       context 'with required params' do
         let(:response) do
           described_class.new.block_subscribe(filter)
