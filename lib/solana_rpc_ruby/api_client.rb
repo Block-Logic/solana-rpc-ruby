@@ -53,6 +53,7 @@ module SolanaRpcRuby
            Net::HTTPNotFound,
            Net::HTTPClientException,
            Net::HTTPFatalError,
+           Net::HTTPTooManyRequests,
            Net::ReadTimeout,
            Errno::ECONNREFUSED,
            SocketError => e

@@ -88,6 +88,18 @@ describe SolanaRpcRuby::ApiClient do
         end
       end
 
+      describe 'Net::HTTPTooManyRequests' do
+        it 'raise error correctly' do
+          allow(http).to \
+            receive(:request).with(an_instance_of(Net::HTTP::Post))
+              .and_raise(Net::HTTPTooManyRequests.new('Net::HTTPTooManyRequests', 'Response'))
+
+          expect do
+            described_class.new.call_api(body: {}, http_method: :post)
+          end.to raise_error(SolanaRpcRuby::ApiError, 'Net::HTTPTooManyRequests')
+        end
+      end
+
       describe 'Net::ReadTimeout' do
         it 'raise error correctly' do
           allow(http).to \
