@@ -92,7 +92,7 @@ describe SolanaRpcRuby::ApiClient do
         it 'raise error correctly' do
           allow(http).to \
             receive(:request).with(an_instance_of(Net::HTTP::Post))
-              .and_raise(Net::HTTPTooManyRequests.new('Net::HTTPTooManyRequests', 'Response'))
+              .and_raise(Net::HTTPTooManyRequests.new('1.1', 429, ''))
 
           expect do
             described_class.new.call_api(body: {}, http_method: :post)
