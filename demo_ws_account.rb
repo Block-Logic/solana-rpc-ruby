@@ -26,7 +26,7 @@ trap('INT') { interrupted = true }
 
 time_last = Time.now
 begin
-  ws_method_wrapper.account_subscribe(account_id) do |message|
+  ws_method_wrapper.account_subscribe(account_id, commitment: 'confirmed', encoding: 'base64') do |message|
     json = JSON.parse(message)
     # puts json['params']
     time_elapsed = Time.now - time_last
