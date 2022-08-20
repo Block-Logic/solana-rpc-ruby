@@ -25,9 +25,10 @@ begin
   time_last = Time.now
   ws_method_wrapper.slot_subscribe do |message|
     json = JSON.parse(message)
+    next if json['params'].nil?
     # puts json['params']
     time_elapsed = Time.now - time_last
-    puts "#{time_elapsed.round(4)} seconds. #{json['params']}"
+    puts "#{time_elapsed.round(3)} sec. #{json['params']['result']}"
     time_last = Time.now
     break if interrupted
   end
