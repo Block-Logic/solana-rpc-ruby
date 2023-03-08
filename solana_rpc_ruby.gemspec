@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.homepage              = 'https://github.com/Block-Logic/solana-rpc-ruby'
   spec.license               = 'MIT'
   spec.platform              = Gem::Platform::RUBY
-  spec.required_ruby_version = '>= 2.6.5'
+  spec.required_ruby_version = '>= 2.7.5'
   spec.files = Dir[
     'README.md', 'LICENSE', 'CHANGELOG.md',
     'lib/**/*.rb',
