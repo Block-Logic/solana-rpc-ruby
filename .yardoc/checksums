@@ -1,5 +1,5 @@
 lib/solana_rpc_ruby.rb 66c68256a6f5d5af498845a7a332a1ba9a7e8a15
-lib/solana_rpc_ruby/version.rb aa5b40b4dd4216f5ad31c0bbd974eb03044c07f8
+lib/solana_rpc_ruby/version.rb f3882c7b61aa6adfe510936b3397eb2566f5a63f
 lib/solana_rpc_ruby/response.rb 1b96e3ac9c672907920e72b22ec817fde6e31feb
 lib/solana_rpc_ruby/api_error.rb 7ef5dccd1b997cb03dc29e90791ecaf23161563e
 lib/solana_rpc_ruby/api_client.rb 8a5da83a4fa99887e3c130c05b990d633a92f0dd
