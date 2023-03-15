@@ -11,7 +11,8 @@ A Solana RPC Client for Ruby. This gem provides a wrapper methods for Solana RPC
 
 ### Requirements
 
-This gem requires Ruby 2.6+ and h Rails 6.0+. It MIGHT work with lower versions, but was not tested with them.
+This gem requires Ruby 2.7+ (as denoted in the `.ruby-version` file) and it has Rails 6.0+ on board. It MIGHT work with lower versions, but was not tested with them.
+
 Add the following line to your Gemfile:
 
 ```ruby
