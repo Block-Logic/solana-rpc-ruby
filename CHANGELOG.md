@@ -33,3 +33,7 @@
 * Add warns to deprecated methods
 * Update docs
 * Small fixes
+
+## 1.3.0
+* Upgrade Ruby to v2.7.5
+* Minor dependency upgrades
