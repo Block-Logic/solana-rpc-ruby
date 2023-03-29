@@ -37,3 +37,6 @@
 ## 1.3.0
 * Upgrade Ruby to v2.7.5
 * Minor dependency upgrades
+
+## 1.3.1
+* Adds supports of maxSupportedTransactionVersion for get_block method
