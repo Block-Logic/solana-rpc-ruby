@@ -108,22 +108,26 @@ module SolanaRpcRuby
     # @param commitment [String]
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_block(slot, encoding: '', transaction_details: '', rewards: true, commitment: nil)
+    def get_block(slot, params = {})
+      params[:rewards] ||= true
+      params[:max_supported_transaction_version] ||= 0
+
       http_method = :post
-      method =  create_method_name(__method__)
+      method = create_method_name(__method__)
 
-      params = []
+      params_build = {}
+      params_build['encoding'] = params[:encoding] unless blank?(params[:encoding])
+      params_build['transactionDetails'] = params[:transaction_details] unless blank?(params[:transaction_details])
+      params_build['rewards'] = params[:rewards] unless params[:rewards].nil?
+      params_build['commitment'] = params[:commitment] unless blank?(params[:commitment])
+      params_build['maxSupportedTransactionVersion'] =
+        params[:max_supported_transaction_version] unless blank?(params[:max_supported_transaction_version])
 
-      params_hash = {}
-      params_hash['encoding'] = encoding unless blank?(encoding)
-      params_hash['transactionDetails'] = transaction_details unless blank?(transaction_details)
-      params_hash['rewards'] = rewards unless rewards.nil?
-      params_hash['commitment'] = commitment unless blank?(commitment)
+      params_request = []
+      params_request << slot
+      params_request << params_build unless params_build.empty?
 
-      params << slot
-      params << params_hash unless params_hash.empty?
-
-      body = create_json_body(method, method_params: params)
+      body = create_json_body(method, method_params: params_request)
 
       send_request(body, http_method)
     end

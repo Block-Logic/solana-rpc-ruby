@@ -3,14 +3,15 @@ module SolanaRpcRuby
   module HelperMethods
     # Checks if the object is nil or empty.
     # 
-    # @param object [String, Array, Hash]
+    # @param object [String, Array, Hash, Integer, NilClass]
     # 
     # @return [Boolean]
     def blank?(object)
-      raise ArgumentError, 'Object must be a String, Array or Hash or nil class.'\
-        unless object.is_a?(String) || object.is_a?(Array) || object.is_a?(Hash) || object.nil?
-  
-      object.nil? || object.empty?
+      unless [String, Array, Hash, Integer, NilClass].include? object.class
+        raise ArgumentError, 'Object must be a String, Array or Hash or Integer or nil class.'
+      end
+
+      object.nil? || object.try(:empty?)
     end
 
     # Creates method name to match names required by Solana RPC JSON.

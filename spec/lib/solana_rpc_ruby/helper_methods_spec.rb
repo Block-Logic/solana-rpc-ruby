@@ -17,8 +17,7 @@ describe SolanaRpcRuby::RequestBody do
     end
 
     it 'raises an error when incorrect object passed in' do
-      message = /Object must be a String, Array or Hash or nil class./
-      expect { blank?(1) } .to raise_error(ArgumentError, message)
+      message = /Object must be a String, Array or Hash or Integer or nil class./
       expect { blank?(true) } .to raise_error(ArgumentError, message)
       expect { blank?(false) } .to raise_error(ArgumentError, message)
     end
