@@ -9,16 +9,14 @@ jobs:
 
     strategy:
       matrix:
-        ruby-version: [3.0, 2.7]
+        ruby-version: ['3.0', '2.7']
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Ruby ${{ matrix.ruby-version }}
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
-      - name: Install dependencies
-        run: bundle install
       - name: Run tests
         run: bundle exec rspec
