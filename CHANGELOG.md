@@ -41,7 +41,7 @@
 ## 1.3.1
 * Adds supports of maxSupportedTransactionVersion for get_block method
 
-## 1.3.2
+## 2.0.0
 * Fix get_transaction when running without encoding parameter
 * Add support for maxSupportedTransactionVersion for get_transaction
 * Update ruby to 3.1.4 and bundler to 2.3.26
