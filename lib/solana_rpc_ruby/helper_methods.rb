@@ -11,7 +11,7 @@ module SolanaRpcRuby
         raise ArgumentError, 'Object must be a String, Array or Hash or Integer or nil class.'
       end
 
-      object.nil? || object.empty?
+      object.nil? || (object.respond_to?(:empty?) && object.empty?)
     end
 
     # Creates method name to match names required by Solana RPC JSON.
