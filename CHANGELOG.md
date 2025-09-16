@@ -44,3 +44,4 @@
 ## 1.3.2
 * Fix get_transaction when running without encoding parameter
 * Add support for maxSupportedTransactionVersion for get_transaction
+* Update ruby to 3.1.4 and bundler to 2.3.26
