@@ -1113,7 +1113,7 @@ module SolanaRpcRuby
     # @param commitment [String]
     #
     # @return [Response, ApiError] Response when success, ApiError on failure.
-    def get_transaction(transaction_signature, encoding: '', commitment: nil)
+    def get_transaction(transaction_signature, encoding: '', commitment: nil, max_supported_transaction_version: nil)
       http_method = :post
       method =  create_method_name(__method__)
 
@@ -1122,6 +1122,7 @@ module SolanaRpcRuby
 
       params_hash['commitment'] = commitment unless blank?(commitment)
       params_hash['encoding'] = encoding unless blank?(encoding)
+      params_hash['maxSupportedTransactionVersion'] = max_supported_transaction_version unless blank?(max_supported_transaction_version)
 
       params << transaction_signature
       params << params_hash unless params_hash.empty?

@@ -1,4 +1,18 @@
+
 require_relative "boot"
+
+# Monkey patch for Ruby 3.3+ and Rails < 7.1 incompatibility
+unless defined?(Logger)
+  require 'logger'
+end
+unless defined?(ActiveSupport::LoggerThreadSafeLevel::Logger)
+  module ActiveSupport
+    module LoggerThreadSafeLevel
+      Logger = ::Logger
+    end
+  end
+end
+
 
 require "rails"
 # Pick the frameworks you want:
