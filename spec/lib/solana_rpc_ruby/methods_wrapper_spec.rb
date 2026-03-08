@@ -1323,6 +1323,24 @@ describe SolanaRpcRuby::MethodsWrapper do
           ]
         )
       end
+      it 'sends getLeaderSchedule with null epoch when only config options are provided' do
+        wrapper.get_leader_schedule(
+          identity: '11111111111111111111111111111111',
+          commitment: 'confirmed'
+        )
+
+        expect(captured_request[:http_method]).to eq(:post)
+        expect(captured_request.dig(:body, 'method')).to eq('getLeaderSchedule')
+        expect(captured_request.dig(:body, 'params')).to eq(
+          [
+            nil,
+            {
+              'identity' => '11111111111111111111111111111111',
+              'commitment' => 'confirmed'
+            }
+          ]
+        )
+      end
 
       it 'sends getSupply with excludeNonCirculatingAccountsList' do
         wrapper.get_supply(exclude_non_circulating_accounts_list: true)
