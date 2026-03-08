@@ -208,12 +208,12 @@ Current methods:
 `get_identity`, `get_inflation_governor`, `get_inflation_rate`, `get_inflation_reward`, `get_largest_accounts`,
 `get_latest_blockhash`, `get_leader_schedule`, `get_max_retransmit_slot`, `get_max_shred_insert_slot`,
 `get_minimum_balance_for_rent_exemption`, `get_multiple_accounts`, `get_program_accounts`,
-`get_recent_performance_samples`, `get_signatures_for_address`, `get_signature_statuses`, `get_slot`,
+`get_recent_performance_samples`, `get_recent_prioritization_fees`, `get_signatures_for_address`, `get_signature_statuses`, `get_slot`,
 `get_slot_leader`, `get_slot_leaders`, `get_stake_activation`, `get_stake_minimum_delegation`, `get_supply`,
 `get_token_account_balance`, `get_token_accounts_by_delegate`, `get_token_accounts_by_owner`,
 `get_token_largest_accounts`, `get_token_supply`, `get_transaction`, `get_transaction_count`, `get_version`,
 `get_vote_accounts`, `is_blockhash_valid`, `minimum_ledger_slot`, `request_airdrop`, `send_transaction`,
-`simulate_transaction`, `get_recent_prioritization_fees`.
+`simulate_transaction`.
 
 Deprecated compatibility methods:
 `get_confirmed_blocks`, `get_fee_calculator_for_blockhash`, `get_fee_rate_governor`, `get_fees`,

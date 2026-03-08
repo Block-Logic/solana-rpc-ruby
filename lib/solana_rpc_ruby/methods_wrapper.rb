@@ -565,7 +565,10 @@ module SolanaRpcRuby
       params_hash['commitment'] = commitment unless blank?(commitment)
 
       params << epoch unless epoch.nil?
-      params << params_hash unless params_hash.empty?
+      unless params_hash.empty?
+        params << nil if epoch.nil?
+        params << params_hash
+      end
 
       body = create_json_body(method, method_params: params)
 

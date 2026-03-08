@@ -6,7 +6,7 @@
 <title>
   Class: SolanaRpcRuby::MethodsWrapper
   
-    &mdash; Documentation by YARD 0.9.28
+    &mdash; Documentation by YARD 0.9.37
   
 </title>
 
@@ -529,7 +529,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Returns epoch schedule information from this cluster&#39;s genesis config.</p>
+<p>Returns epoch schedule information from this cluster’s genesis config.</p>
 </div></span>
   
 </li>
@@ -1066,6 +1066,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#get_recent_prioritization_fees-instance_method" title="#get_recent_prioritization_fees (instance method)">#<strong>get_recent_prioritization_fees</strong>(addresses = [])  &#x21d2; Response, ApiError </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns a list of prioritization fees from recent blocks.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#get_signature_statuses-instance_method" title="#get_signature_statuses (instance method)">#<strong>get_signature_statuses</strong>(transaction_signatures, search_transaction_history: false)  &#x21d2; Response, ApiError </a>
     
 
@@ -1234,6 +1258,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#get_stake_minimum_delegation-instance_method" title="#get_stake_minimum_delegation (instance method)">#<strong>get_stake_minimum_delegation</strong>(commitment: nil)  &#x21d2; Response, ApiError </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the stake minimum delegation, in lamports.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#get_supply-instance_method" title="#get_supply (instance method)">#<strong>get_supply</strong>(commitment: nil, exclude_non_circulating_accounts_list: nil)  &#x21d2; Response, ApiError </a>
     
 
@@ -1378,7 +1426,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#get_transaction-instance_method" title="#get_transaction (instance method)">#<strong>get_transaction</strong>(transaction_signature, encoding: &#39;&#39;, commitment: nil)  &#x21d2; Response, ApiError </a>
+      <a href="#get_transaction-instance_method" title="#get_transaction (instance method)">#<strong>get_transaction</strong>(transaction_signature, encoding: &#39;&#39;, commitment: nil, max_supported_transaction_version: nil)  &#x21d2; Response, ApiError </a>
     
 
     
@@ -1925,9 +1973,6 @@
   </tr>
 </table>
 </div>
-
-<div id="get_recent_prioritization_fees-instance_method"></div>
-<div id="get_stake_minimum_delegation-instance_method"></div>
     
   </div>
 
@@ -3310,24 +3355,24 @@
       <pre class="lines">
 
 
-1372
-1373
-1374
-1375
-1376
-1377
-1378
-1379
-1380
-1381
-1382
-1383
-1384
-1385
-1386</pre>
+1413
+1414
+1415
+1416
+1417
+1418
+1419
+1420
+1421
+1422
+1423
+1424
+1425
+1426
+1427</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1372</span>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1413</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_confirmed_blocks'>get_confirmed_blocks</span><span class='lparen'>(</span><span class='id identifier rubyid_start_slot'>start_slot</span><span class='comma'>,</span> <span class='label'>end_slot:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>DEPRECATED: Please use getBlocks instead. This method is expected to be removed in solana-core v1.8</span><span class='tstring_end'>&#39;</span></span>
@@ -3468,7 +3513,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns epoch schedule information from this cluster&#39;s genesis config</p>
+<p>Returns epoch schedule information from this cluster’s genesis config</p>
 
 
   </div>
@@ -3614,27 +3659,27 @@
       <pre class="lines">
 
 
-1398
-1399
-1400
-1401
-1402
-1403
-1404
-1405
-1406
-1407
-1408
-1409
-1410
-1411
-1412
-1413
-1414
-1415</pre>
+1439
+1440
+1441
+1442
+1443
+1444
+1445
+1446
+1447
+1448
+1449
+1450
+1451
+1452
+1453
+1454
+1455
+1456</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1398</span>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1439</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_fee_calculator_for_blockhash'>get_fee_calculator_for_blockhash</span><span class='lparen'>(</span><span class='id identifier rubyid_query_blockhash'>query_blockhash</span><span class='comma'>,</span> <span class='label'>commitment:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DEPRECATED: Please use isBlockhashValid or getFeeForMessage instead. This method is expected to be removed in solana-core v2.0</span><span class='tstring_end'>&quot;</span></span>
@@ -3833,19 +3878,19 @@
       <pre class="lines">
 
 
-1424
-1425
-1426
-1427
-1428
-1429
-1430
-1431
-1432
-1433</pre>
+1465
+1466
+1467
+1468
+1469
+1470
+1471
+1472
+1473
+1474</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1424</span>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1465</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_fee_rate_governor'>get_fee_rate_governor</span>
   <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DEPRECATED Please check solana docs for substitution.</span><span class='tstring_end'>&quot;</span></span>
@@ -3933,25 +3978,25 @@
       <pre class="lines">
 
 
-1445
-1446
-1447
-1448
-1449
-1450
-1451
-1452
-1453
-1454
-1455
-1456
-1457
-1458
-1459
-1460</pre>
+1486
+1487
+1488
+1489
+1490
+1491
+1492
+1493
+1494
+1495
+1496
+1497
+1498
+1499
+1500
+1501</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1445</span>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1486</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_fees'>get_fees</span><span class='lparen'>(</span><span class='label'>commitment:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DEPRECATED: Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0</span><span class='tstring_end'>&quot;</span></span>
@@ -5029,10 +5074,10 @@
   <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_params_hash'>params_hash</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
 
-  <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>epoch</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_epoch'>epoch</span> <span class='kw'>unless</span> <span class='id identifier rubyid_epoch'>epoch</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
   <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>identity</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_identity'>identity</span> <span class='kw'>unless</span> <span class='id identifier rubyid_identity'>identity</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
   <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>commitment</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_commitment'>commitment</span> <span class='kw'>unless</span> <span class='id identifier rubyid_blank?'>blank?</span><span class='lparen'>(</span><span class='id identifier rubyid_commitment'>commitment</span><span class='rparen'>)</span>
 
+  <span class='id identifier rubyid_params'>params</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_epoch'>epoch</span> <span class='kw'>unless</span> <span class='id identifier rubyid_epoch'>epoch</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
   <span class='id identifier rubyid_params'>params</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_params_hash'>params_hash</span> <span class='kw'>unless</span> <span class='id identifier rubyid_params_hash'>params_hash</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
 
   <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_create_json_body'>create_json_body</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='label'>method_params:</span> <span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
@@ -5849,25 +5894,25 @@
       <pre class="lines">
 
 
-1472
-1473
-1474
-1475
-1476
-1477
-1478
-1479
-1480
-1481
-1482
-1483
-1484
-1485
-1486
-1487</pre>
+1513
+1514
+1515
+1516
+1517
+1518
+1519
+1520
+1521
+1522
+1523
+1524
+1525
+1526
+1527
+1528</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1472</span>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1513</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_recent_blockhash'>get_recent_blockhash</span><span class='lparen'>(</span><span class='label'>commitment:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DEPRECATED: Please use getFeeForMessage instead This method is expected to be removed in solana-core v2.0</span><span class='tstring_end'>&quot;</span></span>
@@ -5981,6 +6026,110 @@
   <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
 
   <span class='id identifier rubyid_params'>params</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_limit'>limit</span> <span class='kw'>unless</span> <span class='id identifier rubyid_limit'>limit</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
+  <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_create_json_body'>create_json_body</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='label'>method_params:</span> <span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_send_request'>send_request</span><span class='lparen'>(</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='id identifier rubyid_http_method'>http_method</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_recent_prioritization_fees-instance_method">
+  
+    #<strong>get_recent_prioritization_fees</strong>(addresses = [])  &#x21d2; <tt><span class='object_link'><a href="Response.html" title="SolanaRpcRuby::Response (class)">Response</a></span></tt>, <tt><span class='object_link'><a href="ApiError.html" title="SolanaRpcRuby::ApiError (class)">ApiError</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a list of prioritization fees from recent blocks.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>addresses</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>up to 128 account addresses</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Response.html" title="SolanaRpcRuby::Response (class)">Response</a></span></tt>, <tt><span class='object_link'><a href="ApiError.html" title="SolanaRpcRuby::ApiError (class)">ApiError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Response when success, ApiError on failure.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://solana.com/docs/rpc/http/getrecentprioritizationfees" target="_parent" title="https://solana.com/docs/rpc/http/getrecentprioritizationfees">https://solana.com/docs/rpc/http/getrecentprioritizationfees</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1367
+1368
+1369
+1370
+1371
+1372
+1373
+1374
+1375
+1376
+1377</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1367</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_get_recent_prioritization_fees'>get_recent_prioritization_fees</span><span class='lparen'>(</span><span class='id identifier rubyid_addresses'>addresses</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_http_method'>http_method</span> <span class='op'>=</span> <span class='symbol'>:post</span>
+  <span class='id identifier rubyid_method'>method</span> <span class='op'>=</span> <span class='id identifier rubyid_create_method_name'>create_method_name</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_params'>params</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_addresses'>addresses</span> <span class='kw'>unless</span> <span class='id identifier rubyid_addresses'>addresses</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
 
   <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_create_json_body'>create_json_body</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='label'>method_params:</span> <span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
 
@@ -6670,18 +6819,18 @@
       <pre class="lines">
 
 
-1496
-1497
-1498
-1499
-1500
-1501
-1502
-1503
-1504</pre>
+1537
+1538
+1539
+1540
+1541
+1542
+1543
+1544
+1545</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1496</span>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1537</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_snapshot_slot'>get_snapshot_slot</span>
   <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DEPRECATED: Please use getHighestSnapshotSlot instead This method is expected to be removed in solana-core v2.0</span><span class='tstring_end'>&quot;</span></span>
@@ -6833,6 +6982,109 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="get_stake_minimum_delegation-instance_method">
+  
+    #<strong>get_stake_minimum_delegation</strong>(commitment: nil)  &#x21d2; <tt><span class='object_link'><a href="Response.html" title="SolanaRpcRuby::Response (class)">Response</a></span></tt>, <tt><span class='object_link'><a href="ApiError.html" title="SolanaRpcRuby::ApiError (class)">ApiError</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the stake minimum delegation, in lamports.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>commitment</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Response.html" title="SolanaRpcRuby::Response (class)">Response</a></span></tt>, <tt><span class='object_link'><a href="ApiError.html" title="SolanaRpcRuby::ApiError (class)">ApiError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Response when success, ApiError on failure.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://solana.com/docs/rpc/http/getstakeminimumdelegation" target="_parent" title="https://solana.com/docs/rpc/http/getstakeminimumdelegation">https://solana.com/docs/rpc/http/getstakeminimumdelegation</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1386
+1387
+1388
+1389
+1390
+1391
+1392
+1393
+1394
+1395
+1396
+1397
+1398</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1386</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_get_stake_minimum_delegation'>get_stake_minimum_delegation</span><span class='lparen'>(</span><span class='label'>commitment:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_http_method'>http_method</span> <span class='op'>=</span> <span class='symbol'>:post</span>
+  <span class='id identifier rubyid_method'>method</span> <span class='op'>=</span> <span class='id identifier rubyid_create_method_name'>create_method_name</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_params_hash'>params_hash</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>commitment</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_commitment'>commitment</span> <span class='kw'>unless</span> <span class='id identifier rubyid_blank?'>blank?</span><span class='lparen'>(</span><span class='id identifier rubyid_commitment'>commitment</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_params'>params</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_params_hash'>params_hash</span> <span class='kw'>unless</span> <span class='id identifier rubyid_params_hash'>params_hash</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+
+  <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_create_json_body'>create_json_body</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='label'>method_params:</span> <span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_send_request'>send_request</span><span class='lparen'>(</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='id identifier rubyid_http_method'>http_method</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="get_supply-instance_method">
   
     #<strong>get_supply</strong>(commitment: nil, exclude_non_circulating_accounts_list: nil)  &#x21d2; <tt><span class='object_link'><a href="Response.html" title="SolanaRpcRuby::Response (class)">Response</a></span></tt>, <tt><span class='object_link'><a href="ApiError.html" title="SolanaRpcRuby::ApiError (class)">ApiError</a></span></tt> 
@@ -6942,7 +7194,7 @@
   <span class='id identifier rubyid_params_hash'>params_hash</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
 
   <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>commitment</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_commitment'>commitment</span> <span class='kw'>unless</span> <span class='id identifier rubyid_blank?'>blank?</span><span class='lparen'>(</span><span class='id identifier rubyid_commitment'>commitment</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exclude_non_circulating_accounts_list</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_exclude_non_circulating_accounts_list'>exclude_non_circulating_accounts_list</span> \
+  <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>excludeNonCirculatingAccountsList</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_exclude_non_circulating_accounts_list'>exclude_non_circulating_accounts_list</span> \
     <span class='kw'>unless</span> <span class='id identifier rubyid_exclude_non_circulating_accounts_list'>exclude_non_circulating_accounts_list</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
 
   <span class='id identifier rubyid_params'>params</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_params_hash'>params_hash</span> <span class='kw'>unless</span> <span class='id identifier rubyid_params_hash'>params_hash</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -7853,7 +8105,7 @@
       <div class="method_details ">
   <h3 class="signature " id="get_transaction-instance_method">
   
-    #<strong>get_transaction</strong>(transaction_signature, encoding: &#39;&#39;, commitment: nil)  &#x21d2; <tt><span class='object_link'><a href="Response.html" title="SolanaRpcRuby::Response (class)">Response</a></span></tt>, <tt><span class='object_link'><a href="ApiError.html" title="SolanaRpcRuby::ApiError (class)">ApiError</a></span></tt> 
+    #<strong>get_transaction</strong>(transaction_signature, encoding: &#39;&#39;, commitment: nil, max_supported_transaction_version: nil)  &#x21d2; <tt><span class='object_link'><a href="Response.html" title="SolanaRpcRuby::Response (class)">Response</a></span></tt>, <tt><span class='object_link'><a href="ApiError.html" title="SolanaRpcRuby::ApiError (class)">ApiError</a></span></tt> 
   
 
   
@@ -7958,12 +8210,13 @@
 1129
 1130
 1131
-1132</pre>
+1132
+1133</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1116</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_get_transaction'>get_transaction</span><span class='lparen'>(</span><span class='id identifier rubyid_transaction_signature'>transaction_signature</span><span class='comma'>,</span> <span class='label'>encoding:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>commitment:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_transaction'>get_transaction</span><span class='lparen'>(</span><span class='id identifier rubyid_transaction_signature'>transaction_signature</span><span class='comma'>,</span> <span class='label'>encoding:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>commitment:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>max_supported_transaction_version:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_http_method'>http_method</span> <span class='op'>=</span> <span class='symbol'>:post</span>
   <span class='id identifier rubyid_method'>method</span> <span class='op'>=</span>  <span class='id identifier rubyid_create_method_name'>create_method_name</span><span class='lparen'>(</span><span class='id identifier rubyid___method__'>__method__</span><span class='rparen'>)</span>
 
@@ -7972,6 +8225,7 @@
 
   <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>commitment</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_commitment'>commitment</span> <span class='kw'>unless</span> <span class='id identifier rubyid_blank?'>blank?</span><span class='lparen'>(</span><span class='id identifier rubyid_commitment'>commitment</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>encoding</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_encoding'>encoding</span> <span class='kw'>unless</span> <span class='id identifier rubyid_blank?'>blank?</span><span class='lparen'>(</span><span class='id identifier rubyid_encoding'>encoding</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>maxSupportedTransactionVersion</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_max_supported_transaction_version'>max_supported_transaction_version</span> <span class='kw'>unless</span> <span class='id identifier rubyid_blank?'>blank?</span><span class='lparen'>(</span><span class='id identifier rubyid_max_supported_transaction_version'>max_supported_transaction_version</span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_params'>params</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_transaction_signature'>transaction_signature</span>
   <span class='id identifier rubyid_params'>params</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_params_hash'>params_hash</span> <span class='kw'>unless</span> <span class='id identifier rubyid_params_hash'>params_hash</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -8053,7 +8307,6 @@
       <pre class="lines">
 
 
-1141
 1142
 1143
 1144
@@ -8067,10 +8320,11 @@
 1152
 1153
 1154
-1155</pre>
+1155
+1156</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1141</span>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1142</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_transaction_count'>get_transaction_count</span><span class='lparen'>(</span><span class='label'>commitment:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_http_method'>http_method</span> <span class='op'>=</span> <span class='symbol'>:post</span>
@@ -8143,17 +8397,17 @@
       <pre class="lines">
 
 
-1162
 1163
 1164
 1165
 1166
 1167
 1168
-1169</pre>
+1169
+1170</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1162</span>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1163</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_version'>get_version</span>
   <span class='id identifier rubyid_http_method'>http_method</span> <span class='op'>=</span> <span class='symbol'>:post</span>
@@ -8280,7 +8534,6 @@
       <pre class="lines">
 
 
-1181
 1182
 1183
 1184
@@ -8302,10 +8555,11 @@
 1200
 1201
 1202
-1203</pre>
+1203
+1204</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1181</span>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1182</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_vote_accounts'>get_vote_accounts</span><span class='lparen'>(</span>
   <span class='label'>commitment:</span> <span class='kw'>nil</span><span class='comma'>,</span>
@@ -8321,8 +8575,8 @@
 
   <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>votePubkey</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_vote_pubkey'>vote_pubkey</span> <span class='kw'>unless</span> <span class='id identifier rubyid_blank?'>blank?</span><span class='lparen'>(</span><span class='id identifier rubyid_vote_pubkey'>vote_pubkey</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>commitment</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_commitment'>commitment</span> <span class='kw'>unless</span> <span class='id identifier rubyid_blank?'>blank?</span><span class='lparen'>(</span><span class='id identifier rubyid_commitment'>commitment</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>keep_unstaked_delinquents</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_keep_unstaked_delinquents'>keep_unstaked_delinquents</span> <span class='kw'>unless</span> <span class='id identifier rubyid_keep_unstaked_delinquents'>keep_unstaked_delinquents</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-  <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>delinquent_slot_distance</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_delinquent_slot_distance'>delinquent_slot_distance</span> <span class='kw'>unless</span> <span class='id identifier rubyid_blank?'>blank?</span><span class='lparen'>(</span><span class='id identifier rubyid_delinquent_slot_distance'>delinquent_slot_distance</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>keepUnstakedDelinquents</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_keep_unstaked_delinquents'>keep_unstaked_delinquents</span> <span class='kw'>unless</span> <span class='id identifier rubyid_keep_unstaked_delinquents'>keep_unstaked_delinquents</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>delinquentSlotDistance</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_delinquent_slot_distance'>delinquent_slot_distance</span> <span class='kw'>unless</span> <span class='id identifier rubyid_blank?'>blank?</span><span class='lparen'>(</span><span class='id identifier rubyid_delinquent_slot_distance'>delinquent_slot_distance</span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_params'>params</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_params_hash'>params_hash</span> <span class='kw'>unless</span> <span class='id identifier rubyid_params_hash'>params_hash</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
 
@@ -8416,7 +8670,6 @@
       <pre class="lines">
 
 
-1214
 1215
 1216
 1217
@@ -8431,10 +8684,11 @@
 1226
 1227
 1228
-1229</pre>
+1229
+1230</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1214</span>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1215</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_is_blockhash_valid'>is_blockhash_valid</span><span class='lparen'>(</span><span class='id identifier rubyid_blockhash'>blockhash</span><span class='comma'>,</span> <span class='label'>commitment:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_http_method'>http_method</span> <span class='op'>=</span> <span class='symbol'>:post</span>
@@ -8508,17 +8762,17 @@
       <pre class="lines">
 
 
-1237
 1238
 1239
 1240
 1241
 1242
 1243
-1244</pre>
+1244
+1245</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1237</span>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1238</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_minimum_ledger_slot'>minimum_ledger_slot</span>
   <span class='id identifier rubyid_http_method'>http_method</span> <span class='op'>=</span> <span class='symbol'>:post</span>
@@ -8623,7 +8877,6 @@
       <pre class="lines">
 
 
-1255
 1256
 1257
 1258
@@ -8638,10 +8891,11 @@
 1267
 1268
 1269
-1270</pre>
+1270
+1271</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1255</span>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1256</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_request_airdrop'>request_airdrop</span><span class='lparen'>(</span><span class='id identifier rubyid_pubkey'>pubkey</span><span class='comma'>,</span> <span class='id identifier rubyid_lamports'>lamports</span><span class='comma'>,</span> <span class='label'>commitment:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_http_method'>http_method</span> <span class='op'>=</span> <span class='symbol'>:post</span>
@@ -8782,7 +9036,6 @@
       <pre class="lines">
 
 
-1283
 1284
 1285
 1286
@@ -8806,10 +9059,11 @@
 1304
 1305
 1306
-1307</pre>
+1307
+1308</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1283</span>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1284</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_send_transaction'>send_transaction</span><span class='lparen'>(</span>
       <span class='id identifier rubyid_transaction_signature'>transaction_signature</span><span class='comma'>,</span>
@@ -8827,7 +9081,7 @@
   <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>skipPreFlight</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_skip_pre_flight'>skip_pre_flight</span> <span class='kw'>unless</span> <span class='id identifier rubyid_skip_pre_flight'>skip_pre_flight</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
   <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>preflightCommitment</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_pre_flight_commitment'>pre_flight_commitment</span> <span class='kw'>unless</span> <span class='id identifier rubyid_blank?'>blank?</span><span class='lparen'>(</span><span class='id identifier rubyid_pre_flight_commitment'>pre_flight_commitment</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>encoding</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_encoding'>encoding</span> <span class='kw'>unless</span> <span class='id identifier rubyid_blank?'>blank?</span><span class='lparen'>(</span><span class='id identifier rubyid_encoding'>encoding</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>max_retries</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_max_retries'>max_retries</span> <span class='kw'>unless</span> <span class='id identifier rubyid_blank?'>blank?</span><span class='lparen'>(</span><span class='id identifier rubyid_max_retries'>max_retries</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_params_hash'>params_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>maxRetries</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_max_retries'>max_retries</span> <span class='kw'>unless</span> <span class='id identifier rubyid_blank?'>blank?</span><span class='lparen'>(</span><span class='id identifier rubyid_max_retries'>max_retries</span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_params'>params</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_transaction_signature'>transaction_signature</span>
   <span class='id identifier rubyid_params'>params</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_params_hash'>params_hash</span> <span class='kw'>unless</span> <span class='id identifier rubyid_params_hash'>params_hash</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -8996,7 +9250,6 @@
       <pre class="lines">
 
 
-1324
 1325
 1326
 1327
@@ -9029,10 +9282,11 @@
 1354
 1355
 1356
-1357</pre>
+1357
+1358</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1324</span>
+      <pre class="code"><span class="info file"># File 'lib/solana_rpc_ruby/methods_wrapper.rb', line 1325</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_simulate_transaction'>simulate_transaction</span><span class='lparen'>(</span>
       <span class='id identifier rubyid_transaction_signature'>transaction_signature</span><span class='comma'>,</span>
@@ -9078,9 +9332,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Mar 30 14:38:03 2023 by
+  Generated on Sun Mar  8 10:10:02 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.10).
 </div>
 
     </div>
