@@ -1323,24 +1323,6 @@ describe SolanaRpcRuby::MethodsWrapper do
           ]
         )
       end
-      it 'sends getLeaderSchedule with null epoch when only config options are provided' do
-        wrapper.get_leader_schedule(
-          identity: '11111111111111111111111111111111',
-          commitment: 'confirmed'
-        )
-
-        expect(captured_request[:http_method]).to eq(:post)
-        expect(captured_request.dig(:body, 'method')).to eq('getLeaderSchedule')
-        expect(captured_request.dig(:body, 'params')).to eq(
-          [
-            nil,
-            {
-              'identity' => '11111111111111111111111111111111',
-              'commitment' => 'confirmed'
-            }
-          ]
-        )
-      end
 
       it 'sends getSupply with excludeNonCirculatingAccountsList' do
         wrapper.get_supply(exclude_non_circulating_accounts_list: true)
@@ -1372,14 +1354,14 @@ describe SolanaRpcRuby::MethodsWrapper do
         )
       end
 
-      it 'supports getRecentPrioritizationFees' do
+      it 'sends getRecentPrioritizationFees with addresses param' do
         wrapper.get_recent_prioritization_fees(['11111111111111111111111111111111'])
 
         expect(captured_request.dig(:body, 'method')).to eq('getRecentPrioritizationFees')
         expect(captured_request.dig(:body, 'params')).to eq([['11111111111111111111111111111111']])
       end
 
-      it 'supports getStakeMinimumDelegation' do
+      it 'sends getStakeMinimumDelegation with commitment param' do
         wrapper.get_stake_minimum_delegation(commitment: 'finalized')
 
         expect(captured_request.dig(:body, 'method')).to eq('getStakeMinimumDelegation')

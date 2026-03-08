@@ -76,7 +76,7 @@ module SolanaRpcRuby
     #
     # Subscribe to receive notification anytime a new block is Confirmed or Finalized.
     #
-    # @param filter [String] # 'all' or public key as base-58 endcoded string
+    # @param filter [String] # 'all' or public key as base-58 encoded string
     # @param commitment [String]
     # @param encoding [String]
     # @param transaction_details [String]
