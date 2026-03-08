@@ -1269,5 +1269,85 @@ describe SolanaRpcRuby::MethodsWrapper do
         end
       end
     end
+
+    describe 'request payload compatibility' do
+      let(:captured_request) { {} }
+      let(:api_response) { Struct.new(:body).new({ jsonrpc: '2.0', result: {}, id: 1 }.to_json) }
+      let(:api_client) do
+        instance_double(SolanaRpcRuby::ApiClient).tap do |client|
+          allow(client).to receive(:call_api) do |body:, http_method:, params: {}|
+            captured_request[:body] = JSON.parse(body)
+            captured_request[:http_method] = http_method
+            api_response
+          end
+        end
+      end
+      let(:api_client_class) { class_double(SolanaRpcRuby::ApiClient, new: api_client) }
+      let(:wrapper) { described_class.new(api_client: api_client_class, id: 1) }
+
+      it 'sends getLeaderSchedule epoch as a positional param' do
+        wrapper.get_leader_schedule(
+          epoch: 123,
+          identity: '11111111111111111111111111111111',
+          commitment: 'confirmed'
+        )
+
+        expect(captured_request[:http_method]).to eq(:post)
+        expect(captured_request.dig(:body, 'method')).to eq('getLeaderSchedule')
+        expect(captured_request.dig(:body, 'params')).to eq(
+          [
+            123,
+            {
+              'identity' => '11111111111111111111111111111111',
+              'commitment' => 'confirmed'
+            }
+          ]
+        )
+      end
+
+      it 'sends getSupply with excludeNonCirculatingAccountsList' do
+        wrapper.get_supply(exclude_non_circulating_accounts_list: true)
+
+        expect(captured_request.dig(:body, 'method')).to eq('getSupply')
+        expect(captured_request.dig(:body, 'params')).to eq(
+          [{ 'excludeNonCirculatingAccountsList' => true }]
+        )
+      end
+
+      it 'sends getVoteAccounts with camelCase optional keys' do
+        wrapper.get_vote_accounts(
+          keep_unstaked_delinquents: true,
+          delinquent_slot_distance: 99
+        )
+
+        expect(captured_request.dig(:body, 'method')).to eq('getVoteAccounts')
+        expect(captured_request.dig(:body, 'params')).to eq(
+          [{ 'keepUnstakedDelinquents' => true, 'delinquentSlotDistance' => 99 }]
+        )
+      end
+
+      it 'sends sendTransaction with maxRetries' do
+        wrapper.send_transaction('base64tx', max_retries: 3)
+
+        expect(captured_request.dig(:body, 'method')).to eq('sendTransaction')
+        expect(captured_request.dig(:body, 'params')).to eq(
+          ['base64tx', { 'skipPreFlight' => false, 'maxRetries' => 3 }]
+        )
+      end
+
+      it 'supports getRecentPrioritizationFees' do
+        wrapper.get_recent_prioritization_fees(['11111111111111111111111111111111'])
+
+        expect(captured_request.dig(:body, 'method')).to eq('getRecentPrioritizationFees')
+        expect(captured_request.dig(:body, 'params')).to eq([['11111111111111111111111111111111']])
+      end
+
+      it 'supports getStakeMinimumDelegation' do
+        wrapper.get_stake_minimum_delegation(commitment: 'finalized')
+
+        expect(captured_request.dig(:body, 'method')).to eq('getStakeMinimumDelegation')
+        expect(captured_request.dig(:body, 'params')).to eq([{ 'commitment' => 'finalized' }])
+      end
+    end
   end
 end

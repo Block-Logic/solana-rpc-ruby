@@ -5,13 +5,13 @@
 ![Stars](https://img.shields.io/github/stars/Block-Logic/solana-rpc-ruby.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # solana_rpc_ruby
-A Solana RPC Client for Ruby. This gem provides a wrapper methods for Solana RPC JSON API https://docs.solana.com/developing/clients/jsonrpc-api.
+A Solana RPC Client for Ruby. This gem provides a wrapper methods for Solana RPC JSON API https://solana.com/docs/rpc.
 
 ## Getting started
 
 ### Requirements
 
-This gem requires Ruby 2.7+ (as denoted in the `.ruby-version` file) and it has Rails 6.0+ on board. It MIGHT work with lower versions, but was not tested with them.
+This gem requires Ruby 3.2+ (as denoted in the `.ruby-version` file) and it has Rails 6.0+ on board. It MIGHT work with lower versions, but was not tested with them.
 
 Add the following line to your Gemfile:
 
@@ -197,6 +197,33 @@ Gem is coming with demo scripts that you can run and test API and Websockets.
 2. Set the gemset
 3. Run `ruby demo.rb` or `ruby demo_ws_METHOD.rb` to see example output.
 4. Check the gem or Solana JSON RPC API docs to get more information about method usage and modify demo scripts loosely.
+
+### Method lists
+
+#### HTTP methods (`SolanaRpcRuby::MethodsWrapper`)
+Current methods:
+`get_account_info`, `get_balance`, `get_block`, `get_block_height`, `get_block_production`, `get_block_commitment`,
+`get_blocks`, `get_blocks_with_limit`, `get_block_time`, `get_cluster_nodes`, `get_epoch_info`, `get_epoch_schedule`,
+`get_fee_for_message`, `get_first_available_block`, `get_genesis_hash`, `get_health`, `get_highest_snapshot_slot`,
+`get_identity`, `get_inflation_governor`, `get_inflation_rate`, `get_inflation_reward`, `get_largest_accounts`,
+`get_latest_blockhash`, `get_leader_schedule`, `get_max_retransmit_slot`, `get_max_shred_insert_slot`,
+`get_minimum_balance_for_rent_exemption`, `get_multiple_accounts`, `get_program_accounts`,
+`get_recent_performance_samples`, `get_signatures_for_address`, `get_signature_statuses`, `get_slot`,
+`get_slot_leader`, `get_slot_leaders`, `get_stake_activation`, `get_stake_minimum_delegation`, `get_supply`,
+`get_token_account_balance`, `get_token_accounts_by_delegate`, `get_token_accounts_by_owner`,
+`get_token_largest_accounts`, `get_token_supply`, `get_transaction`, `get_transaction_count`, `get_version`,
+`get_vote_accounts`, `is_blockhash_valid`, `minimum_ledger_slot`, `request_airdrop`, `send_transaction`,
+`simulate_transaction`, `get_recent_prioritization_fees`.
+
+Deprecated compatibility methods:
+`get_confirmed_blocks`, `get_fee_calculator_for_blockhash`, `get_fee_rate_governor`, `get_fees`,
+`get_recent_blockhash`, `get_snapshot_slot`.
+
+#### Websocket methods (`SolanaRpcRuby::WebsocketsMethodsWrapper`)
+`account_subscribe`, `account_unsubscribe`, `block_subscribe`, `block_unsubscribe`, `logs_subscribe`,
+`logs_unsubscribe`, `program_subscribe`, `program_unsubscribe`, `signature_subscribe`, `signature_unsubscribe`,
+`slot_subscribe`, `slot_unsubscribe`, `slots_updates_subscribe`, `slots_updates_unsubscribe`, `root_subscribe`,
+`root_unsubscribe`, `vote_subscribe`, `vote_unsubscribe`.
 
 All info about methods you can find in the docs on: https://www.rubydoc.info/github/Block-Logic/solana-rpc-ruby/main/SolanaRpcRuby
 

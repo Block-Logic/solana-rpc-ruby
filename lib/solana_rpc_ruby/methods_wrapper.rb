@@ -561,10 +561,10 @@ module SolanaRpcRuby
       params = []
       params_hash = {}
 
-      params_hash['epoch'] = epoch unless epoch.nil?
       params_hash['identity'] = identity unless identity.empty?
       params_hash['commitment'] = commitment unless blank?(commitment)
 
+      params << epoch unless epoch.nil?
       params << params_hash unless params_hash.empty?
 
       body = create_json_body(method, method_params: params)
@@ -910,7 +910,7 @@ module SolanaRpcRuby
       params_hash = {}
 
       params_hash['commitment'] = commitment unless blank?(commitment)
-      params_hash['exclude_non_circulating_accounts_list'] = exclude_non_circulating_accounts_list \
+      params_hash['excludeNonCirculatingAccountsList'] = exclude_non_circulating_accounts_list \
         unless exclude_non_circulating_accounts_list.nil?
 
       params << params_hash unless params_hash.empty?
@@ -1193,8 +1193,8 @@ module SolanaRpcRuby
 
       params_hash['votePubkey'] = vote_pubkey unless blank?(vote_pubkey)
       params_hash['commitment'] = commitment unless blank?(commitment)
-      params_hash['keep_unstaked_delinquents'] = keep_unstaked_delinquents unless keep_unstaked_delinquents.nil?
-      params_hash['delinquent_slot_distance'] = delinquent_slot_distance unless blank?(delinquent_slot_distance)
+      params_hash['keepUnstakedDelinquents'] = keep_unstaked_delinquents unless keep_unstaked_delinquents.nil?
+      params_hash['delinquentSlotDistance'] = delinquent_slot_distance unless blank?(delinquent_slot_distance)
 
       params << params_hash unless params_hash.empty?
 
@@ -1297,7 +1297,7 @@ module SolanaRpcRuby
       params_hash['skipPreFlight'] = skip_pre_flight unless skip_pre_flight.nil?
       params_hash['preflightCommitment'] = pre_flight_commitment unless blank?(pre_flight_commitment)
       params_hash['encoding'] = encoding unless blank?(encoding)
-      params_hash['max_retries'] = max_retries unless blank?(max_retries)
+      params_hash['maxRetries'] = max_retries unless blank?(max_retries)
 
       params << transaction_signature
       params << params_hash unless params_hash.empty?
@@ -1350,6 +1350,46 @@ module SolanaRpcRuby
       params_hash['replaceRecentBlockhash'] = replace_recent_blockhash unless replace_recent_blockhash.nil?
 
       params << transaction_signature
+      params << params_hash unless params_hash.empty?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
+    # @see https://solana.com/docs/rpc/http/getrecentprioritizationfees
+    #
+    # Returns a list of prioritization fees from recent blocks.
+    #
+    # @param addresses [Array<String>] up to 128 account addresses
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_recent_prioritization_fees(addresses = [])
+      http_method = :post
+      method = create_method_name(__method__)
+
+      params = []
+      params << addresses unless addresses.empty?
+
+      body = create_json_body(method, method_params: params)
+
+      send_request(body, http_method)
+    end
+
+    # @see https://solana.com/docs/rpc/http/getstakeminimumdelegation
+    #
+    # Returns the stake minimum delegation, in lamports.
+    #
+    # @param commitment [String]
+    #
+    # @return [Response, ApiError] Response when success, ApiError on failure.
+    def get_stake_minimum_delegation(commitment: nil)
+      http_method = :post
+      method = create_method_name(__method__)
+
+      params = []
+      params_hash = {}
+      params_hash['commitment'] = commitment unless blank?(commitment)
       params << params_hash unless params_hash.empty?
 
       body = create_json_body(method, method_params: params)
