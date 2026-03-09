@@ -227,7 +227,7 @@ Deprecated compatibility methods:
 
 All info about methods you can find in the docs on: https://www.rubydoc.info/github/Block-Logic/solana-rpc-ruby/main/SolanaRpcRuby
 
-Also, as a reference you can use docs from solana: https://docs.solana.com/developing/clients/jsonrpc-api
+Also, as a reference you can use docs from solana: https://solana.com/docs/rpc
 ## License
 
 Copyright (c) [Block Logic Team]. License type is [MIT](https://github.com/Block-Logic/solana-rpc-ruby/blob/main/LICENSE).
