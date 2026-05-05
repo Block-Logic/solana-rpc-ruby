@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    solana_rpc_ruby (2.0.0)
+    solana_rpc_ruby (2.1.0)
       faye-websocket (~> 0.11)
 
 GEM
@@ -66,7 +66,7 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
-    addressable (2.8.9)
+    addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
     ast (2.4.3)
     base64 (0.3.0)
@@ -84,7 +84,6 @@ GEM
     diff-lcs (1.6.2)
     docile (1.4.1)
     dotenv (2.8.1)
-    drb (2.2.3)
     erubi (1.13.1)
     eventmachine (1.2.7)
     faye-websocket (0.12.0)
@@ -117,10 +116,8 @@ GEM
       json-schema (>= 4.1)
     method_source (1.1.0)
     mini_mime (1.1.5)
-    minitest (6.0.2)
-      drb (~> 2.0)
-      prism (~> 1.5)
-    net-imap (0.6.3)
+    minitest (5.27.0)
+    net-imap (0.5.14)
       date
       net-protocol
     net-pop (0.1.2)
@@ -130,9 +127,9 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.5)
-    nokogiri (1.19.1-arm64-darwin)
+    nokogiri (1.18.10-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.19.1-x86_64-linux-gnu)
+    nokogiri (1.18.10-x86_64-linux-gnu)
       racc (~> 1.4)
     parallel (1.27.0)
     parser (3.3.10.2)
@@ -143,7 +140,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
       reline (>= 0.6.0)
-    public_suffix (7.0.5)
+    public_suffix (6.0.2)
     racc (1.8.1)
     rack (2.2.22)
     rack-test (2.2.0)
@@ -258,7 +255,7 @@ GEM
       unicode-emoji (~> 4.1)
     unicode-emoji (4.2.0)
     vcr (6.4.0)
-    webmock (3.26.1)
+    webmock (3.26.2)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -266,9 +263,10 @@ GEM
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.7.5)
+    zeitwerk (2.6.18)
 
 PLATFORMS
+  arm64-darwin-24
   arm64-darwin-25
   x86_64-linux
 
