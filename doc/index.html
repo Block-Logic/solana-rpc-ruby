@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.28
+    &mdash; Documentation by YARD 0.9.37
   
 </title>
 
@@ -62,13 +62,13 @@
 
 <h1 id="label-solana_rpc_ruby">solana_rpc_ruby</h1>
 
-<p>A Solana RPC Client for Ruby. This gem provides a wrapper methods for Solana RPC JSON API <a href="https://docs.solana.com/developing/clients/jsonrpc-api">docs.solana.com/developing/clients/jsonrpc-api</a>.</p>
+<p>A Solana RPC Client for Ruby. This gem provides a wrapper methods for Solana RPC JSON API <a href="https://solana.com/docs/rpc">solana.com/docs/rpc</a>.</p>
 
 <h2 id="label-Getting+started">Getting started</h2>
 
 <h3 id="label-Requirements">Requirements</h3>
 
-<p>This gem requires Ruby 2.7+ (as denoted in the <code>.ruby-version</code> file) and it has Rails 6.0+ on board. It MIGHT work with lower versions, but was not tested with them.</p>
+<p>This gem requires Ruby 3.2+ (as denoted in the <code>.ruby-version</code> file) and it has Rails 6.0+ on board. It MIGHT work with lower versions, but was not tested with them.</p>
 
 <p>Add the following line to your Gemfile:</p>
 
@@ -146,31 +146,54 @@
 
 <h4 id="label-Websockets+usage+in+Rails">Websockets usage in Rails</h4>
 
-<p>You can easily plug-in websockets connection to your rails app by using ActionCable. Here is an example for development environment. More explanation on Action Cable here: <a href="https://www.pluralsight.com/guides/updating-a-rails-app's-wall-feed-in-real-time-with-actioncable">www.pluralsight.com/guides/updating-a-rails-app’s-wall-feed-in-real-time-with-actioncable</a></p>
+<p>You can easily plug-in websockets connection to your rails app by using ActionCable. Here is an example for development environment. More explanation on Action Cable here: <a href="https://www.pluralsight.com/guides/updating-a-rails-app&#39;s-wall-feed-in-real-time-with-actioncable">www.pluralsight.com/guides/updating-a-rails-app’s-wall-feed-in-real-time-with-actioncable</a></p>
 <ol><li>
 <p>Make sure that you have action_cable and solana_rpc_ruby gems installed properly. Also install redis unless you have it.</p>
 </li><li>
-<p>Mount action_cable in <code>routes.rb</code>. <code>ruby Rails.application.routes.draw do   mount ActionCable.server =&gt; &#39;/cable&#39;   ... end </code></p>
+<p>Mount action_cable in <code>routes.rb</code>.</p>
+
+<pre class="code ruby"><code class="ruby">Rails.application.routes.draw do
+  mount ActionCable.server =&gt; &#39;/cable&#39;
+  ...
+end
+</code></pre>
 </li><li>
-<p>Update <code>config/environments/development.rb</code>. <code>ruby config.action_cable.url = &quot;ws://localhost:3000/cable&quot; config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/] </code></p>
+<p>Update <code>config/environments/development.rb</code>.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_action_cable'>action_cable</span><span class='period'>.</span><span class='id identifier rubyid_url'>url</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ws://localhost:3000/cable</span><span class='tstring_end'>&quot;</span></span>
+<span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_action_cable'>action_cable</span><span class='period'>.</span><span class='id identifier rubyid_allowed_request_origins'>allowed_request_origins</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>http:\/\/*</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>https:\/\/*</span><span class='regexp_end'>/</span></span><span class='rbracket'>]</span>
+</code></pre>
 </li><li>
-<p>Update adapter in <code>cable.yml</code>. <code>ruby development:   adapter: redis   url: &lt;%= ENV.fetch(&quot;REDIS_URL&quot;) { &quot;redis://localhost:6379/1&quot; } %&gt; </code></p>
+<p>Update adapter in <code>cable.yml</code>.</p>
+
+<pre class="code ruby"><code class="ruby">development:
+  adapter: redis
+  url: &lt;%= ENV.fetch(&quot;REDIS_URL&quot;) { &quot;redis://localhost:6379/1&quot; } %&gt;
+</code></pre>
 </li><li>
-<p>Create a channel. <code>ruby rails g channel wall </code></p>
+<p>Create a channel.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_rails'>rails</span> <span class='id identifier rubyid_g'>g</span> <span class='id identifier rubyid_channel'>channel</span> <span class='id identifier rubyid_wall'>wall</span>
+</code></pre>
 </li><li>
-<p>Your <code>wall_channel.rb</code> should look like this: "`ruby class WallChannel &lt; ApplicationCable::Channel  def subscribed stream_from "wall_channel"  end</p>
+<p>Your <code>wall_channel.rb</code> should look like this:</p>
+
+<p>"'ruby class WallChannel &lt; ApplicationCable::Channel  def subscribed stream_from "wall_channel"  end</p>
 </li></ol>
 
-<p>def unsubscribed  # Any cleanup needed when channel is unsubscribed  end end “`</p>
-<ol><li>
-<p>Your <code>wall_channel.js</code> should look like this (json keys are configured for <code>root_subscription</code> method response): “`js import consumer from “./consumer”</p>
-</li></ol>
+<p> def unsubscribed  # Any cleanup needed when channel is unsubscribed  end end</p>
+
+<pre class="code ruby"><code class="ruby">
+6. Your `wall_channel.js` should look like this (json keys are configured for `root_subscription` method response):
+</code></pre>
+
+<p>js import consumer from “./consumer”</p>
 
 <p>consumer.subscriptions.create(“WallChannel”, {  connected() {  console.log(“Connected to WallChannel”);  // Called when the subscription is ready for use on the server  },</p>
 
 <p>disconnected() {  // Called when the subscription has been terminated by the server  },</p>
 
-<p>received(data) {  let wall = document.getElementById(&#39;wall&#39;);</p>
+<p>received(data) {  let wall = document.getElementById(‘wall’);</p>
 
 <pre class="code ruby"><code class="ruby">wall.innerHTML += &quot;&lt;p&gt;Result: &quot;+ data[&#39;message&#39;][&#39;result&#39;] + &quot;&lt;/p&gt;&quot;;
 // Called when there&#39;s incoming data on the websocket for this channel
@@ -182,10 +205,13 @@
 7. Create placeholder somewhere in your view for messages.
 </code></pre>
 
-<p>html &lt;div id=&#39;wall&#39; style=&#39;overflow-y: scroll; height:400px;&#39;&#39;&gt;  &lt;h1&gt;Solana subscription messages&lt;/h1&gt; &lt;/div&gt; “`</p>
-<ol><li>
-<p>Create a script with a block to run websockets (<code>script/websockets_solana.rb</code>). “`ruby require_relative &#39;../config/environment&#39;</p>
-</li></ol>
+<p>html &lt;div id=‘wall’ style=‘overflow-y: scroll; height:400px;”&gt;  &lt;h1&gt;Solana subscription messages&lt;/h1&gt; &lt;/div&gt;</p>
+
+<pre class="code ruby"><code class="ruby">
+8. Create a script with a block to run websockets (`script/websockets_solana.rb`).
+</code></pre>
+
+<p>ruby require_relative ‘../config/environment’</p>
 
 <p>ws_method_wrapper = SolanaRpcRuby::WebsocketsMethodsWrapper.new</p>
 
@@ -193,9 +219,11 @@
 
 <p>block = Proc.new do |message|  json = JSON.parse(message)</p>
 
-<p>ActionCable.server.broadcast(  “wall_channel”,  {  message: <a href="'params'">json</a>  }  ) end</p>
+<p>ActionCable.server.broadcast(  “wall_channel”,  {  message: <a href="&#39;params&#39;">json</a>  }  ) end</p>
 
-<p>ws_method_wrapper.root_subscribe(&amp;block) “<code> 9. Run</code>rails s<code>, open webpage where you put your placeholder. 10. Open</code><a href="http://localhost:3000/address_with_websockets_view">localhost:3000/address_with_websockets_view</a><code>. 11. Run</code>rails r script/websockets_solana.rb` in another terminal window. 12. You should see incoming websocket messages on your webpage.</p>
+<p>ws_method_wrapper.root_subscribe(&amp;block)</p>
+
+<p>“<code> 9. Run</code>rails s<code>, open webpage where you put your placeholder. 10. Open</code><a href="http://localhost:3000/address_with_websockets_view">localhost:3000/address_with_websockets_view</a><code>. 11. Run</code>rails r script/websockets_solana.rb` in another terminal window. 12. You should see incoming websocket messages on your webpage.</p>
 
 <h3 id="label-Demo+scripts">Demo scripts</h3>
 
@@ -210,6 +238,18 @@
 <p>Check the gem or Solana JSON RPC API docs to get more information about method usage and modify demo scripts loosely.</p>
 </li></ol>
 
+<h3 id="label-Method+lists">Method lists</h3>
+
+<h4 id="label-HTTP+methods+-28SolanaRpcRuby-3A-3AMethodsWrapper-29">HTTP methods (<code>SolanaRpcRuby::MethodsWrapper</code>)</h4>
+
+<p>Current methods: <code>get_account_info</code>, <code>get_balance</code>, <code>get_block</code>, <code>get_block_height</code>, <code>get_block_production</code>, <code>get_block_commitment</code>, <code>get_blocks</code>, <code>get_blocks_with_limit</code>, <code>get_block_time</code>, <code>get_cluster_nodes</code>, <code>get_epoch_info</code>, <code>get_epoch_schedule</code>, <code>get_fee_for_message</code>, <code>get_first_available_block</code>, <code>get_genesis_hash</code>, <code>get_health</code>, <code>get_highest_snapshot_slot</code>, <code>get_identity</code>, <code>get_inflation_governor</code>, <code>get_inflation_rate</code>, <code>get_inflation_reward</code>, <code>get_largest_accounts</code>, <code>get_latest_blockhash</code>, <code>get_leader_schedule</code>, <code>get_max_retransmit_slot</code>, <code>get_max_shred_insert_slot</code>, <code>get_minimum_balance_for_rent_exemption</code>, <code>get_multiple_accounts</code>, <code>get_program_accounts</code>, <code>get_recent_performance_samples</code>, <code>get_recent_prioritization_fees</code>, <code>get_signatures_for_address</code>, <code>get_signature_statuses</code>, <code>get_slot</code>, <code>get_slot_leader</code>, <code>get_slot_leaders</code>, <code>get_stake_activation</code>, <code>get_stake_minimum_delegation</code>, <code>get_supply</code>, <code>get_token_account_balance</code>, <code>get_token_accounts_by_delegate</code>, <code>get_token_accounts_by_owner</code>, <code>get_token_largest_accounts</code>, <code>get_token_supply</code>, <code>get_transaction</code>, <code>get_transaction_count</code>, <code>get_version</code>, <code>get_vote_accounts</code>, <code>is_blockhash_valid</code>, <code>minimum_ledger_slot</code>, <code>request_airdrop</code>, <code>send_transaction</code>, <code>simulate_transaction</code>.</p>
+
+<p>Deprecated compatibility methods: <code>get_confirmed_blocks</code>, <code>get_fee_calculator_for_blockhash</code>, <code>get_fee_rate_governor</code>, <code>get_fees</code>, <code>get_recent_blockhash</code>, <code>get_snapshot_slot</code>.</p>
+
+<h4 id="label-Websocket+methods+-28SolanaRpcRuby-3A-3AWebsocketsMethodsWrapper-29">Websocket methods (<code>SolanaRpcRuby::WebsocketsMethodsWrapper</code>)</h4>
+
+<p><code>account_subscribe</code>, <code>account_unsubscribe</code>, <code>block_subscribe</code>, <code>block_unsubscribe</code>, <code>logs_subscribe</code>, <code>logs_unsubscribe</code>, <code>program_subscribe</code>, <code>program_unsubscribe</code>, <code>signature_subscribe</code>, <code>signature_unsubscribe</code>, <code>slot_subscribe</code>, <code>slot_unsubscribe</code>, <code>slots_updates_subscribe</code>, <code>slots_updates_unsubscribe</code>, <code>root_subscribe</code>, <code>root_unsubscribe</code>, <code>vote_subscribe</code>, <code>vote_unsubscribe</code>.</p>
+
 <p>All info about methods you can find in the docs on: <a href="https://www.rubydoc.info/github/Block-Logic/solana-rpc-ruby/main/SolanaRpcRuby">www.rubydoc.info/github/Block-Logic/solana-rpc-ruby/main/SolanaRpcRuby</a></p>
 
 <p>Also, as a reference you can use docs from solana: <a href="https://docs.solana.com/developing/clients/jsonrpc-api">docs.solana.com/developing/clients/jsonrpc-api</a></p>
@@ -220,9 +260,9 @@
 </div></div>
 
       <div id="footer">
-  Generated on Thu Mar 30 14:38:03 2023 by
+  Generated on Sun Mar  8 10:31:23 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.10).
 </div>
 
     </div>

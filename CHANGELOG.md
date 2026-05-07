@@ -45,3 +45,14 @@
 * Fix get_transaction when running without encoding parameter
 * Add support for maxSupportedTransactionVersion for get_transaction
 * Update ruby to 3.1.4 and bundler to 2.3.26
+
+## 2.1.0
+* Add get_recent_prioritization_fees method
+* Add get_stake_minimum_delegation method
+* Fix get_leader_schedule to send epoch as positional parameter
+* Fix get_supply to use excludeNonCirculatingAccountsList key
+* Fix get_vote_accounts to use keepUnstakedDelinquents and delinquentSlotDistance keys
+* Fix send_transaction to use maxRetries key
+* Add request payload compatibility specs
+* Update documentation with method inventories
+* Maintain Ruby 3.1.4+ compatibility (CI tests both 3.1 and 3.2)
